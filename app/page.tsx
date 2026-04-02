@@ -40,6 +40,7 @@ export default function Home() {
             <Image
               src="/logo.png"
               alt="Locallify"
+              priority
               width={160}
               height={160}
               className={`w-auto h-20 md:h-24 transition-all duration-300 ${!isScrolled && !isMobileMenuOpen ? "brightness-0 invert" : ""}`}
@@ -49,15 +50,15 @@ export default function Home() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             <div className={`flex gap-6 font-medium text-sm transition-colors ${isScrolled ? "text-gray-600" : "text-white/90"}`}>
-              {["Services", "Portfolio", "Pricing", "About"].map((item) => (
+              {["Services", "Pricing", "About"].map((item) => (
                 <Link key={item} href={item === "About" ? "/about" : `/#${item.toLowerCase()}`} className={`text-sm font-medium hover:text-locallify-green transition-colors ${!isScrolled ? "text-white" : "text-gray-800"}`}>
                   {item}
                 </Link>
               ))}
             </div>
-            <Link href="/#contact" className="bg-locallify-green hover:bg-locallify-green/90 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-locallify-green/30">
+            <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" className="bg-locallify-green hover:bg-locallify-green/90 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-locallify-green/30">
               Get Free Consultation
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -84,7 +85,7 @@ export default function Home() {
             className="fixed inset-0 bg-white z-40 pt-24 px-6 flex flex-col"
           >
             <div className="flex flex-col gap-6 text-xl font-heading font-semibold text-locallify-blue">
-              {["Services", "Portfolio", "Pricing", "About"].map((item) => (
+              {["Services", "Pricing", "About"].map((item) => (
                 <Link
                   key={item}
                   href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
@@ -95,9 +96,9 @@ export default function Home() {
                 </Link>
               ))}
             </div>
-            <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="mt-8 bg-locallify-green text-white font-medium py-4 px-6 rounded-xl w-full text-lg shadow-lg shadow-locallify-green/30 text-center">
+            <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} className="mt-8 bg-locallify-green text-white font-medium py-4 px-6 rounded-xl w-full text-lg shadow-lg shadow-locallify-green/30 text-center">
               Get Free Consultation
-            </Link>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
@@ -137,27 +138,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 1 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-16"
             >
-              <button className="bg-locallify-green hover:bg-[#00b084] transition-colors text-white font-medium py-4 px-8 rounded-full shadow-xl shadow-locallify-green/20 flex items-center justify-center gap-2 text-lg">
+              <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" className="bg-locallify-green hover:bg-[#00b084] transition-colors text-white font-medium py-4 px-8 rounded-full shadow-xl shadow-locallify-green/20 flex items-center justify-center gap-2 text-lg">
                 Get Free Consultation
                 <ArrowRight className="w-5 h-5" />
-              </button>
-              <button className="border-2 border-white/20 hover:border-white transition-colors text-white font-medium py-4 px-8 rounded-full flex items-center justify-center text-lg bg-white/5 backdrop-blur-sm">
-                See Our Work
-              </button>
+              </a>
             </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.5 }}
-              className="flex flex-wrap justify-center lg:justify-start items-center gap-x-8 gap-y-4 text-sm font-medium text-gray-400"
-            >
-              <div className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-locallify-green" /> 50+ Local Businesses Grown</div>
-              <div className="hidden sm:block text-gray-600">|</div>
-              <div className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-400 fill-yellow-400" /> 4.9 Google Rating</div>
-              <div className="hidden sm:block text-gray-600">|</div>
-              <div className="flex items-center gap-2"><MapPin className="w-5 h-5 text-locallify-green" /> Based in India</div>
-            </motion.div>
+
           </div>
           
           <motion.div 
@@ -303,9 +290,9 @@ export default function Home() {
           </div>
 
           <div className="mt-20 text-center">
-            <button className="bg-locallify-green hover:bg-[#00b084] transition-colors text-white font-medium py-4 px-10 rounded-full shadow-lg shadow-locallify-green/20 inline-flex items-center gap-2 text-lg">
+            <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" className="bg-locallify-green hover:bg-[#00b084] transition-colors text-white font-medium py-4 px-10 rounded-full shadow-lg shadow-locallify-green/20 inline-flex items-center gap-2 text-lg">
               Start for Free Today <ArrowRight className="w-5 h-5" />
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -313,21 +300,6 @@ export default function Home() {
       {/* Results & Social Proof Section */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-6 md:px-12">
-          {/* Animated Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24 border-b border-gray-100 pb-16">
-            {[
-              { num: "50+", label: "Businesses Served" },
-              { num: "100+", label: "Websites Built" },
-              { num: "4.9★", label: "Average Rating" },
-              { num: "3+", label: "Years Experience" }
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="font-heading font-bold text-4xl md:text-5xl text-locallify-blue mb-2">{stat.num}</div>
-                <div className="text-gray-500 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-
           <div className="text-center mb-16">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">Real Results for Real Businesses</h2>
           </div>
@@ -407,7 +379,7 @@ export default function Home() {
                 <li className="flex items-start gap-3 opacity-40"><X className="w-5 h-5 shrink-0" /> <span>Google/Meta Ads</span></li>
                 <li className="flex items-start gap-3 opacity-40"><X className="w-5 h-5 shrink-0" /> <span>Monthly Report</span></li>
               </ul>
-              <button className="w-full py-3 rounded-xl font-medium border-2 border-gray-200 text-gray-700 hover:border-gray-800 hover:text-gray-900 transition-colors">Get Started</button>
+              <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20am%20interested%20in%20the%20Starter%20plan." target="_blank" rel="noopener noreferrer" className="block text-center w-full py-3 rounded-xl font-medium border-2 border-gray-200 text-gray-700 hover:border-gray-800 hover:text-gray-900 transition-colors">Get Started</a>
             </div>
 
             {/* Growth Plan */}
@@ -428,7 +400,7 @@ export default function Home() {
                 <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-locallify-green shrink-0" /> <span className="text-white">Google or Meta Ads</span></li>
                 <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-locallify-green shrink-0" /> <span className="text-white">Monthly Report</span></li>
               </ul>
-              <button className="w-full py-4 rounded-xl font-medium bg-locallify-green text-white hover:bg-[#00b084] shadow-lg shadow-locallify-green/20 transition-colors">Get Started</button>
+              <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20am%20interested%20in%20the%20Growth%20plan." target="_blank" rel="noopener noreferrer" className="block text-center w-full py-4 rounded-xl font-medium bg-locallify-green text-white hover:bg-[#00b084] shadow-lg shadow-locallify-green/20 transition-colors">Get Started</a>
             </div>
 
             {/* Pro Plan */}
@@ -446,7 +418,7 @@ export default function Home() {
                 <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-locallify-green shrink-0" /> <span className="text-gray-700">Google & Meta Ads</span></li>
                 <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-locallify-green shrink-0" /> <span className="text-gray-700">Dedicated Manager</span></li>
               </ul>
-              <button className="w-full py-3 rounded-xl font-medium border-2 border-gray-200 text-gray-700 hover:border-gray-800 hover:text-gray-900 transition-colors">Get Started</button>
+              <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20am%20interested%20in%20the%20Pro%20plan." target="_blank" rel="noopener noreferrer" className="block text-center w-full py-3 rounded-xl font-medium border-2 border-gray-200 text-gray-700 hover:border-gray-800 hover:text-gray-900 transition-colors">Get Started</a>
             </div>
           </div>
           <p className="text-center text-sm text-gray-500 mt-8">All prices are starting prices. Custom quotes available.</p>
@@ -488,10 +460,10 @@ export default function Home() {
         
         <div className="container mx-auto px-6 relative z-10">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">Ready to Grow Your Business Online?</h2>
-          <p className="text-xl text-blue-200 mb-10 max-w-2xl mx-auto">Join 50+ local businesses already growing with Locallify. Get a free consultation today — no commitment required.</p>
+          <p className="text-xl text-blue-200 mb-10 max-w-2xl mx-auto">Get a free consultation today — no commitment required.</p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="https://wa.me/919957882204" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto bg-locallify-green hover:bg-[#00b084] transition-colors text-white font-medium py-4 px-10 rounded-full shadow-lg shadow-locallify-green/20 text-lg flex justify-center items-center">
+            <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto bg-locallify-green hover:bg-[#00b084] transition-colors text-white font-medium py-4 px-10 rounded-full shadow-lg shadow-locallify-green/20 text-lg flex justify-center items-center">
               Get Free Consultation
             </a>
             <a href="https://wa.me/919957882204" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto bg-[#25D366] hover:bg-[#1ebd5b] transition-colors text-white font-medium py-4 px-10 rounded-full shadow-lg flex justify-center items-center gap-2 text-lg">
@@ -526,7 +498,6 @@ export default function Home() {
               <h4 className="font-bold font-montserrat mb-6">Company</h4>
               <ul className="space-y-4 text-sm">
                 <li><Link href="/about" className="hover:text-locallify-green transition-colors">About Us</Link></li>
-                <li><Link href="/#portfolio" className="hover:text-locallify-green transition-colors">Our Portfolio</Link></li>
                 <li><Link href="/#pricing" className="hover:text-locallify-green transition-colors">Pricing Plans</Link></li>
                 <li><Link href="/#contact" className="hover:text-locallify-green transition-colors">Contact</Link></li>
               </ul>

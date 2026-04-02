@@ -37,6 +37,7 @@ export default function About() {
             <Image
               src="/logo.png"
               alt="Locallify"
+              priority
               width={160}
               height={160}
               className={`w-auto h-20 md:h-24 transition-all duration-300 ${!isScrolled && !isMobileMenuOpen ? "brightness-0 invert" : ""}`}
@@ -45,14 +46,14 @@ export default function About() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            {["Services", "Portfolio", "Pricing", "About"].map((item) => (
+            {["Services", "Pricing", "About"].map((item) => (
               <Link key={item} href={item === "About" ? "/about" : `/#${item.toLowerCase()}`} className={`text-sm font-medium hover:text-locallify-green transition-colors ${!isScrolled ? "text-white" : "text-gray-800"}`}>
                 {item}
               </Link>
             ))}
-            <Link href="/#contact" className="bg-locallify-green hover:bg-locallify-green/90 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-locallify-green/30">
+            <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" className="bg-locallify-green hover:bg-locallify-green/90 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-locallify-green/30">
               Get Free Consultation
-            </Link>
+            </a>
           </div>
 
           {/* Mobile Nav Toggle */}
@@ -76,7 +77,7 @@ export default function About() {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-0 left-0 w-full h-screen bg-white flex flex-col items-center justify-center gap-8 z-40"
           >
-            {["Services", "Portfolio", "Pricing", "About"].map((item) => (
+            {["Services", "Pricing", "About"].map((item) => (
               <Link
                 key={item}
                 href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
@@ -86,13 +87,14 @@ export default function About() {
                 {item}
               </Link>
             ))}
-            <Link 
-              href="/#contact"
+            <a 
+              href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation."
+              target="_blank" rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
               className="mt-4 bg-locallify-green text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg shadow-locallify-green/20"
             >
               Get Free Consultation
-            </Link>
+            </a>
           </motion.div>
         )}
       </nav>
@@ -147,16 +149,7 @@ export default function About() {
                 At Locallify, our mission is simple: empower local enterprises across India with premium website design and ROI-focused digital marketing that genuinely converts visitors into loyal customers.
               </p>
               
-              <div className="grid grid-cols-2 gap-8 mt-12 border-t border-gray-200 pt-8">
-                <div>
-                  <div className="text-4xl font-bold text-locallify-green mb-2 font-montserrat">50+</div>
-                  <div className="text-gray-600 font-medium">Local Businesses Empowered</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-locallify-green mb-2 font-montserrat">98%</div>
-                  <div className="text-gray-600 font-medium">Client Retention Rate</div>
-                </div>
-              </div>
+
             </motion.div>
             
             <motion.div
@@ -295,7 +288,6 @@ export default function About() {
                 <h4 className="font-bold font-montserrat mb-6">Company</h4>
                 <ul className="space-y-4 text-sm">
                   <li><Link href="/about" className="hover:text-locallify-green transition-colors">About Us</Link></li>
-                  <li><Link href="/#portfolio" className="hover:text-locallify-green transition-colors">Our Portfolio</Link></li>
                   <li><Link href="/#pricing" className="hover:text-locallify-green transition-colors">Pricing Plans</Link></li>
                   <li><Link href="/#contact" className="hover:text-locallify-green transition-colors">Contact</Link></li>
                 </ul>
