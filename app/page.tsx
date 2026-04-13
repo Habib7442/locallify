@@ -369,7 +369,7 @@ export default function Home() {
               <h3 className="font-heading text-xl font-bold text-gray-900 mb-2">Starter</h3>
               <div className="text-sm text-gray-500 mb-6">Best for new businesses</div>
               <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-4xl font-extrabold text-gray-900">₹1,999</span>
+                <span className="text-4xl font-extrabold text-gray-900">₹4,999</span>
                 <span className="text-gray-500">/mo</span>
               </div>
               <ul className="space-y-4 mb-8 text-sm">

@@ -295,7 +295,7 @@ locallify.in/
 
 | | Starter | Growth ⭐ | Pro |
 |---|---|---|---|
-| **Price** | ₹1,999/mo | ₹9,999/mo | ₹19,999/mo |
+| **Price** | ₹4,999/mo | ₹9,999/mo | ₹19,999/mo |
 | **Best For** | New businesses | Growing businesses | Established businesses |
 | Website | ✅ Basic (5 pages) | ✅ Custom (10 pages) | ✅ Advanced (unlimited) |
 | Google Business Profile | ✅ Setup | ✅ Setup + Optimize | ✅ Full Management |
