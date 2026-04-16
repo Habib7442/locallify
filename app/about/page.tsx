@@ -46,8 +46,8 @@ export default function About() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            {["Services", "Pricing", "About"].map((item) => (
-              <Link key={item} href={item === "About" ? "/about" : `/#${item.toLowerCase()}`} className={`text-sm font-medium hover:text-locallify-green transition-colors ${!isScrolled ? "text-white" : "text-gray-800"}`}>
+            {["Services", "Portfolio", "Pricing", "About"].map((item) => (
+              <Link key={item} href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : `/#${item.toLowerCase()}`} className={`text-sm font-medium hover:text-locallify-green transition-colors ${!isScrolled ? "text-white" : "text-gray-800"}`}>
                 {item}
               </Link>
             ))}
@@ -77,10 +77,10 @@ export default function About() {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-0 left-0 w-full h-screen bg-white flex flex-col items-center justify-center gap-8 z-40"
           >
-            {["Services", "Pricing", "About"].map((item) => (
+            {["Services", "Portfolio", "Pricing", "About"].map((item) => (
               <Link
                 key={item}
-                href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
+                href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : `/#${item.toLowerCase()}`}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-2xl font-montserrat font-semibold text-locallify-blue"
               >
@@ -288,6 +288,7 @@ export default function About() {
                 <h4 className="font-bold font-montserrat mb-6">Company</h4>
                 <ul className="space-y-4 text-sm">
                   <li><Link href="/about" className="hover:text-locallify-green transition-colors">About Us</Link></li>
+                  <li><Link href="/portfolio" className="hover:text-locallify-green transition-colors">Portfolio</Link></li>
                   <li><Link href="/#pricing" className="hover:text-locallify-green transition-colors">Pricing Plans</Link></li>
                   <li><Link href="/#contact" className="hover:text-locallify-green transition-colors">Contact</Link></li>
                 </ul>

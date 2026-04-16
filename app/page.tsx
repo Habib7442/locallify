@@ -47,11 +47,10 @@ export default function Home() {
             />
           </Link>
 
-          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             <div className={`flex gap-6 font-medium text-sm transition-colors ${isScrolled ? "text-gray-600" : "text-white/90"}`}>
-              {["Services", "Pricing", "About"].map((item) => (
-                <Link key={item} href={item === "About" ? "/about" : `/#${item.toLowerCase()}`} className={`text-sm font-medium hover:text-locallify-green transition-colors ${!isScrolled ? "text-white" : "text-gray-800"}`}>
+              {["Services", "Portfolio", "Pricing", "About"].map((item) => (
+                <Link key={item} href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : `/#${item.toLowerCase()}`} className={`text-sm font-medium hover:text-locallify-green transition-colors ${!isScrolled ? "text-white" : "text-gray-800"}`}>
                   {item}
                 </Link>
               ))}
@@ -85,10 +84,10 @@ export default function Home() {
             className="fixed inset-0 bg-white z-40 pt-24 px-6 flex flex-col"
           >
             <div className="flex flex-col gap-6 text-xl font-heading font-semibold text-locallify-blue">
-              {["Services", "Pricing", "About"].map((item) => (
+              {["Services", "Portfolio", "Pricing", "About"].map((item) => (
                 <Link
                   key={item}
-                  href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
+                  href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : `/#${item.toLowerCase()}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-2xl font-montserrat font-semibold text-locallify-blue"
                 >
@@ -177,6 +176,56 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Top 10 Masterpieces Showcase */}
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div className="max-w-2xl">
+              <h2 className="font-heading text-3xl md:text-5xl font-bold text-gray-900 mb-4">Our <span className="text-locallify-green">Masterpieces</span></h2>
+              <p className="text-gray-600">A showcase of our recent high-conversion designs for local businesses across India.</p>
+            </div>
+            <Link href="/portfolio" className="inline-flex items-center gap-2 group text-locallify-blue font-bold hover:text-locallify-green transition-colors">
+              View All Portfolio <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+            {[
+              { img: "/portfolio/saree/1.png", cat: "Saree & Fashion" },
+              { img: "/portfolio/restaurant/1.png", cat: "Restaurant" },
+              { img: "/portfolio/salon/1.png", cat: "Salon" },
+              { img: "/portfolio/wedding%20cards/1.png", cat: "Wedding Cards" },
+              { img: "/portfolio/saree/2.png", cat: "Saree & Fashion" },
+              { img: "/portfolio/restaurant/2.png", cat: "Restaurant" },
+              { img: "/portfolio/salon/2.png", cat: "Salon" },
+              { img: "/portfolio/wedding%20cards/2.png", cat: "Wedding Cards" },
+              { img: "/portfolio/saree/3.png", cat: "Saree & Fashion" },
+              { img: "/portfolio/restaurant/3.png", cat: "Restaurant" },
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100 shadow-sm"
+              >
+                <Image
+                  src={item.img}
+                  alt={item.cat}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                  <span className="text-white text-[10px] font-bold uppercase tracking-wider">{item.cat}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -342,7 +391,7 @@ export default function Home() {
           </div>
 
           {/* Simplified Testimonials */}
-          <div className="bg-locallify-light rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto border border-gray-200 shadow-sm">
+          <div className="bg-locallify-light rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto border border-gray-200 shadow-sm mb-24">
             <div className="flex justify-center gap-1 mb-6">
               {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />)}
             </div>
@@ -495,9 +544,10 @@ export default function Home() {
             </div>
             
             <div>
-              <h4 className="font-bold font-montserrat mb-6">Company</h4>
+              <h4 className="font-bold font-montserrat mb-6 text-white text-sm uppercase tracking-wider">Company</h4>
               <ul className="space-y-4 text-sm">
                 <li><Link href="/about" className="hover:text-locallify-green transition-colors">About Us</Link></li>
+                <li><Link href="/portfolio" className="hover:text-locallify-green transition-colors">Portfolio</Link></li>
                 <li><Link href="/#pricing" className="hover:text-locallify-green transition-colors">Pricing Plans</Link></li>
                 <li><Link href="/#contact" className="hover:text-locallify-green transition-colors">Contact</Link></li>
               </ul>
