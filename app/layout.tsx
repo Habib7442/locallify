@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
+import AppwritePing from "@/components/AppwritePing";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -73,7 +74,10 @@ export default function RootLayout({
       className={`${montserrat.variable} ${poppins.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning className="min-h-full flex flex-col font-poppins text-zinc-900 bg-zinc-50">{children}</body>
+      <body suppressHydrationWarning className="min-h-full flex flex-col font-poppins text-zinc-900 bg-zinc-50">
+        <AppwritePing />
+        {children}
+      </body>
     </html>
   );
 }
