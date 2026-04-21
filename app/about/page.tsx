@@ -195,7 +195,7 @@ export default function About() {
                 {/* Social Icons */}
                 <div className="flex gap-6 justify-center">
                   {[
-                    { icon: <LinkIcon className="w-8 h-8" />, label: "Instagram", href: "https://instagram.com/locallify.in" },
+                    { icon: <LinkIcon className="w-8 h-8" />, label: "Instagram", href: "https://www.instagram.com/locallify26/" },
                     { icon: <Globe className="w-8 h-8" />, label: "Website", href: "/" },
                     { icon: <MessageCircle className="w-8 h-8" />, label: "WhatsApp", href: "https://wa.me/919957882204" }
                   ].map((social, i) => (
