@@ -6,8 +6,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, X, MapPin, Globe, Share2, Megaphone, Smartphone, Star,
-  CheckCircle2, ArrowRight, MessageCircle, Phone, ExternalLink,
-  Zap, Sparkles, BarChart, Users, Layout, Link as LinkIcon
+  CheckCircle2, ArrowRight, MessageCircle,
+  Zap, Users, Link as LinkIcon
 } from "lucide-react";
 import { profileService } from "@/lib/appwrite-service";
 import { useBusinessStore } from "@/lib/store";
@@ -70,21 +70,12 @@ export default function Home() {
       <section className="relative min-h-screen pt-40 pb-24 bg-[#D2E823] flex items-center overflow-hidden">
         <div className="container mx-auto px-6 relative z-10 flex flex-col items-center gap-16">
           <div className="flex-1 text-center">
-            <motion.h1 
-              initial={{ y: 30, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              className="text-6xl md:text-8xl font-black text-[#203EAA] leading-[1.05] tracking-tight mb-8 uppercase"
-            >
+            <h1 className="text-6xl md:text-8xl font-black text-[#203EAA] leading-[1.05] tracking-tight mb-8 uppercase">
               Put Your Business on the <br className="hidden md:block" /> <span className="text-black underline decoration-[#203EAA] decoration-[8px] underline-offset-[12px]">Digital Map</span>
-            </motion.h1>
-            <motion.p 
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl text-[#203EAA] font-bold mb-12 max-w-3xl mx-auto leading-relaxed"
-            >
+            </h1>
+            <p className="text-xl md:text-2xl text-[#203EAA] font-bold mb-12 max-w-3xl mx-auto leading-relaxed">
               We build websites, manage your Google Business Profile, run ads, and handle social media — so you focus on running your business.
-            </motion.p>
+            </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" 
                  className="bg-[#203EAA] text-white px-10 py-6 rounded-full text-xl font-black shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[14px_14px_0_0_rgba(0,0,0,1)] transition-all flex items-center justify-center gap-3">
