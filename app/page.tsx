@@ -88,7 +88,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="bg-white border border-zinc-100 p-12 rounded-[3rem] shadow-2xl space-y-8 relative z-10 overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#0066FF]/5 rounded-bl-[100px]"></div>
-                <h3 className="text-3xl font-black tracking-tighter text-zinc-900 leading-none uppercase">One Subscription, <br />Full Digital Presence.</h3>
+                <h3 className="text-3xl font-black tracking-tighter text-zinc-900 leading-none uppercase">Flexible Plans, <br />Full Digital Presence.</h3>
                 <ul className="space-y-6">
                   {[
                     "Professional One Page & Custom Websites",
