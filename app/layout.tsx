@@ -1,49 +1,52 @@
-import type { Metadata } from "next";
-import { Montserrat, Poppins } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 import AppwritePing from "@/components/AppwritePing";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
 
 export const metadata: Metadata = {
   title: {
-    default: "Locallify | Premium Website Design & Digital Marketing in India",
+    default: "Locallify | Cinematic Digital Pages for Local Legends",
     template: "%s | Locallify",
   },
-  description: "Elevate your local business with Locallify. We provide world-class website design, SEO, Google Business Profile optimization, and ROI-focused digital marketing across India.",
+  description: "Transform your business into a digital landmark. Locallify delivers high-conversion, WhatsApp-first digital pages for local legends across India. Born in the North East.",
   keywords: [
-    "Website Design India", 
-    "Digital Marketing Agency", 
-    "Local Business Marketing", 
-    "SEO Services", 
-    "Google Business Profile Optimization", 
-    "Social Media Management", 
-    "Performance Ads", 
-    "Locallify"
+    "Locallify Pages",
+    "Digital Business Cards India",
+    "WhatsApp Marketing India",
+    "Local Business Growth NE India",
+    "Premium Web Design India",
+    "Locallify",
+    "Digital Spotlight India"
   ],
-  authors: [{ name: "Locallify" }],
+  authors: [{ name: "Locallify Team" }],
   creator: "Locallify",
   publisher: "Locallify",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
   metadataBase: new URL("https://locallify.in"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Locallify | Premium Website Design & Digital Marketing in India",
-    description: "Transform your local business into a digital powerhouse with Locallify's premium web design and marketing solutions.",
+    title: "Locallify | Cinematic Digital Pages for Local Legends",
+    description: "High-conversion digital presence for India's elite businesses. Managed for you, delivered via WhatsApp.",
     url: "https://locallify.in",
     siteName: "Locallify",
     images: [
@@ -51,7 +54,7 @@ export const metadata: Metadata = {
         url: "/og_image.png",
         width: 1200,
         height: 630,
-        alt: "Locallify - Premium Digital Marketing and Web Design",
+        alt: "Locallify - The New Local Standard",
       },
     ],
     locale: "en_IN",
@@ -59,9 +62,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Locallify | Digital Marketing tailored for Local Businesses",
-    description: "Transform your local business into a digital powerhouse. Expert web design, SEO, and social media marketing in India.",
+    title: "Locallify | Digital Pages for Local Business Legends",
+    description: "Claim your digital spotlight across India. Premium pages, zero tech, 100% results.",
     images: ["/og_image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -73,12 +81,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${poppins.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} ${outfit.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning className="min-h-full flex flex-col font-poppins text-zinc-900 bg-zinc-50">
+      <body suppressHydrationWarning className="min-h-full flex flex-col font-plus-jakarta text-zinc-900 bg-white selection:bg-[#0066FF] selection:text-white">
         <AppwritePing />
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
       </body>
     </html>
   );

@@ -1,401 +1,561 @@
-# Product Requirements Document
-# Locallify Pages — Smart Business Profile Platform
-
-**Version:** 1.0  
+# LOCALLIFY — Final Product Requirements Document
+**Version:** 2.0 — Final MVP  
 **Author:** Habib / Locallify  
 **Date:** April 2026  
-**Status:** Draft
+**Status:** Ready To Build  
 
 ---
 
-## 1. Executive Summary
+## 1. One Line Summary
 
-Locallify Pages is a hosted micro-site and digital presence product built for local Indian businesses who need an online presence but are unwilling or unable to invest in a full website. Each business gets a branded, mobile-first profile page at `locallify.in/businessname` bundled with AI-generated social media creatives, WhatsApp lead delivery, UPI payment integration, and India-first features like multilingual support and festive mode.
-
-This product is sold as an add-on or standalone package by Locallify agency, targeting SMBs across Assam, NE India, and eventually all of India.
+> **Locallify is a monthly subscription platform that gives Indian local businesses a complete digital presence — a branded page, WhatsApp lead system, UPI payments, QR code, Google Review system, printable business card, and AI social media creatives — all managed through WhatsApp, with zero tech knowledge required.**
 
 ---
 
-## 2. Problem Statement
+## 2. The Problem
 
-### 2.1 The Market Gap
+Small local businesses in India — restaurants, salons, shops, clinics, coaching centres — are invisible online.
 
-Local businesses in Tier 2 and Tier 3 Indian cities face a specific challenge:
+When a customer searches "salon near me" or "restaurant in Silchar" on Google, these businesses do not appear. Not because they are bad. Because they have no digital presence.
 
-- They know they need online presence
-- They do NOT want the complexity of managing a full website
-- They DO want something shareable on WhatsApp and Instagram
-- They need leads delivered in a format they already use (WhatsApp)
-- They cannot afford ₹15,000–₹50,000 for a custom website
+### Why Existing Solutions Fail Them
 
-Existing tools like Linktree and Bio.link are generic, not localized, and do not serve the Indian SMB context (no UPI, no WhatsApp integration, no regional language support, no festive themes).
+| Solution | Why It Fails |
+|---|---|
+| Full website | Too expensive (₹15,000+), too complex to manage |
+| Linktree | Built for global creators, no UPI, no WhatsApp, no Indian languages |
+| Justdial | They own your customer, you get nothing |
+| Google Business Profile | Hard to set up, no design, no store features |
+| Stan Store | Built for global creators, priced in dollars |
+| CONNECTit / review tools | Only solve one problem, not full presence |
 
-Google Business Profile exists but requires verification, has no custom design, and sends users off the page quickly.
+### The Real Gap
 
-### 2.2 The Opportunity
-
-Locallify Pages fills the gap between "nothing" and "full website" — delivering 80% of the online presence benefit at 20% of the cost and complexity.
+Nobody has built a simple, affordable, WhatsApp-first complete digital presence product specifically for small Indian businesses — priced in rupees, delivered in their language, requiring zero tech knowledge.
 
 ---
 
-## 3. Goals & Success Metrics
+## 3. The Solution — Locallify Pages
 
-### 3.1 Business Goals
+A hosted business profile at `locallify.in/businessname` that gives every local Indian business:
 
-- Generate recurring monthly revenue through page hosting subscriptions
-- Increase Locallify agency client retention by locking clients into the ecosystem
-- Build a portfolio of 50+ live pages within 6 months that rank on Google
-- Create a pipeline for upselling clients from Pages to full website packages
+- A beautiful mobile-first page they can share anywhere
+- WhatsApp-first lead delivery — no dashboards, no logins
+- UPI payment collection from their page
+- Google Review QR code for their counter
+- Print-ready visiting card with QR code
+- 4 AI-generated branded social media posts every month
 
-### 3.2 Success Metrics (6-Month Targets)
-
-| Metric | Target |
-|--------|--------|
-| Active Locallify Pages | 50+ |
-| Monthly Recurring Revenue from Pages | ₹25,000+ |
-| Average Locallify Score per page | 65+ |
-| WhatsApp leads delivered via platform | 200+/month |
-| Upsells from Page → Full Website | 5+ |
+Everything delivered through WhatsApp. Everything in their language. Everything for ₹999/month.
 
 ---
 
 ## 4. Target Users
 
-### 4.1 Primary User — Business Owner
-
-- Small local businesses: restaurants, salons, coaching centres, retail shops, service providers
-- Location: Silchar, Guwahati, and Tier 2/3 cities in Assam and NE India
-- Age: 25–50
-- Tech comfort: Low to medium — comfortable with WhatsApp and Instagram, not with website backends
+### Primary — Local Business Owner
+- Restaurants, dhabas, salons, beauty parlours, coaching institutes, clinics, retail shops, sweet shops, property dealers, service providers
+- Location: Silchar, Guwahati, and Tier 2/3 cities across Assam and NE India — expanding to all India
+- Age: 25–55
+- Tech comfort: Low — comfortable with WhatsApp and Instagram only
 - Language: Assamese, Bengali, Hindi, or English
-- Budget: ₹1,500–₹5,000/month
+- Budget: ₹500–₹1,500/month comfortable range
 
-### 4.2 Secondary User — Locallify Team (Internal)
+### Secondary — Locallify Team (Internal)
+- Habib and team who onboard, build, and manage pages
+- Need a fast, templated workflow to deliver pages within 24 hours of payment
 
-- Locallify staff who create and manage pages on behalf of clients
-- Need a fast, templated workflow to deliver pages within 48–72 hours
-
-### 4.3 End User — Business Customer (Visitor)
-
-- A person who receives a Locallify page link via WhatsApp or sees it in an Instagram bio
-- Needs to quickly find contact info, location, hours, and a way to reach the business
-- Must have a frictionless mobile experience
+### End User — Business Customer (Visitor)
+- Person who receives a Locallify page link via WhatsApp, Instagram bio, or QR scan
+- Needs to find contact info, location, hours, and reach the business instantly
+- Must work perfectly on a mobile phone
 
 ---
 
-## 5. Feature Requirements
-
-### 5.1 Tier 1 — Core Page Features (MVP — Month 1)
-
-These are required for launch. No page goes live without these.
-
-#### 5.1.1 Business Profile Section
-- Business name, tagline, logo/profile photo
-- Cover photo or short cover video (max 15 seconds)
-- Category tag (Restaurant / Salon / Shop / Coaching / etc.)
-- Short bio / description (max 150 characters)
-
-#### 5.1.2 WhatsApp Direct Chat Button
-- Prominent CTA button — "Chat on WhatsApp"
-- Pre-filled message: "Hi, I found you on Locallify!"
-- Tracks click count (visible in owner dashboard)
-
-#### 5.1.3 Click-to-Call Button
-- One tap phone call
-- Primary and secondary number support
-
-#### 5.1.4 Google Maps Embed
-- Embedded map pinned to the business location
-- "Get Directions" button that opens Google Maps
-
-#### 5.1.5 Business Hours
-- Days and hours input
-- Live "Open Now" / "Closed" badge based on current time and timezone (IST)
-
-#### 5.1.6 Social Media Links
-- Instagram, Facebook, YouTube, Twitter/X
-- Clean icon-based link buttons
-
-#### 5.1.7 QR Code Generation
-- Auto-generated QR code for every page
-- Downloadable as PNG (print-ready, 300 DPI)
-- Use case: print on visiting cards, shop banners, packaging, menus
-
-#### 5.1.8 Lead Capture Form → WhatsApp Delivery
-- Simple form: Name, Phone Number, Message / Service Enquiry
-- On submission: lead is instantly delivered to the business owner's WhatsApp as a formatted message
-- No app install required for the business owner
-- Format example:
-  ```
-  🔔 New Lead via Locallify!
-  Name: Ravi Kumar
-  Phone: 9876543210
-  Message: I need a haircut tomorrow
-  Page: locallify.in/trendy-salon
-  ```
-
-#### 5.1.9 UPI Payment Button
-- One-tap payment via GPay, PhonePe, Paytm
-- Business enters their UPI ID; visitors can pay directly from the page
-- Use case: advance booking deposits, product payments, service fees
-
----
-
-### 5.2 Tier 2 — India-First Differentiators (Month 2)
-
-These are the features that separate Locallify Pages from every global competitor.
-
-#### 5.2.1 AI Creative Studio
-- Every active page subscription includes 4 AI-generated social media creatives per month
-- Creatives are branded with the business logo, colors, and name
-- Delivered as ready-to-post images (1080x1080 for feed, 1080x1920 for stories/reels)
-- Client submits content request via WhatsApp; Locallify team delivers within 24 hours
-- Generated using Locallify's internal AI image workflow (Google Nano Banana / other tools)
-- This is the single highest-perceived-value feature of the product
-
-#### 5.2.2 Multilingual Toggle
-- Page supports language switching between English + one regional language
-- Supported languages: Hindi, Bengali, Assamese
-- Business owner provides translated content during onboarding
-- Visitor sees a language toggle button on the page
-- Default language auto-detected based on browser locale
-
-#### 5.2.3 Festive Mode
-- Pre-scheduled festive banner themes for major Indian occasions:
-  - Eid, Durga Puja, Diwali, Christmas, New Year, Holi, Bihu, Independence Day, etc.
-  - Full calendar of 12+ events per year
-- On the festive date, the page automatically switches to a themed hero banner
-- Theme reverts automatically after the occasion
-- Business owner can opt out or customize the message
-- Zero extra cost — included in all plans
-
-#### 5.2.4 "Today's Special" Card
-- A highlighted card on the page for daily or weekly offers/updates
-- Examples: "Today's Thali ₹120", "20% off haircuts today", "New batch starts Monday"
-- Business owner sends update via WhatsApp to Locallify number
-- Locallify team updates the card within 2 hours (manual for now, self-serve later)
-- Card displays timestamp — "Updated today at 11:30 AM"
-
-#### 5.2.5 Locallify Verified Badge
-- A "✓ Verified Business" badge displayed on the page
-- Verification criteria (basic):
-  - Business phone number confirmed
-  - Business location confirmed via Google Maps
-  - At least one photo of the physical location submitted
-- Builds end-customer trust
-- Creates perceived authority for the Locallify platform brand
-
----
-
-### 5.3 Tier 3 — Power Features (Month 3+)
-
-These features create a long-term moat and drive retention.
-
-#### 5.3.1 Locallify Score
-- A 0–100 digital presence score visible only to the business owner in their dashboard
-- Scoring criteria:
-  - Profile completeness: name, logo, cover, bio, hours (20 points)
-  - WhatsApp button configured (10 points)
-  - UPI button configured (10 points)
-  - Google Maps linked (10 points)
-  - At least one lead received this month (15 points)
-  - AI creative delivered this month (10 points)
-  - Today's Special updated this week (10 points)
-  - Verified badge earned (15 points)
-- Used by Locallify team as an upsell trigger: "Your score is 42. Here's how to get to 80."
-- Drives habit loop and client retention
-
-#### 5.3.2 Google Reviews Showcase Wall
-- Pulls the business's Google Reviews and displays them in a beautiful card layout on the page
-- Auto-updates when new reviews are added
-- Shows star rating, reviewer name, review text, and date
-- Requires the business to have a verified Google Business Profile
-
-#### 5.3.3 Photo Gallery Section
-- Grid of up to 12 photos of the business (products, premises, team, events)
-- Tap to view fullscreen
-- Locallify team uploads photos during onboarding and on request
-
-#### 5.3.4 WhatsApp Catalogue Link
-- For businesses using WhatsApp Business with a product catalogue
-- A "View Our Catalogue" button that opens their WhatsApp catalogue directly
-- No extra setup required beyond sharing the catalogue link
-
-#### 5.3.5 Owner Dashboard (Self-Serve)
-- Simple web dashboard for business owners
-- View: total page visits, WhatsApp button clicks, lead form submissions, call clicks
-- Update: Today's Special card, business hours, phone number
-- Download: QR code, AI creatives
-- View: Locallify Score and improvement tips
-- Login via OTP on WhatsApp (no password required — fits the audience)
-
----
-
-## 6. Pricing Structure
-
-### 6.1 Plans
-
-| Plan | Price | Best For |
-|------|-------|----------|
-| Starter Page | ₹1,999 one-time setup + ₹499/mo | Businesses wanting basic presence |
-| Growth Pack | ₹3,999/month | Businesses wanting growth tools |
-| Pro Pack | ₹6,999/month | Established businesses wanting full management |
-
-### 6.2 What's Included Per Plan
-
-| Feature | Starter | Growth | Pro |
-|---------|---------|--------|-----|
-| Locallify Page | ✅ | ✅ | ✅ |
-| WhatsApp Button | ✅ | ✅ | ✅ |
-| UPI Button | ✅ | ✅ | ✅ |
-| QR Code | ✅ | ✅ | ✅ |
-| Lead Form → WhatsApp | ✅ | ✅ | ✅ |
-| Festive Mode | ✅ | ✅ | ✅ |
-| Verified Badge | ❌ | ✅ | ✅ |
-| AI Creatives/month | ❌ | 4 | 8 |
-| Today's Special Updates | ❌ | 4/month | Unlimited |
-| Multilingual Toggle | ❌ | ✅ | ✅ |
-| Google Reviews Wall | ❌ | ✅ | ✅ |
-| Locallify Score Dashboard | ❌ | ✅ | ✅ |
-| Dedicated Manager | ❌ | ❌ | ✅ |
-
----
-
-## 7. Technical Architecture
-
-### 7.1 Phase 1 — Manual (Launch)
-
-- Pages built as static Next.js or HTML pages
-- One template, fields filled manually per client
-- Hosted on Vercel or Cloudflare Pages
-- URL structure: `locallify.in/[business-slug]`
-- Lead form submissions sent via WhatsApp using Twilio or direct WhatsApp API webhook
-- QR code generated using a free QR library (qrcode.js or similar)
-- No client login required in Phase 1 — all updates go through Locallify team
-
-### 7.2 Phase 2 — Semi-Automated (Month 3+)
-
-- Admin panel for Locallify team to create/update pages without code
-- Basic client-facing dashboard with OTP WhatsApp login
-- Analytics: page views, button clicks tracked via Plausible or simple custom tracker
-- Today's Special update via WhatsApp bot (client sends message → auto-updates page)
-
-### 7.3 Phase 3 — Self-Serve Platform (Month 6+)
-
-- Full self-serve onboarding: client signs up, fills form, page goes live
-- AI creative generation integrated into dashboard
-- Locallify Score calculated in real time
-- Google Business Profile API integration for reviews pull
-
----
-
-## 8. Design Principles
-
-- **Mobile-first, always** — 90%+ of visitors will be on smartphones
-- **Fast load** — under 2 seconds on 4G; no heavy frameworks in Phase 1
-- **Cinematic and premium** — not generic; every page should look like it was designed, not auto-generated
-- **Minimal friction for the visitor** — WhatsApp button is above the fold on every page
-- **Minimal friction for the owner** — they never need to log into anything in Phase 1
-- **Locallify brand is subtle but present** — small "Powered by Locallify" footer on every page
-
----
-
-## 9. Go-to-Market Strategy
-
-### 9.1 Phase 1 — Agency Clients First (Month 1–2)
-
-- Offer Locallify Page to all existing Locallify agency clients as an add-on
-- Use it as a lead magnet: "We'll build your Locallify Page for free with any agency package"
-- Target: 5–10 pages live within first month
-
-### 9.2 Phase 2 — Local Outreach (Month 2–4)
-
-- Walk into local businesses in Silchar and Guwahati with a printed demo QR code
-- Show them a sample page on their phone — tangible and visual
-- Use WhatsApp broadcast to reach business owners
-- Offer 30-day free trial for first 20 businesses
-
-### 9.3 Phase 3 — Platform SEO (Month 4+)
-
-- Each `locallify.in/businessname` page is optimized for local search
-- Target keywords: "best restaurant in Silchar", "top salon in Guwahati", etc.
-- As pages accumulate, Locallify.in builds domain authority and ranks for local searches
-- Inbound leads come to Locallify naturally — self-sustaining growth loop
-
----
-
-## 10. Rollout Timeline
-
-| Month | Milestone |
-|-------|-----------|
-| Month 1 | Build core page template. Launch with 3–5 pilot clients. WhatsApp lead form live. QR codes delivered. |
-| Month 2 | AI creatives workflow live. Verified badge launched. Festive Mode calendar set up. Onboard 10 clients. |
-| Month 3 | Locallify Score live. Google Reviews wall. Multilingual support. Admin panel for internal team. 25 clients. |
-| Month 4 | Client-facing dashboard (OTP login). Today's Special WhatsApp bot. 35 clients. |
-| Month 5 | SEO push on all pages. Local outreach campaign. Self-serve onboarding beta. 50 clients. |
-| Month 6 | Full self-serve platform live. Review pricing. Explore expansion to other cities. |
-
----
-
-## 11. Risks & Mitigations
-
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|-----------|
-| Clients not willing to pay ₹499/mo recurring | Medium | High | Emphasize AI creatives as value — 4 creatives alone worth ₹2,000+ if outsourced |
-| Manual workflow doesn't scale past 20 clients | High | Medium | Build admin panel by Month 3 before scale hits |
-| Competitor copies the idea | Low (near term) | Low | First-mover advantage + brand trust + local relationships |
-| WhatsApp API costs increase | Low | Medium | Monitor costs; switch to alternative if needed |
-| Clients leave after 3 months | Medium | High | Locallify Score and monthly creatives create habit loop and retention |
-
----
-
-## 12. Open Questions
-
-- Should pages have a public directory / index on locallify.in where all businesses can be browsed?
-- Should Locallify offer a white-label version of this product for other agencies?
-- At what client count does it make sense to hire a dedicated page manager?
-- Should festive mode be opt-in or opt-out by default?
-- What is the right upsell trigger from Locallify Page → Full Website? (Locallify Score 80+? 50+ monthly leads?)
-
----
-
-## 13. Appendix
-
-### 13.1 Competitive Landscape Summary
-
-| Product | UPI | WhatsApp Lead | Multilingual | Festive Mode | AI Creatives | India Focus |
-|---------|-----|--------------|-------------|-------------|-------------|------------|
-| Linktree | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Bio.link | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Beacons.ai | ❌ | ❌ | ❌ | ❌ | Limited | ❌ |
-| Google Business Profile | ❌ | ❌ | ❌ | ❌ | ❌ | Partial |
-| Justdial | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Locallify Pages** | **✅** | **✅** | **✅** | **✅** | **✅** | **✅** |
-
-### 13.2 Sample Page URL Structure
-
+## 5. Pricing — Paid Only From Day 1
+
+No free plan. No trial. No exceptions.
+
+| | First Month | Month 2 Onwards |
+|---|---|---|
+| **Price** | ₹499 | ₹999/month |
+| **Why** | Low barrier to start | Full recurring revenue |
+
+### Psychological Logic
+- ₹499 removes hesitation — easy to say yes
+- After one month they have QR codes printed, cards distributed, page live
+- Cancelling costs them more than ₹999 — so they stay
+- ₹999/month feels justified once they see value
+
+### Payment Collection
+- Month 1: Send UPI ID or Razorpay link on WhatsApp — client pays — page live in 24 hours
+- Month 2+: WhatsApp reminder on day 25 — client pays — subscription continues
+- Non-payment: Page goes offline on day 7 — data preserved — reactivates on payment
+
+### If Page Goes Offline
 ```
-locallify.in/sharma-hardware-silchar
+Page shows: "This business is currently inactive.
+Contact them directly or visit locallify.in"
+```
+Their printed QR codes still point to this URL — creating urgency to reactivate.
+
+---
+
+## 6. Core Features — MVP Only
+
+These 7 features and nothing else until 50+ paying clients.
+
+---
+
+### Feature 1 — Business Profile Page
+
+**What:** A beautiful mobile-first business page at `locallify.in/businessname`
+
+**Includes:**
+- Business name, logo, cover photo
+- Category tag (Restaurant / Salon / Shop / Coaching / Clinic / etc.)
+- Short bio — max 150 characters
+- Business hours with live Open Now / Closed badge (IST timezone)
+- Google Maps embed with Get Directions button
+- Social media links (Instagram, Facebook, YouTube)
+- "Powered by Locallify" footer — subtle branding
+
+**Design:** Cinematic, premium, dark-navy aesthetic — NOT generic Linktree cards. Every page must look designed, not auto-generated.
+
+**URL Structure:**
+```
+locallify.in/sharma-restaurant-silchar
 locallify.in/trendy-salon-guwahati
-locallify.in/icon-computer-institute
-locallify.in/soliel-academy
+locallify.in/icon-coaching-silchar
 ```
 
-### 13.3 WhatsApp Lead Message Format
+---
 
+### Feature 2 — WhatsApp Contact Button
+
+**What:** One-tap WhatsApp button — most prominent element on the page
+
+**How it works:**
+- Large green WhatsApp button above the fold on every page
+- Pre-filled message: "Hi! I found you on Locallify 👋"
+- Opens WhatsApp directly — no app install needed
+- Tracks click count (shown in owner dashboard later)
+
+**Cost:** ₹0 — uses wa.me link, no API needed
+
+---
+
+### Feature 3 — Lead Capture Form → WhatsApp Delivery
+
+**What:** Simple enquiry form that delivers leads instantly to owner's WhatsApp
+
+**Form fields:**
+```
+Name: [____________]
+Phone: [____________]
+Message: [____________]
+[Send on WhatsApp →]
+```
+
+**How it works:**
+1. Customer fills 3 fields
+2. Clicks Send on WhatsApp
+3. WhatsApp opens on customer's phone — pre-filled with formatted message
+4. Customer taps Send
+5. Owner receives on their WhatsApp instantly
+
+**Message format owner receives:**
 ```
 🔔 New Lead — Locallify
 ━━━━━━━━━━━━━━━
-👤 Name: [Visitor Name]
-📞 Phone: [Visitor Phone]
-💬 Message: [Enquiry Text]
-🔗 Page: locallify.in/[slug]
-🕐 Time: [Date & Time IST]
+👤 Name: Rahul Kumar
+📞 Phone: 9876543210
+💬 Message: Table for 2 tonight at 8pm
+🔗 Page: locallify.in/sharma-restaurant
+🕐 Time: 23 Apr 2026, 7:30 PM IST
 ━━━━━━━━━━━━━━━
-Reply to this message to respond to your lead.
+Reply to connect with your lead.
+```
+
+**Technical implementation:**
+```javascript
+const waMessage = `New Lead from Locallify
+Name: ${name}
+Phone: ${phone}  
+Message: ${message}`
+
+const waLink = `https://wa.me/91${ownerNumber}
+?text=${encodeURIComponent(waMessage)}`
+
+window.open(waLink)
+```
+
+**Cost:** ₹0 — pure frontend, no backend, no API
+
+---
+
+### Feature 4 — UPI Payment Button (Phase 2 — Coming Soon)
+
+**What:** One-tap UPI payment from the Locallify page
+
+**Status:** Not in MVP. To be added once 20+ clients are onboarded.
+
+**How it will work:**
+- Owner adds their UPI ID later
+- "Pay Us" button appears on their page
+- Customer taps — phone opens GPay / PhonePe / Paytm automatically
+- Customer enters amount and pays
+- Owner gets UPI notification on their phone
+
+---
+
+### Feature 5 — Google Review QR Code
+
+**What:** A branded QR code that opens directly to the business's Google review page
+
+**How it works:**
+- Owner provides their Google Business Profile link during onboarding
+- Locallify generates a branded QR code
+- Delivered as print-ready PNG (300 DPI) on WhatsApp
+- Owner prints and places at counter, table, reception
+
+**The QR code design:**
+```
+[Locallify branded QR code]
+⭐ Scan to Review Us on Google
+[Business Name]
+locallify.in
+```
+
+**Why this works:**
+- Customer scans at emotional peak — right after the experience
+- Opens Google review page directly — no searching
+- Zero friction = more reviews
+- More reviews = higher Google Maps ranking = free organic customers
+
+**Cost:** ₹0 — free QR generation API
+
+---
+
+### Feature 6 — Printable Business Card
+
+**What:** A professional print-ready visiting card generated from their Locallify profile
+
+**Card contains:**
+
+Front:
+```
+[Business Logo]
+[Business Name]
+[Tagline / Category]
+Powered by Locallify (subtle footer)
+```
+
+Back:
+```
+[Owner Name]
+📞 [Phone]
+💬 [WhatsApp]
+✉️ [Email]
+📍 [Address]
+🌐 locallify.in/theirbusiness
+[QR Code — links to Locallify page]
+```
+
+**Specifications:**
+- Size: 3.5 × 2 inches (standard visiting card)
+- Resolution: 300 DPI — print ready
+- Format: PDF download
+- Delivered on WhatsApp within 24 hours of onboarding
+
+**MVP workflow:**
+- Client pays → fills onboarding form → you create card in Canva using pre-made template → send PDF on WhatsApp
+- No automation needed for first 20 clients — manual is fine
+
+**Why this is powerful:**
+- Every printed card = Locallify URL visible to 50+ people
+- QR on card links to full digital profile — 100x better than a phone number card
+- Business owner gets ₹2,000 worth of design work included
+
+---
+
+### Feature 7 — 4 AI Social Media Creatives Per Month
+
+**What:** 4 branded, ready-to-post Instagram/Facebook post images delivered every month
+
+**What they get:**
+- 4 posts sized 1080×1080px (feed) or 1080×1920px (story/reel cover)
+- Their logo, business name, brand colors
+- Relevant content: offers, product highlights, festive posts, tips
+- Delivered as images on WhatsApp — ready to post directly
+
+**Workflow:**
+- Day 1 of each month: WhatsApp client asking for that month's content theme
+- You generate using AI tools (your existing workflow)
+- Deliver within 48 hours
+- Client downloads from WhatsApp and posts
+
+**Why this retains clients:**
+- Designers charge ₹500–₹2,000 per post
+- 4 posts = ₹2,000–₹8,000 value
+- They get it included in ₹999 — they never cancel
+
+**Cost:** 2–3 hours of your time per client per month using existing AI tools
+
+---
+
+## 7. What Is NOT In MVP
+
+Do not build these until you have 50+ paying clients and real user feedback:
+
+- ❌ Self-serve signup (manual onboarding for now)
+- ❌ Client dashboard / analytics
+- ❌ Multilingual toggle
+- ❌ Festive mode auto-scheduling
+- ❌ Booking / appointment system
+- ❌ Digital product store
+- ❌ Brand collaboration marketplace
+- ❌ Influencer features
+- ❌ Locallify Score
+- ❌ Google Reviews showcase wall
+- ❌ WhatsApp API integration
+- ❌ Mobile app
+- ❌ Today's Special self-serve update
+- ❌ Competitor report
+
+---
+
+## 8. Technical Stack — Zero Budget
+
+| Need | Tool | Cost |
+|---|---|---|
+| Page hosting | Vercel | ₹0 |
+| Database | Appwrite (Current) | ₹0 |
+| Domain | locallify.in (already owned) | ₹0 |
+| Lead form | WhatsApp wa.me link — pure JS | ₹0 |
+| UPI button | UPI deep link | ₹0 |
+| QR code generation | qrcode.js library | ₹0 |
+| Business card | Canva manual template | ₹0 |
+| AI creatives | Existing AI workflow | ₹0 |
+| Payment collection | Razorpay payment link / UPI | 2% per transaction |
+| Client communication | WhatsApp Business app | ₹0 |
+
+**Total monthly infrastructure cost: ₹0**
+
+---
+
+## 9. Build Order — Week By Week
+
+### Week 1 — Build One Perfect Page
+```
+→ Build one complete Locallify page template in Next.js
+→ All 7 features working on a single template
+→ Test on mobile — must be perfect on phone
+→ Create demo page: locallify.in/demo
+→ Create your own agency page: locallify.in/locallify
+```
+
+### Week 2 — Get First 3 Clients
+```
+→ Walk into 3 local businesses in Silchar
+→ Show demo page on their phone
+→ Collect ₹499 on UPI on the spot
+→ Take their details (name, phone, logo, photos, hours, UPI ID)
+→ Build their page within 24 hours
+→ Send page link + business card + QR code on WhatsApp
+```
+
+### Week 3 — WhatsApp Outreach
+```
+→ Message 30 business owners you know personally
+→ Send demo link + pricing
+→ Goal: 5 more paying clients
+→ Total: 8 clients, ₹3,992 revenue
+```
+
+### Week 4 — Instagram Content
+```
+→ Post before/after carousels (already have prompts)
+→ Post Shark Tank India clip with caption (already written)
+→ Post the anime motorcycle brand film
+→ Goal: 2 more inbound clients from Instagram
+→ Total: 10 clients
+```
+
+### Month 2
+```
+→ 10 existing clients pay ₹999 = ₹9,990
+→ Acquire 10 more new clients at ₹499 = ₹4,990
+→ Total month 2 revenue: ₹14,980
+→ Start building simple admin panel for managing pages
+```
+
+### Month 3
+```
+→ 20 existing × ₹999 = ₹19,980
+→ 10 new × ₹499 = ₹4,990
+→ Total: ₹24,970/month
+→ Hire one assistant to help with AI creatives
+→ Build self-serve onboarding form
+```
+
+### Month 6 Target
+```
+→ 50 clients × ₹999 = ₹49,950/month recurring
+→ Build client dashboard with basic analytics
+→ Add multilingual support
+→ Add festive mode
+→ Expand to Guwahati aggressively
+```
+
+### Month 12 Target
+```
+→ 100 clients × ₹999 = ₹99,900/month
+→ Full self-serve platform
+→ Expand to all of NE India
+→ Consider influencer tier
 ```
 
 ---
 
-*Document prepared for internal Locallify product planning.*  
-*Next review date: 30 days from creation.*
+## 10. Onboarding Checklist — After Client Pays
+
+Every new client goes through this exact process:
+
+```
+Step 1 — Collect Information (WhatsApp form or call)
+□ Business name
+□ Business category
+□ Owner name
+□ Phone number
+□ WhatsApp number
+□ Email address
+□ Full address
+□ Business hours (each day)
+□ Instagram handle (Optional)
+□ Facebook page link (Optional)
+□ Google Business Profile link (Optional)
+□ Logo file (PNG with transparent background)
+□ Cover photo (best quality available)
+□ 3–5 product/business photos
+□ Short bio (you write this for them if needed)
+□ Preferred URL slug (locallify.in/their-choice)
+
+Step 2 — Build Page (2–3 hours)
+□ Set up page on template
+□ Add all info and photos
+□ Test WhatsApp lead button
+□ Test UPI button
+□ Test Google Maps
+□ Test on mobile — must look perfect
+□ Test Open/Closed badge timing
+
+Step 3 — Generate Assets (1 hour)
+□ Generate Google Review QR code
+□ Design visiting card in Canva template
+□ Export card as PDF (300 DPI)
+□ Generate page QR code
+
+Step 4 — Deliver On WhatsApp
+□ Send page link: locallify.in/theirbusiness
+□ Send Google Review QR code PNG
+□ Send visiting card PDF
+□ Send instructions on how to use everything
+□ Schedule month 1 AI creatives (within 48 hours)
+
+Step 5 — First Month AI Creatives
+□ WhatsApp client: "Kaunsa content chahiye is mahine?"
+□ Generate 4 branded posts using AI
+□ Send on WhatsApp as images
+□ Done
+```
+
+---
+
+## 11. Client Retention System
+
+### Monthly Rhythm Per Client
+```
+Day 1    → WhatsApp: "Content theme for this month?"
+Day 3    → Deliver 4 AI creatives on WhatsApp
+Day 25   → WhatsApp renewal reminder + payment link
+Day 28   → Follow up if not paid
+Day 30   → Page goes offline if not paid (reactivates on payment)
+```
+
+### Why They Won't Cancel
+```
+1. QR codes already printed at counter — cancelling breaks their QR
+2. Visiting cards already distributed — URL goes dead
+3. Monthly AI creatives coming — they need content
+4. WhatsApp leads flowing — they don't want to miss enquiries
+5. Google Review QR working — reviews stop if page goes offline
+```
+
+---
+
+## 12. Revenue Projections
+
+| Month | Existing Clients | New Clients | Total Revenue |
+|---|---|---|---|
+| Month 1 | 0 | 10 × ₹499 | ₹4,990 |
+| Month 2 | 10 × ₹999 | 10 × ₹499 | ₹14,980 |
+| Month 3 | 20 × ₹999 | 10 × ₹499 | ₹24,970 |
+| Month 6 | 50 × ₹999 | 10 × ₹499 | ₹54,940 |
+| Month 12 | 100 × ₹999 | 10 × ₹499 | ₹99,900+ |
+
+---
+
+## 13. Competitive Advantage
+
+| Feature | Linktree | Justdial | CONNECTit | Locallify |
+|---|---|---|---|---|
+| Business profile page | ✅ | ❌ | ❌ | ✅ |
+| WhatsApp lead delivery | ❌ | ❌ | ❌ | ✅ |
+| UPI payment button | ❌ | ❌ | ❌ | ✅ |
+| Google Review QR | ❌ | ❌ | ✅ | ✅ |
+| Printable business card | ❌ | ❌ | ❌ | ✅ |
+| AI social media creatives | ❌ | ❌ | ✅ | ✅ |
+| ₹ pricing India-first | ❌ | ✅ | ✅ | ✅ |
+| WhatsApp-first delivery | ❌ | ❌ | ❌ | ✅ |
+| Done-for-you service | ❌ | ❌ | ❌ | ✅ |
+| NE India local knowledge | ❌ | ❌ | ❌ | ✅ |
+
+**Locallify wins on combination — no single competitor offers all of these together.**
+
+---
+
+## 14. Honest Risks
+
+| Risk | Likelihood | Mitigation |
+|---|---|---|
+| Client says no customer came — wants refund | High | Clear terms: we promise visibility not customers. Written in onboarding. |
+| Client stops paying after month 1 | Medium | Page goes offline — their QR and card stop working — creates urgency to renew |
+| Manual workflow doesn't scale past 20 clients | High | Build admin panel by month 3 before it becomes a problem |
+| AI creative quality not good enough | Low | You already have proven AI workflow from Mr. Haddi and other projects |
+| Competitor copies the idea | Low near-term | First mover advantage + local relationships + done-for-you layer they can't replicate |
+
+---
+
+## 15. Terms Of Service — Key Clause
+
+Must be communicated clearly to every client before payment:
+
+> *"Locallify provides digital visibility services. We make your business visible online — on Google, Instagram, and WhatsApp. We do NOT guarantee customers, sales, revenue, footfall, leads, or any specific business outcome. Results depend on your business quality, location, pricing, and factors outside our control. We promise visibility. What you do with that visibility is your business."*
+
+---
+
+## 16. The One Sentence Pitch
+
+For every sales conversation — WhatsApp message, in-person meeting, Instagram DM:
+
+> **"Locallify pe aapka business Google, Instagram aur WhatsApp pe visible ho jayega — sirf ₹499 pehle mahine mein. 24 ghante mein live."**
+
+Or in English:
+
+> **"Get your business on Google, Instagram and WhatsApp — for ₹499 your first month. Live in 24 hours."**
+
+---
+
+*Document finalised for Locallify MVP build — April 2026.*  
+*Next review: When 20 paying clients are onboarded.*  
+*Do not add new features before reaching 20 clients.*

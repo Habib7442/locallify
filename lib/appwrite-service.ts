@@ -1,4 +1,5 @@
 import { databases, storage, Query, ID } from './appwrite';
+import { BusinessProfile } from './types';
 
 const DATABASE_ID = 'locallify_pages_db';
 const COLLECTION_ID = 'profiles';
@@ -6,12 +7,14 @@ const BUCKET_ID = 'business-assets';
 
 export const profileService = {
   // Get all public profiles
-  async getPublicProfiles() {
+  async getPublicProfiles(): Promise<BusinessProfile[]> {
     try {
       const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
-        Query.equal('is_public', true)
+        Query.equal('is_public', true),
+        Query.equal('is_active', true),
+        Query.orderDesc('$createdAt')
       ]);
-      return response.documents;
+      return response.documents as unknown as BusinessProfile[];
     } catch (error) {
       console.error('Error fetching public profiles:', error);
       throw error;
@@ -19,12 +22,12 @@ export const profileService = {
   },
 
   // Get single profile by slug
-  async getProfileBySlug(slug: string) {
+  async getProfileBySlug(slug: string): Promise<BusinessProfile | null> {
     try {
       const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
         Query.equal('slug', slug)
       ]);
-      return response.total > 0 ? response.documents[0] : null;
+      return response.total > 0 ? (response.documents[0] as unknown as BusinessProfile) : null;
     } catch (error) {
       console.error('Error fetching profile by slug:', error);
       throw error;
@@ -63,7 +66,7 @@ export const profileService = {
   },
 
   // Create new profile
-  async createProfile(data: any, logoFile?: File | null, coverFile?: File | null) {
+  async createProfile(data: Omit<BusinessProfile, '$id' | '$createdAt' | 'logo_id' | 'cover_id' | 'product_photo_ids' | 'is_public' | 'is_verified' | 'is_active'>, logoFile?: File | null, coverFile?: File | null) {
     try {
       let logoId = '';
       let coverId = '';
@@ -79,13 +82,14 @@ export const profileService = {
         ...data,
         logo_id: logoId,
         cover_id: coverId,
+        product_photo_ids: [],
         is_public: false,
         is_verified: false,
-        locallify_score: 0,
+        is_active: true,
       };
 
       const response = await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), payload);
-      return response;
+      return response as unknown as BusinessProfile;
     } catch (error) {
       console.error('Error creating profile:', error);
       throw error;

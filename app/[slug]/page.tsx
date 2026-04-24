@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -8,20 +9,56 @@ import {
   Phone, 
   CheckCircle2, 
   ArrowLeft,
-  Calendar,
-  Share2
+  Globe,
+  Star,
+  Globe2,
+  GlobeIcon,
+  Navigation
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { profileService } from '@/lib/appwrite-service';
+import LeadForm from '@/components/LeadForm';
+import { Toaster } from 'sonner';
+import { getBusinessStatus } from '@/lib/business-utils';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-async function getBusinessProfile(slug: string) {
-  return await profileService.getProfileBySlug(slug);
+// ─── DYNAMIC METADATA ────────────────────────────────────────────────────────
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const business = await profileService.getProfileBySlug(slug);
+
+  if (!business) return { title: 'Business Not Found | Locallify' };
+
+  const coverUrl = profileService.getFileUrl(business.cover_id);
+
+  return {
+    title: `${business.business_name} | Locallify Profile`,
+    description: business.bio,
+    openGraph: {
+      title: business.business_name,
+      description: business.bio,
+      images: [
+        {
+          url: coverUrl,
+          width: 1200,
+          height: 630,
+          alt: business.business_name,
+        },
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: business.business_name,
+      description: business.bio,
+      images: [coverUrl],
+    },
+  };
 }
 
 export default async function BusinessProfilePage({ params }: PageProps) {
@@ -31,26 +68,27 @@ export default async function BusinessProfilePage({ params }: PageProps) {
     notFound();
   }
 
-  const business = await getBusinessProfile(slug);
+  const business = await profileService.getProfileBySlug(slug);
 
   if (!business) {
     notFound();
   }
 
-  // Handle Private State
-  if (!business.is_public) {
+  // Handle Inactive/Private State
+  if (!business.is_active || !business.is_public) {
     return (
       <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-6 text-center">
         <div className="relative w-24 h-24 mb-8">
-          <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-2xl animate-pulse"></div>
-          <CheckCircle2 className="w-full h-full text-emerald-500 relative z-10" />
+          <div className="absolute inset-0 bg-[#0066FF]/20 rounded-full blur-2xl animate-pulse"></div>
+          <CheckCircle2 className="w-full h-full text-[#0066FF] relative z-10" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-          {business.name} is Coming Soon!
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight uppercase">
+          {business.business_name}
         </h1>
         <p className="text-zinc-400 max-w-md text-lg mb-8 leading-relaxed">
-          This business profile is currently undergoing verification by the Locallify team. 
-          Check back soon to see their cinematic presence!
+          {!business.is_active 
+            ? "This business is currently inactive. Contact them directly or visit locallify.in"
+            : "This business profile is currently undergoing verification by the Locallify team."}
         </p>
         <Link href="/">
           <Button className="bg-white text-black hover:bg-zinc-200 px-8 rounded-full font-bold transition-all">
@@ -64,220 +102,198 @@ export default async function BusinessProfilePage({ params }: PageProps) {
     );
   }
 
-  // Handle Public Profile (Cinematic Design)
   const logoUrl = profileService.getFileUrl(business.logo_id);
   const coverUrl = profileService.getFileUrl(business.cover_id);
+  const status = getBusinessStatus(business.business_hours);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white selection:bg-emerald-500/30 overflow-x-hidden font-sans italic-font-none">
-      {/* Dynamic Header / Hero */}
-      <section className="relative h-[55vh] md:h-[75vh] w-full">
-        {/* Background Layer */}
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-[#0066FF]/30 overflow-x-hidden font-sans italic-font-none">
+      <Toaster position="top-center" richColors />
+      
+      {/* ─── HERO SECTION ────────────────────────────────────────── */}
+      <section className="relative h-[50vh] md:h-[65vh] w-full">
         <div className="absolute inset-0">
           <Image 
-            src={coverUrl.toString()} 
-            alt={business.name} 
+            src={coverUrl} 
+            alt={business.business_name} 
             fill 
-            sizes="100vw"
-            className="object-cover opacity-70"
+            className="object-cover opacity-60"
             priority
           />
-          {/* Multi-layered Gradients for Cinematic Feel */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
-          <div className="absolute bottom-0 inset-x-0 h-96 bg-gradient-to-t from-[#050505] to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#050505]"></div>
+          <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#050505] to-transparent"></div>
         </div>
         
-        {/* Navigation Bar overlay */}
         <div className="relative z-30 max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-          <Link href="/" className="bg-[#0a0a0a]/40 backdrop-blur-xl border border-white/10 p-3 rounded-2xl hover:bg-white/10 transition-all group">
+          <Link href="/" className="bg-black/40 backdrop-blur-xl border border-white/10 p-3 rounded-2xl hover:bg-white/10 transition-all group">
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           </Link>
-          <div className="flex gap-4">
-             <button className="bg-[#0a0a0a]/40 backdrop-blur-xl border border-white/10 p-3 rounded-2xl hover:bg-white/10 transition-all">
-               <Share2 className="w-5 h-5" />
-             </button>
+          <div className="flex gap-2">
+            <div className={`px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg ${status.isOpen ? 'bg-[#0066FF] text-white shadow-[#0066FF]/20' : 'bg-zinc-800 text-zinc-400'}`}>
+              <Clock className={`w-4 h-4 ${status.isOpen ? 'animate-pulse' : ''}`} />
+              <span className="text-[10px] font-black uppercase tracking-widest leading-none">
+                {status.message}
+              </span>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md text-white border border-white/10 px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
+              <CheckCircle2 className="w-4 h-4 text-[#0066FF]" />
+              <span className="text-[10px] font-black uppercase tracking-widest leading-none">Verified</span>
+            </div>
           </div>
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-40 h-full max-w-7xl mx-auto px-6 pb-20 md:pb-28 flex flex-col justify-end">
-          <div className="flex flex-col md:flex-row items-start md:items-end gap-6 md:gap-10">
-            {/* Logo with Outer Glow */}
-            <div className="relative shrink-0 group z-50">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-              <div className="relative w-32 h-32 md:w-48 md:h-48 rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-black">
-                <Image 
-                  src={logoUrl.toString()} 
-                  alt={business.name} 
-                  fill 
-                  sizes="(max-width: 768px) 128px, 192px"
-                  className="object-cover" 
-                />
-              </div>
+        <div className="relative z-40 h-full max-w-7xl mx-auto px-6 pb-12 flex flex-col justify-end items-center text-center">
+          <div className="relative shrink-0 mb-6">
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#0066FF] to-cyan-500 rounded-full blur opacity-30"></div>
+            <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl bg-black">
+              <Image 
+                src={logoUrl} 
+                alt={business.business_name} 
+                fill 
+                className="object-cover" 
+              />
             </div>
+          </div>
 
-            {/* Brand Title Area */}
-            <div className="space-y-3 md:pb-6 z-40">
-              <div className="flex flex-wrap items-center gap-4">
-                <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none">
-                  {business.name}
-                </h1>
-                {business.is_verified && (
-                  <div className="bg-emerald-500 text-black px-4 py-1.5 rounded-full flex items-center gap-2 mt-2 shadow-lg shadow-emerald-500/20">
-                    <CheckCircle2 className="w-4 h-4 fill-current" />
-                    <span className="text-[10px] font-black uppercase tracking-widest leading-none">Verified</span>
-                  </div>
-                )}
-              </div>
-              <p className="text-xl md:text-3xl text-emerald-400/90 font-medium tracking-tight max-w-2xl bg-black/20 backdrop-blur-sm px-4 py-1 -ml-4 rounded-xl inline-block">
-                {business.tagline || business.category}
-              </p>
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none">
+              {business.business_name}
+            </h1>
+            <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full">
+              <span className="text-[#0066FF] text-sm font-bold uppercase tracking-wider">{business.business_category}</span>
+              <span className="w-1 h-1 bg-zinc-600 rounded-full"></span>
+              <span className="text-zinc-400 text-sm font-medium">{business.full_address.split(',')[0]}</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Grid Content */}
-      <main className="relative z-30 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 pb-32 -mt-8 md:-mt-12">
+      {/* ─── MAIN CONTENT ────────────────────────────────────────── */}
+      <main className="relative z-30 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 pb-32">
         
-        {/* Left Content (About & Info) */}
-        <div className="lg:col-span-8 space-y-12">
-          {/* About Card */}
-          <div className="bg-[#0c0c0c] border border-white/5 p-8 md:p-12 rounded-[40px] shadow-2xl space-y-8">
+        {/* Left Column: About & Form */}
+        <div className="lg:col-span-7 space-y-8">
+          <div className="bg-[#0c0c0c] border border-white/5 p-8 md:p-10 rounded-[40px] shadow-2xl space-y-8">
             <div className="space-y-4">
-              <div className="h-1 w-20 bg-emerald-500 rounded-full"></div>
-              <h2 className="text-3xl font-black uppercase tracking-tighter">The Vision</h2>
+              <div className="h-1.5 w-16 bg-[#0066FF] rounded-full"></div>
+              <h2 className="text-2xl font-black uppercase tracking-tight">About Us</h2>
               <p className="text-zinc-400 text-lg md:text-xl leading-relaxed whitespace-pre-wrap font-light">
                 {business.bio}
               </p>
             </div>
 
-            {/* Quick Info Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-white/[0.03] border border-white/10 p-6 rounded-[30px] flex items-center gap-5 group hover:border-emerald-500/30 transition-all">
-                 <div className="p-4 bg-emerald-500/10 rounded-2xl group-hover:scale-110 transition-all duration-500">
-                   <MapPin className="w-7 h-7 text-emerald-500" />
-                 </div>
-                 <div className="space-y-1 min-w-0 flex-1">
-                   <p className="text-[10px] text-zinc-500 uppercase font-black tracking-[0.2em]">Location</p>
-                   <p className="text-zinc-200 text-lg font-bold break-words whitespace-normal">{business.address || 'Silchar, Assam'}</p>
-                 </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-white/[0.03] border border-white/10 p-6 rounded-[30px] flex items-center gap-4">
+                <div className="p-3 bg-[#0066FF]/10 rounded-xl">
+                  <Clock className={`w-6 h-6 ${status.isOpen ? 'text-[#0066FF]' : 'text-zinc-500'}`} />
+                </div>
+                <div>
+                  <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest">Timing Today</p>
+                  <p className="text-zinc-200 font-bold">{business.business_hours}</p>
+                </div>
               </div>
-              <div className="bg-white/[0.03] border border-white/10 p-6 rounded-[30px] flex items-center gap-5 group hover:border-emerald-500/30 transition-all">
-                 <div className="p-4 bg-emerald-500/10 rounded-2xl group-hover:scale-110 transition-all duration-500">
-                   <Clock className="w-7 h-7 text-emerald-500" />
-                 </div>
-                 <div className="space-y-1">
-                   <p className="text-[10px] text-zinc-500 uppercase font-black tracking-[0.2em]">Operational</p>
-                   <p className="text-zinc-200 text-lg font-bold">{business.business_hours || 'Mon-Sat: 10AM-9PM'}</p>
-                 </div>
-              </div>
+              <a 
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(business.full_address)}`}
+                target="_blank"
+                className="bg-white/[0.03] border border-white/10 p-6 rounded-[30px] flex items-center gap-4 group hover:bg-white/[0.06] transition-all"
+              >
+                <div className="p-3 bg-[#0066FF]/10 rounded-xl group-hover:bg-[#0066FF]/20 transition-all">
+                  <MapPin className="w-6 h-6 text-[#0066FF]" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between">
+                    <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest">Location</p>
+                    <Navigation className="w-3 h-3 text-[#0066FF] opacity-0 group-hover:opacity-100 transition-all" />
+                  </div>
+                  <p className="text-zinc-200 font-bold truncate">{business.full_address}</p>
+                </div>
+              </a>
             </div>
           </div>
 
-          {/* Social Proof Placeholder */}
-          <div className="space-y-8">
-             <h2 className="text-2xl font-black uppercase tracking-tighter text-zinc-600">Visual Identity Showcase</h2>
-             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {[1,2,3,4,5,6].map(i => (
-                  <div key={i} className="aspect-[4/5] bg-[#0c0c0c] border border-white/5 rounded-3xl overflow-hidden relative group">
-                    <div className="absolute inset-x-0 bottom-0 p-4 bg-black/40 backdrop-blur-md translate-y-full group-hover:translate-y-0 transition-all">
-                      <p className="text-[10px] font-bold uppercase">Moment {i}</p>
-                    </div>
-                  </div>
-                ))}
-             </div>
-          </div>
+          <LeadForm 
+            businessName={business.business_name} 
+            whatsappNumber={business.whatsapp_number} 
+            slug={business.slug}
+          />
         </div>
 
-        {/* Right Content (Sticky Action Card) */}
-        <div className="lg:col-span-4 lg:relative">
-          <div className="sticky top-12 space-y-6">
-            <div className="bg-white p-8 md:p-10 rounded-[48px] text-black shadow-[0_0_80px_rgba(255,255,255,0.05)] transform hover:-translate-y-1 transition-transform duration-500">
-              <h3 className="text-3xl font-[900] tracking-tighter leading-none mb-4 uppercase italic-none">
-                Start your <br />
-                experience
+        {/* Right Column: Actions & Socials */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="bg-white p-8 md:p-10 rounded-[40px] text-black space-y-8">
+            <div>
+              <h3 className="text-3xl font-black tracking-tighter leading-none mb-4 uppercase">
+                Connect <br /> Directly
               </h3>
-              <p className="text-zinc-500 font-medium mb-10 leading-snug">
-                Connect directly with our team to secure your booking or learn more about our services.
+              <p className="text-zinc-500 font-medium leading-tight">
+                Instantly reach out via call or WhatsApp for bookings and enquiries.
               </p>
+            </div>
+            
+            <div className="space-y-3">
+              <a 
+                href={`https://wa.me/91${business.whatsapp_number}`} 
+                target="_blank" 
+                className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white p-5 rounded-2xl font-black hover:scale-[1.02] transition-all group"
+              >
+                <div className="relative w-6 h-6">
+                  <Image src="/social-icons/whatsapp.png" alt="WhatsApp" fill sizes="24px" className="object-contain" />
+                </div>
+                WHATSAPP US
+              </a>
               
-              <div className="space-y-4">
-                <a 
-                  href={`https://wa.me/91${business.whatsapp}`} 
-                  target="_blank" 
-                  className="flex items-center justify-between group w-full bg-[#25D366] text-white p-5 rounded-3xl font-black tracking-tight hover:scale-[1.02] active:scale-[0.98] transition-all overflow-hidden relative"
-                >
-                  <span className="relative z-10 flex items-center gap-3">
-                    <MessageCircle className="w-6 h-6 fill-current" />
-                    MESSAGE WHATSAPP
-                  </span>
-                  <ArrowLeft className="w-5 h-5 rotate-180 transition-transform group-hover:translate-x-1" />
-                </a>
-                
-                <a 
-                  href={`tel:${business.phone || business.whatsapp}`} 
-                  className="flex items-center justify-between group w-full bg-black text-white p-5 rounded-3xl font-black tracking-tight hover:scale-[1.02] active:scale-[0.98] transition-all"
-                >
-                  <span className="flex items-center gap-3">
-                    <Phone className="w-6 h-6 fill-current" />
-                    VOICE CALL
-                  </span>
-                  <ArrowLeft className="w-5 h-5 rotate-180 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-
-              {business.maps_url && (
-                <a 
-                  href={business.maps_url} 
-                  target="_blank" 
-                  className="mt-8 flex items-center justify-center gap-2 w-full text-zinc-400 font-bold hover:text-black transition-colors uppercase tracking-widest text-[10px]"
-                >
-                  <MapPin className="w-3 h-3" /> Get Directions via Maps
-                </a>
-              )}
+              <a 
+                href={`tel:${business.phone_number}`} 
+                className="flex items-center justify-center gap-3 w-full bg-black text-white p-5 rounded-2xl font-black hover:scale-[1.02] transition-all"
+              >
+                <Phone className="w-6 h-6 fill-current" />
+                VOICE CALL
+              </a>
             </div>
 
-            {/* Premium Trust Badge */}
-            <div className="p-6 bg-emerald-500/5 border border-emerald-500/10 rounded-3xl flex items-center gap-4">
-              <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+            {(business.instagram_handle || business.facebook_page_link || business.google_review_link) && (
+              <div className="pt-6 border-t border-zinc-100">
+                <p className="text-[10px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-4 text-center">Follow & Review</p>
+                <div className="flex justify-center gap-4">
+                  {business.instagram_handle && (
+                    <a href={`https://instagram.com/${business.instagram_handle}`} target="_blank" className="p-4 bg-zinc-50 rounded-2xl hover:bg-zinc-100 transition-all flex items-center justify-center">
+                      <div className="relative w-6 h-6">
+                        <Image src="/social-icons/instagram.png" alt="Instagram" fill sizes="24px" className="object-contain grayscale hover:grayscale-0 transition-all" />
+                      </div>
+                    </a>
+                  )}
+                  {business.facebook_page_link && (
+                    <a href={business.facebook_page_link} target="_blank" className="p-4 bg-zinc-50 rounded-2xl hover:bg-zinc-100 transition-all">
+                      <GlobeIcon className="w-6 h-6" />
+                    </a>
+                  )}
+                  {business.google_review_link && (
+                    <a href={business.google_review_link} target="_blank" className="p-4 bg-[#0066FF]/10 rounded-2xl hover:bg-[#0066FF]/20 transition-all text-[#0066FF]">
+                      <Star className="w-6 h-6 fill-current" />
+                    </a>
+                  )}
+                </div>
               </div>
-              <p className="text-xs text-emerald-500/80 font-bold leading-tight uppercase tracking-tight"> Verified and Managed via the official Locallify Pages Network. </p>
+            )}
+          </div>
+
+          <div className="p-8 bg-zinc-900/30 border border-white/5 rounded-[40px] flex items-center gap-5">
+            <div className="w-12 h-12 bg-[#0066FF]/10 rounded-full flex items-center justify-center shrink-0">
+              <Globe className="w-6 h-6 text-[#0066FF]" />
             </div>
+            <p className="text-xs text-zinc-400 font-medium leading-relaxed uppercase tracking-tight">
+              Official Digital Presence <br />
+              <span className="text-white font-black tracking-widest">Powered by Locallify</span>
+            </p>
           </div>
         </div>
       </main>
 
-      {/* Floating Action Bar (Mobile Only - 1-tap booking) */}
-      <div className="fixed bottom-6 inset-x-6 z-[100] lg:hidden flex gap-3 pointer-events-none">
-        <a 
-          href={`https://wa.me/91${business.whatsapp}`} 
-          className="flex-1 pointer-events-auto bg-[#25D366] text-white flex items-center justify-center p-5 rounded-2xl shadow-2xl font-black tracking-wider text-sm active:scale-95 transition-transform"
-        >
-          WHATSAPP
-        </a>
-        <a 
-          href={`tel:${business.phone || business.whatsapp}`} 
-          className="bg-white text-black p-5 flex items-center justify-center rounded-2xl shadow-2xl pointer-events-auto active:scale-95 transition-transform"
-        >
-          <Phone className="w-6 h-6" />
-        </a>
-      </div>
-
-      <footer className="py-24 text-center border-t border-white/5">
-         <Image 
-           src="/logo.png" 
-           alt="Locallify" 
-           width={40} 
-           height={40} 
-           style={{ height: 'auto' }}
-           className="mx-auto opacity-20 invert transition-opacity hover:opacity-100" 
-         />
-         <p className="mt-8 text-[10px] text-zinc-700 tracking-[0.5em] uppercase font-black">
-           POWERED BY LOCALLIFY · DIGITAL CINEMA FOR LOCAL BUSINESS
-         </p>
+      {/* ─── FOOTER ────────────────────────────────────────────── */}
+      <footer className="py-20 text-center border-t border-white/5 opacity-30 hover:opacity-100 transition-opacity">
+        <p className="text-[10px] font-black uppercase tracking-[0.6em]">
+          Locallify · Digital Map for Local Business
+        </p>
       </footer>
     </div>
   );

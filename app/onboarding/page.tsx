@@ -8,17 +8,10 @@ import * as z from 'zod';
 import { profileService } from '@/lib/appwrite-service';
 import { useBusinessStore } from '@/lib/store';
 import { toast } from 'sonner';
-import { Toaster } from '@/components/ui/sonner';
-import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Toaster } from 'sonner';
+import { CheckCircle2, AlertCircle, Loader2, Sparkles, Image as ImageIcon, Globe, Phone, Clock, MapPin, Star } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -32,39 +25,30 @@ import { Textarea } from '@/components/ui/textarea';
 
 // ─── Schema ──────────────────────────────────────────────────────────────────
 const formSchema = z.object({
-  name:           z.string().min(2, 'Business name must be at least 2 characters.'),
-  tagline:        z.string().optional(),
-  category:       z.string().min(1, 'Please select a category.'),
-  customCategory: z.string().optional(),
-  bio:            z.string().max(1024, 'Bio must be under 1024 characters.').optional(),
-  slug:           z
+  business_name:     z.string().min(2, 'Business name must be at least 2 characters.'),
+  business_category: z.string().min(1, 'Please select a category.'),
+  customCategory:    z.string().optional(),
+  owner_name:        z.string().min(2, 'Owner name is required.'),
+  email_address:     z.string().email('Please enter a valid email address.'),
+  bio:               z.string().max(150, 'Bio must be under 150 characters.'),
+  slug:              z
     .string()
     .min(3, 'Username must be at least 3 characters.')
     .regex(/^[a-z0-9-]+$/, 'Only lowercase letters, numbers, and hyphens allowed.'),
-  whatsapp:       z.string().min(10, 'WhatsApp number must be at least 10 digits.'),
-  phone:          z.string().optional(),
-  address:        z.string().optional(),
-  business_hours: z.string().optional(),
-  maps_url:       z
-    .string()
-    .refine((v) => v === '' || v.startsWith('http'), {
-      message: 'Please enter a valid URL starting with http/https',
-    })
-    .optional(),
-  theme: z.string().optional(),
+  whatsapp_number:   z.string().min(10, 'WhatsApp number must be at least 10 digits.'),
+  phone_number:      z.string().min(10, 'Phone number must be at least 10 digits.'),
+  full_address:      z.string().min(5, 'Full address is required.'),
+  business_hours:    z.string().min(1, 'Please specify business hours.'),
+  instagram_handle:  z.string().optional(),
+  facebook_page_link: z.string().url('Invalid URL').or(z.literal('')).optional(),
+  google_review_link: z.string().url('Invalid URL').or(z.literal('')).optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const CATEGORIES = ['Fashion', 'Education', 'Health', 'Fitness', 'Restaurant', 'Salon', 'Other'];
-const THEMES = [
-  { id: 'cinematic', name: 'Cinematic' },
-  { id: 'glass',    name: 'Glassmorphism' },
-  { id: 'minimal',  name: 'Minimal' },
-];
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export default function OnboardingPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -85,23 +69,24 @@ export default function OnboardingPage() {
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name:           '',
-      slug:           '',
-      category:       '',
-      whatsapp:       '',
-      tagline:        '',
-      bio:            '',
-      phone:          '',
-      address:        '',
-      business_hours: '',
-      maps_url:       '',
-      theme:          'cinematic',
+      business_name:      '',
+      business_category:  '',
+      owner_name:         '',
+      email_address:      '',
+      bio:                '',
+      slug:               '',
+      whatsapp_number:    '',
+      phone_number:       '',
+      full_address:       '',
+      business_hours:     '',
+      instagram_handle:   '',
+      facebook_page_link: '',
+      google_review_link: '',
     },
   });
 
-  const watchedSlug = watch('slug');
+  const watchSlug = watch('slug');
 
-  // ─── Slug check ──────────────────────────────────────────────────────────
   const checkSlug = async (slug: string) => {
     if (!slug || slug.length < 3) { setSlugStatus('idle'); return; }
     setIsSlugChecking(true);
@@ -110,223 +95,235 @@ export default function OnboardingPage() {
     setIsSlugChecking(false);
   };
 
-  // ─── Submit ──────────────────────────────────────────────────────────────
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     if (slugStatus === 'taken') {
-      toast.error('This username is already taken. Please choose another one.');
+      toast.error('This username is already taken.');
+      return;
+    }
+
+    if (!logoFile || !coverFile) {
+      toast.error('Logo and Cover photo are mandatory.');
       return;
     }
 
     try {
       setLoading(true);
-
-      const finalCategory =
-        values.category === 'Other' ? values.customCategory || 'Others' : values.category;
+      const finalCategory = values.business_category === 'Other' ? values.customCategory || 'Others' : values.business_category;
 
       const profileData = {
-        name:           values.name,
-        tagline:        values.tagline        || '',
-        slug:           values.slug.toLowerCase(),
-        category:       finalCategory,
-        bio:            values.bio            || '',
-        whatsapp:       values.whatsapp,
-        phone:          values.phone          || '',
-        address:        values.address        || '',
-        business_hours: values.business_hours || '',
-        maps_url:       values.maps_url       || '',
-        theme:          values.theme          || 'cinematic',
+        ...values,
+        business_category: finalCategory,
+        slug: values.slug.toLowerCase(),
       };
 
-      const newProfile = await profileService.createProfile(profileData, logoFile, coverFile);
-
+      const newProfile = await profileService.createProfile(profileData as any, logoFile, coverFile);
       if (newProfile.is_public) addProfileToState(newProfile);
 
-      toast.success('Profile submitted! Admin will verify and publish it shortly.');
-      setTimeout(() => router.push('/'), 3000);
+      toast.success('Registration Complete! Setting up your cinematic profile...');
+      setTimeout(() => router.push(`/${newProfile.slug}`), 2000);
     } catch (err: any) {
-      console.error(err);
-      toast.error(err.message || 'Failed to create business profile.');
+      toast.error(err.message || 'Failed to register business.');
     } finally {
       setLoading(false);
     }
   };
 
-  // ─── Render ──────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-zinc-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#050505] text-white py-12 px-4 sm:px-6 lg:px-8 selection:bg-[#0066FF]/30">
       <Toaster position="top-center" richColors />
-      <Card className="max-w-2xl mx-auto border-zinc-200 shadow-sm">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold tracking-tight">Register Your Business</CardTitle>
-          <CardDescription>
-            Fill in the details below to get your own{' '}
-            <span className="font-semibold text-zinc-700">locallify.in/[username]</span>. The Locallify team will verify and publish it.
-          </CardDescription>
-        </CardHeader>
+      
+      <div className="max-w-3xl mx-auto space-y-12">
+        {/* ─── HEADER ─── */}
+        <div className="text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0066FF]/10 border border-[#0066FF]/20 text-[#0066FF] text-xs font-black uppercase tracking-widest">
+            <Sparkles className="w-3 h-3" /> Locallify v2.0
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase">
+            Claim Your <span className="text-[#0066FF]">Digital Spotlight</span>
+          </h1>
+          <p className="text-zinc-400 text-lg max-w-xl mx-auto font-medium">
+            Join the elite businesses across India with a cinematic digital presence. Professional setup in 24 hours.
+          </p>
+        </div>
 
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-
-            {/* Business Name */}
-            <div className="grid gap-2">
-              <Label htmlFor="name">Business Name *</Label>
-              <Input id="name" placeholder="e.g. Trendy Salon" {...register('name')} />
-              {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          
+          {/* ─── BASIC IDENTITY ─── */}
+          <div className="bg-[#0c0c0c] border border-white/5 p-8 md:p-10 rounded-[40px] shadow-2xl space-y-8">
+            <div className="flex items-center gap-3">
+              <Globe className="w-5 h-5 text-[#0066FF]" />
+              <h3 className="text-sm font-black uppercase tracking-widest text-zinc-500">Business Identity</h3>
             </div>
 
-            {/* Username / Slug */}
-            <div className="grid gap-2">
-              <Label htmlFor="slug">Your Locallify Username *</Label>
-              <div className="relative">
-                <span className="absolute left-3 top-2.5 text-zinc-400 text-sm select-none">locallify.in/</span>
-                <Input
-                  id="slug"
-                  className="pl-[88px]"
-                  placeholder="sharma-hardware"
-                  {...register('slug')}
-                  onBlur={(e) => checkSlug(e.target.value)}
+            <div className="grid gap-8">
+              <div className="grid gap-3">
+                <Label htmlFor="business_name" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Business Name</Label>
+                <Input 
+                  id="business_name" 
+                  placeholder="e.g. The Trendy Salon" 
+                  className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" 
+                  {...register('business_name')} 
                 />
+                {errors.business_name && <p className="text-xs text-red-500 ml-1">{errors.business_name.message}</p>}
               </div>
 
-              {/* Slug Status */}
-              <div className="h-5 flex items-center gap-2">
-                {isSlugChecking && (
-                  <span className="flex items-center gap-1.5 text-xs text-zinc-500">
-                    <Loader2 className="w-3 h-3 animate-spin" /> Checking…
-                  </span>
-                )}
-                {!isSlugChecking && slugStatus === 'available' && (
-                  <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
-                    <CheckCircle2 className="w-3.5 h-3.5" /> Username available!
-                  </span>
-                )}
-                {!isSlugChecking && slugStatus === 'taken' && (
-                  <span className="flex items-center gap-1.5 text-xs font-semibold text-red-500">
-                    <AlertCircle className="w-3.5 h-3.5" /> Username already taken.
-                  </span>
-                )}
+              <div className="grid gap-3">
+                <Label htmlFor="slug" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Your Locallify URL</Label>
+                <div className="relative">
+                  <span className="absolute left-4 top-4 text-zinc-600 font-bold select-none">locallify.in/</span>
+                  <Input
+                    id="slug"
+                    className="pl-[105px] bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700"
+                    placeholder="your-business"
+                    {...register('slug')}
+                    onBlur={(e) => checkSlug(e.target.value)}
+                  />
+                </div>
+                <div className="flex justify-between items-center px-1">
+                  {isSlugChecking && <span className="text-[10px] text-zinc-500 flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin" /> Checking availability...</span>}
+                  {slugStatus === 'available' && <span className="text-[10px] text-[#0066FF] font-black uppercase tracking-widest flex items-center gap-1">Available!</span>}
+                  {slugStatus === 'taken' && <span className="text-[10px] text-red-500 font-black uppercase tracking-widest flex items-center gap-1">Taken</span>}
+                  <p className="text-[10px] text-zinc-600 font-medium">Use lowercase, numbers & hyphens only.</p>
+                </div>
               </div>
 
-              <p className="text-[10px] text-zinc-400">Only lowercase letters, numbers, and hyphens.</p>
-              {errors.slug && <p className="text-sm text-red-500">{errors.slug.message}</p>}
-            </div>
-
-            {/* Tagline */}
-            <div className="grid gap-2">
-              <Label htmlFor="tagline">Tagline</Label>
-              <Input id="tagline" placeholder="Short catchy phrase" {...register('tagline')} />
-            </div>
-
-            {/* Category */}
-            <div className="grid gap-2">
-              <Label>Category *</Label>
-              <Select
-                onValueChange={(value) => {
-                  setValue('category', value, { shouldValidate: true });
-                  setShowCustomCategory(value === 'Other');
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {CATEGORIES.map((cat) => (
-                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.category && <p className="text-sm text-red-500">{errors.category.message}</p>}
-            </div>
-
-            {showCustomCategory && (
-              <div className="grid gap-2 animate-in slide-in-from-top-2 duration-300">
-                <Label htmlFor="customCategory">Specify Category *</Label>
-                <Input id="customCategory" placeholder="e.g. Interior Design" {...register('customCategory')} />
-              </div>
-            )}
-
-            {/* Bio */}
-            <div className="grid gap-2">
-              <Label htmlFor="bio">Business Bio</Label>
-              <Textarea id="bio" placeholder="Tell us about your business..." rows={4} {...register('bio')} />
-              {errors.bio && <p className="text-sm text-red-500">{errors.bio.message}</p>}
-            </div>
-
-            {/* Contact */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="whatsapp">WhatsApp Number *</Label>
-                <Input id="whatsapp" placeholder="9876543210" {...register('whatsapp')} />
-                {errors.whatsapp && <p className="text-sm text-red-500">{errors.whatsapp.message}</p>}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="phone">Phone (Optional)</Label>
-                <Input id="phone" placeholder="9876543210" {...register('phone')} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid gap-3">
+                  <Label className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Category</Label>
+                  <Select onValueChange={(v) => { setValue('business_category', v); setShowCustomCategory(v === 'Other'); }}>
+                    <SelectTrigger className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF]"><SelectValue placeholder="Select Industry" /></SelectTrigger>
+                    <SelectContent className="bg-[#0c0c0c] border-white/10 text-white">
+                      {CATEGORIES.map(c => <SelectItem key={c} value={c} className="focus:bg-[#0066FF] focus:text-white">{c}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                  {showCustomCategory && (
+                    <Input placeholder="Specify Industry" className="bg-white/5 border-white/10 h-14 rounded-2xl mt-2" {...register('customCategory')} />
+                  )}
+                </div>
+                <div className="grid gap-3">
+                  <Label htmlFor="bio" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">One Line Bio (Max 150)</Label>
+                  <Input id="bio" placeholder="e.g. Best coffee shop in India since 2015" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('bio')} />
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* Address & Hours */}
-            <div className="space-y-4">
-              <div className="grid gap-2">
-                <Label htmlFor="address">Address</Label>
-                <Input id="address" placeholder="Store location" {...register('address')} />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="business_hours">Business Hours</Label>
-                <Textarea
-                  id="business_hours"
-                  placeholder="e.g. Mon–Sat: 9 AM–8 PM, Sun: Closed"
-                  rows={2}
-                  {...register('business_hours')}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="maps_url">Google Maps URL</Label>
-                <Input id="maps_url" placeholder="https://goo.gl/maps/..." {...register('maps_url')} />
-                {errors.maps_url && <p className="text-sm text-red-500">{errors.maps_url.message}</p>}
-              </div>
+          {/* ─── OWNER & CONTACT ─── */}
+          <div className="bg-[#0c0c0c] border border-white/5 p-8 md:p-10 rounded-[40px] shadow-2xl space-y-8">
+            <div className="flex items-center gap-3">
+              <Phone className="w-5 h-5 text-[#0066FF]" />
+              <h3 className="text-sm font-black uppercase tracking-widest text-zinc-500">Owner & Contact</h3>
             </div>
 
-            {/* Media */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-zinc-100">
-              <div className="grid gap-2">
-                <Label htmlFor="logo">Business Logo</Label>
-                <Input id="logo" type="file" accept="image/*" onChange={(e) => setLogoFile(e.target.files?.[0] || null)} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid gap-3">
+                <Label htmlFor="owner_name" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Owner Name</Label>
+                <Input id="owner_name" placeholder="Full Name" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('owner_name')} />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="cover">Cover Photo</Label>
-                <Input id="cover" type="file" accept="image/*" onChange={(e) => setCoverFile(e.target.files?.[0] || null)} />
+              <div className="grid gap-3">
+                <Label htmlFor="email_address" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Email Address</Label>
+                <Input id="email_address" type="email" placeholder="owner@email.com" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('email_address')} />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="whatsapp_number" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">WhatsApp Number</Label>
+                <Input id="whatsapp_number" placeholder="9876543210" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('whatsapp_number')} />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="phone_number" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Direct Call Number</Label>
+                <Input id="phone_number" placeholder="9876543210" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('phone_number')} />
               </div>
             </div>
+          </div>
 
-            {/* Theme */}
-            <div className="grid gap-2">
-              <Label>Design Theme</Label>
-              <Select onValueChange={(v) => setValue('theme', v)} defaultValue="cinematic">
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a theme" />
-                </SelectTrigger>
-                <SelectContent>
-                  {THEMES.map((t) => (
-                    <SelectItem key={t.id} value={t.id}>{t.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          {/* ─── LOCATION & HOURS ─── */}
+          <div className="bg-[#0c0c0c] border border-white/5 p-8 md:p-10 rounded-[40px] shadow-2xl space-y-8">
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-[#0066FF]" />
+              <h3 className="text-sm font-black uppercase tracking-widest text-zinc-500">Location & Timing</h3>
             </div>
 
-            {/* Submit */}
-            <Button type="submit" className="w-full bg-zinc-900 text-white text-sm font-bold py-6" disabled={loading}>
+            <div className="grid gap-8">
+              <div className="grid gap-3">
+                <Label htmlFor="full_address" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Shop Address</Label>
+                <Input id="full_address" placeholder="e.g. MG Road, Bengaluru, India" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('full_address')} />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="business_hours" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Business Hours (Today)</Label>
+                <Input id="business_hours" placeholder="e.g. 9:00 AM - 9:00 PM" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('business_hours')} />
+                <p className="text-[10px] text-zinc-600 font-medium ml-1">Format: HH:MM AM - HH:MM PM (e.g. 10:00 AM - 8:30 PM)</p>
+              </div>
+            </div>
+          </div>
+
+          {/* ─── SOCIALS & REVIEWS ─── */}
+          <div className="bg-[#0c0c0c] border border-white/5 p-8 md:p-10 rounded-[40px] shadow-2xl space-y-8">
+            <div className="flex items-center gap-3">
+              <Star className="w-5 h-5 text-[#0066FF]" />
+              <h3 className="text-sm font-black uppercase tracking-widest text-zinc-500">Growth Links (Optional)</h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid gap-3">
+                <Label htmlFor="instagram_handle" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Instagram Handle</Label>
+                <Input id="instagram_handle" placeholder="@username" className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('instagram_handle')} />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="google_review_link" className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Google Review Link</Label>
+                <Input id="google_review_link" placeholder="https://g.page/r/..." className="bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-[#0066FF] placeholder:text-zinc-700" {...register('google_review_link')} />
+              </div>
+            </div>
+          </div>
+
+          {/* ─── MEDIA ─── */}
+          <div className="bg-[#0c0c0c] border border-white/5 p-8 md:p-10 rounded-[40px] shadow-2xl space-y-8">
+            <div className="flex items-center gap-3">
+              <ImageIcon className="w-5 h-5 text-[#0066FF]" />
+              <h3 className="text-sm font-black uppercase tracking-widest text-zinc-500">Brand Assets</h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <Label className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Business Logo</Label>
+                <div className={`relative border-2 border-dashed rounded-3xl p-8 text-center transition-all ${logoFile ? 'border-[#0066FF]/50 bg-[#0066FF]/5' : 'border-white/10 hover:border-white/20'}`}>
+                  <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" onChange={(e) => setLogoFile(e.target.files?.[0] || null)} />
+                  <ImageIcon className={`w-8 h-8 mx-auto mb-2 ${logoFile ? 'text-[#0066FF]' : 'text-zinc-700'}`} />
+                  <p className="text-xs font-bold text-zinc-500">{logoFile ? logoFile.name : 'Click to upload logo'}</p>
+                  <p className="text-[10px] text-zinc-600 mt-1">Transparent PNG works best.</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <Label className="text-xs font-black uppercase tracking-widest ml-1 text-zinc-400">Cover Image</Label>
+                <div className={`relative border-2 border-dashed rounded-3xl p-8 text-center transition-all ${coverFile ? 'border-[#0066FF]/50 bg-[#0066FF]/5' : 'border-white/10 hover:border-white/20'}`}>
+                  <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" onChange={(e) => setCoverFile(e.target.files?.[0] || null)} />
+                  <ImageIcon className={`w-8 h-8 mx-auto mb-2 ${coverFile ? 'text-[#0066FF]' : 'text-zinc-700'}`} />
+                  <p className="text-xs font-bold text-zinc-500">{coverFile ? coverFile.name : 'Click to upload cover'}</p>
+                  <p className="text-[10px] text-zinc-600 mt-1">High-res landscape image.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-8">
+            <Button 
+              type="submit" 
+              className="w-full bg-[#0066FF] hover:bg-[#0052CC] text-white font-black py-10 rounded-[2.5rem] transition-all flex items-center justify-center gap-3 text-xl shadow-[0_20px_40px_rgba(0,102,255,0.2)] group" 
+              disabled={loading}
+            >
               {loading ? (
-                <span className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Submitting…</span>
+                <Loader2 className="w-8 h-8 animate-spin" />
               ) : (
-                'Submit Profile for Verification →'
+                <>
+                  START MY DIGITAL TRANSFORMATION
+                  <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                </>
               )}
             </Button>
-          </form>
-        </CardContent>
-      </Card>
-
-      <p className="mt-8 text-center text-xs text-zinc-400">© 2026 Locallify · All rights reserved.</p>
+            <p className="text-center text-zinc-500 text-[10px] font-black uppercase tracking-widest mt-6">
+              ₹499 Setup Fee · thereafter ₹999/month subscription to remain active · 24h Delivery
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

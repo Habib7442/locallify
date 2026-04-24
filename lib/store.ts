@@ -1,14 +1,15 @@
 import { create } from 'zustand';
 import { profileService } from './appwrite-service';
+import { BusinessProfile } from './types';
 
 interface BusinessState {
-  publicProfiles: any[];
+  publicProfiles: BusinessProfile[];
   isLoading: boolean;
   error: string | null;
   
   // Actions
   fetchPublicProfiles: () => Promise<void>;
-  addProfileToState: (profile: any) => void;
+  addProfileToState: (profile: BusinessProfile) => void;
 }
 
 export const useBusinessStore = create<BusinessState>((set) => ({

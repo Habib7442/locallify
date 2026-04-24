@@ -1,285 +1,158 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Menu, X, MapPin, Globe, Share2, Megaphone, Smartphone, Star,
-  CheckCircle2, ArrowRight, MessageCircle, Phone, ExternalLink,
-  Zap, Sparkles, BarChart, Users, Layout,  Link as LinkIcon
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Zap, MessageCircle, Star } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import CTA from "@/components/CTA";
 
 export default function About() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <div className="flex flex-col min-h-screen font-sans selection:bg-locallify-lime selection:text-black bg-white overflow-x-hidden">
-      {/* ─── NAVIGATION ────────────────────────────────────────────── */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-white py-4 shadow-xl border-b-4 border-black" : "bg-transparent py-6"}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="relative z-50 flex items-center gap-3">
-            <Image
-              src="/logo.png"
-              alt="Locallify"
-              priority
-              width={200}
-              height={200}
-              className="w-auto h-16 md:h-20 transition-all"
-            />
-            <span className="text-2xl md:text-3xl font-black tracking-tighter uppercase text-black">Locallify</span>
-          </Link>
-
-          <div className="hidden lg:flex items-center gap-6">
-            <div className={`flex gap-8 font-black uppercase text-xs tracking-widest ${isScrolled ? "text-black/70" : "text-black"}`}>
-              {["Services", "Portfolio", "Pricing", "About"].map((item) => (
-                <Link key={item} href={item === "About" ? "/about" : item === "Portfolio" ? "#portfolio" : `/#${item.toLowerCase()}`} className="hover:text-[#203EAA] transition-colors">
-                  {item}
-                </Link>
-              ))}
-            </div>
-            <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" 
-               className="bg-[#203EAA] text-white px-8 py-4 rounded-full text-xs font-black uppercase tracking-tighter shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:shadow-[8px_8px_0_0_rgba(0,0,0,1)] active:translate-y-[2px] transition-all">
-              Get Free Consultation
-            </a>
-          </div>
-
-          <button className="lg:hidden z-50 bg-black text-white p-4 rounded-full flex items-center justify-center" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </nav>
+    <div className="relative min-h-screen overflow-x-hidden selection:bg-[#0066FF] selection:text-white">
+      <Navbar />
 
       {/* ─── HERO SECTION ────────────────────────────────────────── */}
-      <section className="relative min-h-screen pt-48 pb-32 bg-[#203EAA] flex items-center text-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#D2E823] rounded-full blur-[300px] opacity-20 -translate-y-1/2 translate-x-1/2"></div>
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="max-w-5xl mx-auto"
-          >
-            <span className="text-[#D2E823] font-black uppercase tracking-[0.3em] mb-8 inline-block text-sm">Our Manifesto</span>
-            <h1 className="text-6xl md:text-[150px] font-black text-white leading-[0.85] tracking-tighter uppercase mb-12 select-none">
-              LOCAL <br /> IS THE NEW <br /><span className="text-[#D2E823]">GLOBAL.</span>
-            </h1>
-            <p className="text-xl md:text-3xl font-bold text-blue-100 max-w-3xl mx-auto leading-tight mb-20 italic-none">
-              We started with one mission: To give local Indian businesses the cinematic digital presence they deserve.
-            </p>
-            <div className="w-px h-32 bg-gradient-to-b from-[#D2E823] to-transparent mx-auto"></div>
-          </motion.div>
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 px-6 overflow-hidden bg-[#F0F7FF]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(0,102,255,0.05),transparent_70%)]"></div>
+        <div className="container mx-auto relative z-10">
+          <div className="max-w-5xl mx-auto text-center space-y-10">
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              className="space-y-8"
+            >
+              <span className="inline-block px-6 py-2 rounded-full bg-[#0066FF]/10 text-[#0066FF] text-xs font-black uppercase tracking-[0.3em]">
+                The Locallify Manifesto
+              </span>
+              <h1 className="text-4xl md:text-7xl font-black leading-[1.1] tracking-tighter text-zinc-900 uppercase">
+                LOCAL IS THE NEW <br /> <span className="text-[#0066FF]">GLOBAL.</span>
+              </h1>
+
+              <p className="text-lg md:text-xl font-medium text-zinc-600 max-w-2xl mx-auto leading-relaxed">
+                We are building the digital infrastructure for the next generation of <span className="text-zinc-900 font-bold">India&apos;s local legends.</span> High-end design, simplified for everyone.
+              </p>
+
+              <div className="flex flex-col items-center gap-4 pt-8">
+                 <div className="flex -space-x-3">
+                    {[1,2,3,4].map(i => (
+                      <div key={i} className="w-12 h-12 rounded-2xl border-4 border-[#F0F7FF] bg-zinc-100 overflow-hidden shadow-lg">
+                         <img src={`https://i.pravatar.cc/100?img=${i+20}`} alt="client" className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                    <div className="w-12 h-12 rounded-2xl border-4 border-[#F0F7FF] bg-[#0066FF] flex items-center justify-center text-white font-black text-xs shadow-lg">+50</div>
+                 </div>
+                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">Empowering Local Businesses Across India</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ─── THE MISSION BENTO ───────────────────────────────────── */}
-      <section className="py-32 bg-white border-y-8 border-black">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-6">
-            
-            <motion.div 
-              initial={{ x: -30, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              className="lg:col-span-7 bg-[#FF7DBC] border-4 border-black p-12 rounded-[60px] flex flex-col justify-center items-center text-center shadow-[15px_15px_0_0_rgba(0,0,0,1)]"
-            >
-              <h2 className="text-5xl md:text-7xl font-black text-black leading-none tracking-tighter uppercase mb-8">THE <br /> PROBLEM</h2>
-              <p className="text-xl md:text-2xl font-black text-black/60 leading-tight uppercase">
-                Most local businesses are invisible online. Not because they lack quality, but because they lack the digital infrastructure to compete with big giants.
-              </p>
-            </motion.div>
+      {/* ─── THE MISSION GRID ───────────────────────────────────── */}
+      <section className="py-20 md:py-32 bg-[#FDF2F8] relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,0,150,0.03),transparent_40%)]"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-6 md:gap-8">
 
-            <motion.div 
-              initial={{ x: 30, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              className="lg:col-span-5 bg-[#D2E823] border-4 border-black p-12 rounded-[60px] flex flex-col items-center justify-center text-center shadow-[15px_15px_0_0_rgba(0,0,0,1)]"
-            >
-              <h2 className="text-5xl md:text-7xl font-black text-[#203EAA] leading-none tracking-tighter uppercase mb-8">OUR <br /> EYES</h2>
-              <p className="text-xl font-black text-[#203EAA] uppercase leading-tight italic">
-                We don't see customers. We see masterpieces waiting to be digitalized.
-              </p>
-            </motion.div>
-
-            <motion.div 
+            {/* Box 1: The Problem */}
+            <motion.div
               initial={{ y: 30, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
-              className="lg:col-span-12 bg-black border-4 border-black p-16 rounded-[80px] flex flex-col items-center text-center text-white relative overflow-hidden group shadow-[20px_20px_0_0_rgba(32,62,170,1)]"
+              viewport={{ once: true }}
+              className="lg:col-span-7 bg-white border border-zinc-100 p-10 md:p-14 rounded-[3rem] relative overflow-hidden group shadow-lg"
             >
-               <div className="relative z-10">
-                 <h2 className="text-6xl md:text-[100px] font-black leading-[0.9] tracking-tighter uppercase mb-10">LOCALLIFY'S <br /><span className="text-[#D2E823]">SOUL.</span></h2>
-                 <p className="text-2xl font-bold text-white/50 max-w-4xl mx-auto leading-relaxed mb-12">
-                   Locallify was born out of a desire to level the playing field. Based in <span className="text-[#D2E823]">Silchar, India</span>, we help local enterprises across the country dominate their digital space with ROI-focused designs.
-                 </p>
-                 <div className="flex flex-wrap justify-center gap-4">
-                    {["Premium Design", "Business Growth", "Local Focus", "Speed", "Cinema Vibe"].map(tag => (
-                      <span key={tag} className="px-8 py-4 bg-white/10 rounded-full font-black uppercase text-xs tracking-widest border border-white/10 group-hover:bg-[#203EAA] transition-all">{tag}</span>
-                    ))}
-                 </div>
-               </div>
+              <div className="absolute -top-10 -right-10 p-12 text-zinc-100 group-hover:text-[#0066FF]/10 transition-colors">
+                <Zap size={200} strokeWidth={3} />
+              </div>
+              <div className="space-y-6 relative z-10">
+                <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none text-zinc-900">The Digital <br /> <span className="text-[#0066FF]">Gap.</span></h2>
+                <p className="text-base md:text-lg font-medium text-zinc-500 max-w-xl leading-relaxed">
+                  Local businesses are the backbone of our community, but they are often invisible online. Big agencies are too slow, and DIY tools are too complex. <span className="text-zinc-900 font-bold">Locallify was born in the North East to fix this.</span>
+                </p>
+              </div>
             </motion.div>
 
-          </div>
-        </div>
-      </section>
+            {/* Box 2: Done For You */}
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="lg:col-span-5 bg-[#0066FF] p-10 md:p-14 rounded-[3rem] flex flex-col justify-end group hover:bg-[#0055DD] transition-all duration-700 shadow-xl"
+            >
+              <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 text-white leading-none">DONE <br /> FOR <br /> YOU.</h3>
+              <p className="text-xs font-black uppercase tracking-[0.3em] text-white/50">Zero technical knowledge required. We handle everything.</p>
+            </motion.div>
 
-      {/* ─── WHY CHOOSE US ────────────────────────────────────────── */}
-      <section className="py-32 bg-[#E2C1E8] text-center">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto mb-20">
-            <h2 className="text-5xl md:text-8xl font-black text-black leading-[0.85] tracking-tighter uppercase mb-8">Why Businesses <br /><span className="text-[#203EAA]">Stuck</span> with Us</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { color: "bg-white", title: "Local Empathy", desc: "We don't impose generic templates. We understand the unique pulse of your local market." },
-              { color: "bg-[#203EAA]", text: "text-white", title: "Speed & Excellence", desc: "Premium doesn't mean slow. Our agile workflows ensure rapid delivery without compromises." },
-              { color: "bg-[#D2E823]", title: "Zero Jargon", desc: "Clear reporting. No confusing tech talk. Just results that you can see and measure." }
-            ].map((card, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                className={`${card.color} ${card.text || "text-black"} p-12 border-4 border-black rounded-[50px] shadow-[10px_10px_0_0_rgba(0,0,0,1)] flex flex-col items-center h-full`}
-              >
-                <div className="text-5xl mb-10">★</div>
-                <h3 className="text-3xl font-black leading-none uppercase tracking-tighter mb-6">{card.title}</h3>
-                <p className={`text-xl font-bold ${card.text ? "text-blue-100" : "text-black/60"} leading-tight`}>{card.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── READY TO GROW ────────────────────────────────────────── */}
-      <section className="py-32 bg-[#7E0707] text-white text-center">
-        <div className="container mx-auto px-6">
-           <h2 className="text-5xl md:text-8xl font-black mb-12 tracking-tighter uppercase leading-[0.9]">READY TO <br /> LEVEL UP?</h2>
-           <p className="text-2xl font-bold text-red-200 mb-16 max-w-2xl mx-auto leading-tight italic-none uppercase">Join 50+ local businesses scaling with cinematic digital presences.</p>
-           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-             <a href="https://wa.me/919957882204?text=Hi%20Locallify%2C%20I%20would%20like%20to%20get%20a%20free%20consultation." target="_blank" rel="noopener noreferrer" 
-                className="w-full sm:w-auto flex items-center justify-center bg-[#D2E823] text-black px-12 py-8 rounded-full text-2xl font-black shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:translate-y-[-4px] transition-all">
-               Get Consultation
-             </a>
-             <Link href="/onboarding" className="w-full sm:w-auto flex items-center justify-center bg-white text-black px-12 py-8 rounded-full text-2xl font-black shadow-[10px_10px_0_0_rgba(0,0,0,1)] hover:translate-y-[-4px] transition-all">
-               Join Today
-             </Link>
-           </div>
-        </div>
-      </section>
-
-      {/* ─── FOOTER ─────────────────────────────────────────────── */}
-      <footer className="bg-black text-white py-32 border-t-8 border-[#203EAA] text-center">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col items-center">
-             <div className="flex flex-col items-center mb-16">
-                <div className="flex items-center gap-4 mb-8">
-                   <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                     <Image src="/logo.png" alt="Locallify" width={80} height={80} className="w-auto h-12 brightness-0 invert" />
-                   </div>
-                   <span className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white">Locallify</span>
-                </div>
-                <p className="text-2xl md:text-3xl font-black uppercase tracking-tighter text-white/30 max-w-xl leading-none italic-none mb-10">
-                  PUTTING YOUR BUSINESS <br /> ON THE MAP SINCE DAY ONE.
+            {/* Box 3: The Platform */}
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              className="lg:col-span-12 bg-white border border-zinc-100 p-10 md:p-16 rounded-[3rem] flex flex-col md:flex-row items-center gap-12 md:gap-16 relative overflow-hidden group shadow-lg"
+            >
+              <div className="flex-1 space-y-6 relative z-10 text-center md:text-left">
+                <span className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-400">Locallify Pages v2.0</span>
+                <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-[0.9] text-zinc-900">World Class <br /> Design For <br /><span className="text-[#0066FF]">Local Legends.</span></h2>
+              </div>
+              <div className="flex-1 space-y-8 relative z-10">
+                <p className="text-base md:text-lg font-bold text-zinc-600 leading-relaxed">
+                  We&apos;ve moved beyond being just an agency. Locallify is now a high-performance platform that delivers One Page &amp; Custom Websites for just ₹499.
                 </p>
-                
-                {/* Social Icons */}
-                <div className="flex gap-6 justify-center">
-                  {[
-                    { icon: <LinkIcon className="w-8 h-8" />, label: "Instagram", href: "https://www.instagram.com/locallify26/" },
-                    { icon: <Globe className="w-8 h-8" />, label: "Website", href: "/" },
-                    { icon: <MessageCircle className="w-8 h-8" />, label: "WhatsApp", href: "https://wa.me/919957882204" }
-                  ].map((social, i) => (
-                    <a 
-                      key={i} 
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-16 h-16 rounded-[22px] bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#D2E823] hover:text-black hover:border-[#D2E823] hover:translate-y-[-5px] transition-all duration-300"
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
+                <div className="grid grid-cols-2 gap-8 pt-8 border-t border-zinc-100">
+                   <div className="space-y-1">
+                     <p className="text-4xl md:text-5xl font-black tracking-tighter text-zinc-900">50+</p>
+                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Active Pages</p>
+                   </div>
+                   <div className="space-y-1">
+                     <p className="text-4xl md:text-5xl font-black tracking-tighter text-zinc-900">24H</p>
+                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Setup Guarantee</p>
+                   </div>
                 </div>
-             </div>
-             
-             <div className="grid grid-cols-2 md:grid-cols-2 gap-x-24 gap-y-12 w-full max-w-2xl border-y-2 border-white/5 py-16">
-               <div className="flex flex-col items-center">
-                  <h4 className="text-xs font-black uppercase tracking-[0.4em] text-[#D2E823] mb-8">Navigation</h4>
-                  <ul className="space-y-4 text-xl md:text-2xl font-black uppercase tracking-tighter">
-                    <li><Link href="/about" className="hover:text-[#D2E823] transition-colors">About Us</Link></li>
-                    <li><Link href="#portfolio" className="hover:text-[#D2E823] transition-colors">Portfolio</Link></li>
-                    <li><Link href="#pricing" className="hover:text-[#D2E823] transition-colors">Pricing</Link></li>
-                  </ul>
-               </div>
-               <div className="flex flex-col items-center">
-                  <h4 className="text-xs font-black uppercase tracking-[0.4em] text-[#D2E823] mb-8">Get In Touch</h4>
-                  <ul className="space-y-4 text-xl md:text-2xl font-black uppercase tracking-tighter">
-                    <li className="hover:text-[#D2E823] transition-colors">+91 60001 63450</li>
-                    <li className="hover:text-[#D2E823] transition-colors uppercase">business@locallify.in</li>
-                    <li className="text-white/40">Silchar, India</li>
-                  </ul>
-               </div>
-             </div>
-
-             <div className="pt-16 flex flex-col md:flex-row justify-between items-center gap-8 font-black uppercase tracking-[0.2em] text-[10px] text-white/20">
-                <span>© 2026 LOCALLIFY — ALL RIGHTS RESERVED</span>
-                <div className="flex gap-8">
-                  <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-                  <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-                </div>
-                <span>MADE BY THE LOCALLIFY TEAM</span>
-             </div>
+              </div>
+            </motion.div>
           </div>
         </div>
-      </footer>
-      
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ x: "100%" }} 
-            animate={{ x: 0 }} 
-            exit={{ x: "100%" }} 
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 bg-[#D2E823] z-[100] flex flex-col p-10 overflow-y-auto items-center text-center"
-          >
-            <div className="flex justify-between items-center w-full mb-20">
-               <div className="flex items-center gap-3">
-                 <Image src="/logo.png" alt="Locallify" width={140} height={140} className="h-12 w-auto" />
-                 <span className="text-xl font-black uppercase text-black">Locallify</span>
+      </section>
+
+      {/* ─── OUR GUIDING PRINCIPLES ───────────────────────────── */}
+      <section className="py-20 md:py-32 bg-[#F0FDF4] relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(37,211,102,0.03),transparent_40%)]"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col items-center text-center mb-16 gap-8">
+            <div className="space-y-4">
+              <span className="text-[#0066FF] font-black text-xs uppercase tracking-[0.4em]">Our Philosophy</span>
+              <h2 className="text-3xl md:text-5xl font-black leading-tight tracking-tight uppercase text-zinc-900">The Elite <span className="text-zinc-400">Standard.</span></h2>
+            </div>
+            <Link href="/portfolio" className="group flex items-center gap-3 text-sm font-black uppercase tracking-widest text-zinc-500 hover:text-[#0066FF] transition-colors">
+              VIEW OUR WORK <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform text-[#0066FF]" />
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+             {[
+               { icon: <Zap className="w-6 h-6" />, title: "Invisible Tech", desc: "You shouldn't have to learn a dashboard. We manage everything via WhatsApp so you can focus on your business." },
+               { icon: <Star className="w-6 h-6" />, title: "Cinematic Aesthetics", desc: "We believe local businesses deserve the same high-end design as global brands. No generic templates." },
+               { icon: <MessageCircle className="w-6 h-6" />, title: "Lead Obsessed", desc: "A website is useless if it doesn't bring customers. Every page we build is a conversion engine." }
+             ].map((item, i) => (
+               <div key={i} className="bg-white border border-zinc-100 p-10 md:p-12 rounded-[3rem] hover:border-[#0066FF]/20 transition-all duration-500 group shadow-lg">
+                 <div className="w-14 h-14 bg-[#0066FF]/5 text-[#0066FF] rounded-2xl flex items-center justify-center mb-8 group-hover:bg-[#0066FF] group-hover:text-white transition-all">
+                   {item.icon}
+                 </div>
+                 <div className="text-[#0066FF] font-black text-3xl mb-6 tracking-tighter">0{i+1}</div>
+                 <h3 className="text-xl font-black uppercase mb-4 leading-tight tracking-tighter text-zinc-900">{item.title}</h3>
+                 <p className="text-sm font-medium text-zinc-500 leading-relaxed">{item.desc}</p>
                </div>
-               <button onClick={() => setIsMobileMenuOpen(false)} className="bg-black text-white p-4 rounded-full">
-                 <X className="w-6 h-6" />
-               </button>
-            </div>
-            <div className="flex flex-col gap-6 w-full">
-               {["Services", "Portfolio", "Pricing", "About"].map(item => (
-                 <Link 
-                   key={item} 
-                   href={item === "About" ? "/about" : item === "Portfolio" ? "#portfolio" : `/#${item.toLowerCase()}`} 
-                   onClick={() => setIsMobileMenuOpen(false)} 
-                   className="text-6xl font-black text-[#203EAA] tracking-tighter uppercase leading-none hover:scale-105 transition-transform"
-                 >
-                   {item}
-                 </Link>
-               ))}
-               <hr className="border-black/10 my-4" />
-               <Link href="/onboarding" onClick={() => setIsMobileMenuOpen(false)} className="text-4xl font-black text-black tracking-tighter uppercase leading-none">Register Biz</Link>
-               <a href="https://wa.me/919957882204" onClick={() => setIsMobileMenuOpen(false)} className="text-4xl font-black text-[#203EAA] tracking-tighter uppercase leading-none underline">Consultation</a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      <CTA />
+      <Footer />
     </div>
   );
 }
