@@ -138,7 +138,7 @@ export default function HomePage() {
                 Thereafter ₹999/month <br /> to keep page active
               </p>
               <ul className="space-y-4 text-[10px] font-black uppercase tracking-widest text-zinc-500 text-left">
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> 1 Page (locallify.in/your-name)</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> 1 Page (locallify.in/businessname)</li>
                  <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> Locallify Branding Included</li>
                  <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> 1 Business QR Card</li>
                  <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> WhatsApp Inquiry Button</li>
