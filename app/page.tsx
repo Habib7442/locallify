@@ -138,9 +138,10 @@ export default function HomePage() {
                 Thereafter ₹999/month <br /> to keep page active
               </p>
               <ul className="space-y-4 text-[10px] font-black uppercase tracking-widest text-zinc-500 text-left">
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> 1 Page (locallify.in/business-name)</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> 1 Page (locallify.in/your-name)</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> Locallify Branding Included</li>
                  <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> 1 Business QR Card</li>
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> WhatsApp Link Flow</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> WhatsApp Inquiry Button</li>
               </ul>
               <a href="https://wa.me/919957882204?text=Hi%20Locallify!%20I'm%20interested%20in%20the%20Starter%20Plan%20(%E2%82%B9499%20first%20month).%20Please%20help%20me%20set%20up%20my%20One%20Page%20or%20Custom%20Website." target="_blank" className="block w-full py-5 rounded-2xl border-2 border-zinc-100 text-zinc-900 font-black uppercase tracking-widest hover:bg-zinc-50 transition-all">Get Started</a>
             </div>
@@ -155,10 +156,10 @@ export default function HomePage() {
               <div className="text-6xl font-black tracking-tighter">₹9,999</div>
               <p className="text-[10px] font-black uppercase tracking-widest text-white/80">Active Presence Plan</p>
               <ul className="space-y-4 text-[10px] font-black uppercase tracking-widest text-white/70 text-left">
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Advanced Page Layout</li>
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Managed Google Profile</li>
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Live Status Engine</li>
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> 24/7 Support</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Professional Website</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Your Own Custom Domain</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> Managed Google Presence</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-white" /> 24/7 Priority Support</li>
               </ul>
               <a href="https://wa.me/919957882204?text=Hi%20Locallify!%20I'm%20interested%20in%20the%20Growth%20Plan%20(%E2%82%B99,999).%20Please%20help%20me%20set%20up%20my%20full%20digital%20presence." target="_blank" className="block w-full py-5 rounded-2xl bg-black text-white font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">Start Growth</a>
             </div>
@@ -172,7 +173,9 @@ export default function HomePage() {
               <div className="text-6xl font-black text-zinc-900 tracking-tighter">₹19,999</div>
               <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500 italic">Full Digital Suite</p>
               <ul className="space-y-4 text-[10px] font-black uppercase tracking-widest text-zinc-500 text-left">
-                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> Custom Lead Funnel</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> High-Converting Sales Flow</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> Custom Domain Included</li>
+                 <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> Competitor Business Analysis</li>
                  <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> 12 Social Media Posts</li>
                  <li className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-[#0066FF]" /> Performance Reports</li>
               </ul>
