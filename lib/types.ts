@@ -21,3 +21,24 @@ export interface BusinessProfile {
   is_verified: boolean;
   is_active: boolean;
 }
+export interface Project {
+  $id: string;
+  $createdAt: string;
+  $updatedAt: string;
+  title: string;
+  thumbnail: string; // File ID
+  live_url: string;
+  description: string;
+  is_public: boolean;
+  status: 'ongoing' | 'completed';
+  tags: string[];
+}
+
+export interface Review {
+  $id: string;
+  $createdAt: string;
+  name: string;
+  review: string;
+  rating: number;
+  is_published: boolean;
+}

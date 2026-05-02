@@ -18,7 +18,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = ["Services", "Portfolio", "Pricing", "About"];
+  const navItems = ["Services", "Portfolio", "Pricing", "Reviews", "About"];
 
   const socials = [
     { icon: "/social-icons/instagram.png", href: "https://www.instagram.com/locallify.in/" },
@@ -43,7 +43,7 @@ export default function Navbar() {
               {navItems.map((item) => (
                 <Link 
                   key={item} 
-                  href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : `/#${item.toLowerCase()}`} 
+                  href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : item === "Reviews" ? "/reviews" : `/#${item.toLowerCase()}`} 
                   className="hover:text-[#0066FF] transition-colors relative group"
                 >
                   {item}
@@ -78,7 +78,7 @@ export default function Navbar() {
                {navItems.map(item => (
                  <Link 
                    key={item} 
-                   href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : `/#${item.toLowerCase()}`} 
+                   href={item === "About" ? "/about" : item === "Portfolio" ? "/portfolio" : item === "Reviews" ? "/reviews" : `/#${item.toLowerCase()}`} 
                    onClick={() => setIsMobileMenuOpen(false)} 
                    className="text-4xl font-black text-zinc-900 uppercase tracking-tighter hover:text-[#0066FF] transition-colors"
                  >

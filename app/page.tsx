@@ -8,8 +8,21 @@ import { ArrowRight, CheckCircle2, MessageCircle, Star, Shield, Zap } from "luci
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
+import ReviewsMarquee from "@/components/ReviewsMarquee";
+import { reviewService } from "@/lib/appwrite-service";
+import { Review } from "@/lib/types";
 
 export default function HomePage() {
+  const [reviews, setReviews] = React.useState<Review[]>([]);
+
+  React.useEffect(() => {
+    const fetchReviews = async () => {
+      const data = await reviewService.getPublishedReviews(10);
+      setReviews(data);
+    };
+    fetchReviews();
+  }, []);
+
   return (
     <div className="relative min-h-screen overflow-x-hidden selection:bg-[#0066FF] selection:text-white">
       <Navbar />
@@ -184,6 +197,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <ReviewsMarquee reviews={reviews} />
 
       <CTA />
       <Footer />
