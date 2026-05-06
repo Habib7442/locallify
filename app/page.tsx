@@ -1,28 +1,12 @@
-'use client';
-
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, MessageCircle, Star, Shield, Zap } from "lucide-react";
+import { CheckCircle2, MessageCircle, Star, Shield, Zap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
-import ReviewsMarquee from "@/components/ReviewsMarquee";
-import { reviewService } from "@/lib/appwrite-service";
-import { Review } from "@/lib/types";
+import ReviewsContainer from "@/components/ReviewsContainer";
+import HeroContent from "@/components/HeroContent";
 
 export default function HomePage() {
-  const [reviews, setReviews] = React.useState<Review[]>([]);
-
-  React.useEffect(() => {
-    const fetchReviews = async () => {
-      const data = await reviewService.getPublishedReviews(10);
-      setReviews(data);
-    };
-    fetchReviews();
-  }, []);
-
   return (
     <div className="relative min-h-screen overflow-x-hidden selection:bg-[#0066FF] selection:text-white">
       <Navbar />
@@ -31,34 +15,7 @@ export default function HomePage() {
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 px-6 overflow-hidden bg-[#F0F7FF]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(0,102,255,0.05),transparent_70%)]"></div>
         <div className="container mx-auto text-center relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-8 max-w-5xl mx-auto"
-          >
-            <span className="inline-block px-6 py-2 rounded-full bg-[#0066FF]/10 text-[#0066FF] text-xs font-black uppercase tracking-[0.3em] animate-pulse">
-              India's New Local Standard
-            </span>
-            <h1 className="text-4xl md:text-7xl font-black leading-[1.1] tracking-tighter text-zinc-900">
-              CLAIM YOUR <br />
-              <span className="text-[#0066FF]">DIGITAL SPOTLIGHT</span>
-            </h1>
-            <p className="text-lg md:text-xl font-medium text-zinc-600 max-w-2xl mx-auto leading-relaxed">
-              We build your <span className="text-[#0066FF] font-bold">One Page & Custom Websites</span>, manage your Google presence, and deliver leads to your WhatsApp. <span className="font-bold text-zinc-900 underline decoration-[#0066FF]/30">Starter plan (for single page) at ₹499, thereafter ₹999/month to remain active.</span>
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
-              <a href="https://wa.me/919957882204?text=Hi%20Locallify!%20I%20want%20to%20claim%20my%20digital%20spotlight%20and%20get%20started%20with%20a%20One%20Page%20or%20Custom%20Website." target="_blank" className="w-full sm:w-auto bg-[#0066FF] text-white px-8 py-4 md:px-10 md:py-5 rounded-full text-lg font-black shadow-[0_20px_40px_rgba(0,102,255,0.2)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3">
-                GET STARTED NOW <ArrowRight className="w-5 h-5" />
-              </a>
-              <a href="https://wa.me/919957882204?text=Hi%20Locallify!%20I'd%20like%20to%20talk%20to%20an%20expert%20about%20my%20business%20presence." target="_blank" className="w-full sm:w-auto bg-white border-2 border-zinc-100 text-zinc-900 px-8 py-4 md:px-10 md:py-5 rounded-full text-lg font-black hover:bg-zinc-50 transition-all flex items-center justify-center gap-4 group shadow-sm">
-                <div className="relative w-6 h-6 group-hover:scale-110 transition-transform">
-                  <Image src="/social-icons/whatsapp.png" alt="WhatsApp" fill sizes="24px" className="object-contain" />
-                </div> 
-                TALK TO US
-              </a>
-            </div>
-          </motion.div>
+          <HeroContent />
         </div>
       </section>
 
@@ -198,7 +155,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ReviewsMarquee reviews={reviews} />
+      <ReviewsContainer />
 
       <CTA />
       <Footer />

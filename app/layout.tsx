@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
-import AppwritePing from "@/components/AppwritePing";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -85,7 +84,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col font-plus-jakarta text-zinc-900 bg-white selection:bg-[#0066FF] selection:text-white">
-        <AppwritePing />
         <main className="flex-grow">
           {children}
         </main>
