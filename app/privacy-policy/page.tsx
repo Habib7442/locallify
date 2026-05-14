@@ -1,45 +1,52 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function PrivacyPolicy() {
+  const lastUpdated = "May 2026";
+
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-[#0066FF] selection:text-white">
+    <div className="min-h-screen bg-bg-primary text-text-primary">
       <Navbar />
-      <main className="pt-32 pb-20 px-6">
+      <main className="pt-40 pb-24 px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="space-y-4 mb-16 text-center">
-            <span className="inline-block px-6 py-2 rounded-full bg-[#0066FF]/10 text-[#0066FF] text-xs font-black uppercase tracking-[0.3em]">Legal</span>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-zinc-900">Privacy <span className="text-[#0066FF]">Policy.</span></h1>
-            <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Last Updated: April 2024</p>
+          
+          {/* Header */}
+          <div className="mb-20">
+            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary mb-6 block">
+              Legal Framework
+            </span>
+            <h1 className="font-display italic text-5xl md:text-8xl leading-[0.9] tracking-tight text-text-primary mb-8">
+              Privacy <br /> 
+              <span className="text-text-muted not-italic">Policy.</span>
+            </h1>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
+              Last Updated: {lastUpdated}
+            </p>
           </div>
 
-          <div className="prose prose-zinc max-w-none space-y-12">
+          {/* Content */}
+          <div className="space-y-16">
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">1. Introduction</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                At Locallify, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our website and services.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">1. Data Sovereignty</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                At Locallify, your business data is yours. We collect only what is essential to provide elite digital services. This policy outlines how we handle information across our storefronts, WhatsApp integrations, and management tools.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">2. Information We Collect</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                We collect information that you provide directly to us, such as when you create an account, request a quote, or contact us through WhatsApp. This may include your name, email address, phone number, and business details.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">2. Information Collection</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg mb-6">
+                We collect information directly provided by you during onboarding and through your customers&apos; interactions with your shop:
               </p>
-            </section>
-
-            <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">3. How We Use Your Information</h2>
-              <ul className="list-none space-y-4">
+              <ul className="space-y-4">
                 {[
-                  "To provide, maintain, and improve our services.",
-                  "To communicate with you regarding your projects and requests.",
-                  "To send you technical notices, updates, and security alerts.",
-                  "To analyze trends and usage of our platform."
+                  "Business details (Name, Address, Category)",
+                  "Contact information for WhatsApp lead routing",
+                  "Operational data for Google Business Profile optimization",
+                  "Anonymized usage metrics to improve storefront performance"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-4 text-zinc-600 font-medium">
-                    <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full bg-[#0066FF]"></span>
+                  <li key={i} className="flex items-start gap-4 text-text-muted">
+                    <span className="w-1.5 h-1.5 mt-2 rounded-full bg-accent-primary flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -47,22 +54,28 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">4. Data Security</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                We implement a variety of security measures to maintain the safety of your personal information. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">3. WhatsApp & Leads</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                Our platform routes leads directly to your WhatsApp. Locallify does not store your customer conversations. We provide the bridge; you own the relationship.
               </p>
             </section>
 
-            <section className="space-y-6 border-t border-zinc-100 pt-12">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">Contact Us</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                If you have any questions about this Privacy Policy, please contact us at <span className="text-[#0066FF] font-bold">locallify26@gmail.com</span>.
+            <section className="space-y-6">
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">4. Security</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                We use industry-standard encryption and secure cloud infrastructure (Appwrite) to protect your business profile data. Access is strictly limited to the Locallify engineering team for maintenance and optimization.
+              </p>
+            </section>
+
+            <section className="space-y-8 pt-12 border-t border-border-subtle">
+              <h2 className="font-display italic text-4xl text-text-primary">Questions?</h2>
+              <p className="text-text-secondary leading-relaxed text-lg max-w-xl">
+                If you have concerns about your data or wish to request deletion, contact our compliance team at <span className="text-accent-primary font-medium">locallify26@gmail.com</span>.
               </p>
             </section>
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

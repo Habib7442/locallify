@@ -118,15 +118,21 @@ export const profileService = {
 
 export const projectService = {
   // Get all public projects
-  async getPublicProjects(): Promise<Project[]> {
+  async getPublicProjects(status?: 'ongoing' | 'completed'): Promise<Project[]> {
     try {
+      const queries = [
+        Query.equal('is_public', true),
+        Query.orderDesc('$createdAt')
+      ];
+
+      if (status) {
+        queries.push(Query.equal('status', status));
+      }
+
       const response = await tablesDB.listRows({
         databaseId: DATABASE_ID,
         tableId: PROJECTS_COLLECTION_ID,
-        queries: [
-          Query.equal('is_public', true),
-          Query.orderDesc('$createdAt')
-        ]
+        queries
       });
       return response.rows.map(row => ({ ...row })) as unknown as Project[];
     } catch (error) {

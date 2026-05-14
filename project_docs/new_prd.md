@@ -1,561 +1,617 @@
-# LOCALLIFY — Final Product Requirements Document
-**Version:** 2.0 — Final MVP  
-**Author:** Habib / Locallify  
-**Date:** April 2026  
-**Status:** Ready To Build  
+# Locallify Website v2 — Product Requirements Document
+
+**Document:** PRD.md
+**Version:** 1.0
+**Date:** May 2026
+**Owner:** Locallify founding team
+**Status:** Ready for build
 
 ---
 
-## 1. One Line Summary
+## 0. TL;DR
 
-> **Locallify is a monthly subscription platform that gives Indian local businesses a complete digital presence — a branded page, WhatsApp lead system, UPI payments, QR code, Google Review system, printable business card, and AI social media creatives — all managed through WhatsApp, with zero tech knowledge required.**
+Rebuild locallify.in into a $50,000-caliber marketing site that looks like it was made by a top Indian indie studio (Obys-tier, Active Theory-tier, Linear-tier) — not a Wix template. The design language is **"Voltage"**: deep midnight base, electric lime accent, magazine-grade variable typography, scroll-triggered motion, bento grids, and unapologetic Gen-Z confidence under a professional skin.
+
+The site must communicate three things in under three seconds:
+
+1. **What you do** — get local shops found on Google and ringing on WhatsApp.
+2. **Who you are** — Made in the North East, building India's local-business stack.
+3. **Why it matters** — outcomes (more customers), not features (a website).
 
 ---
 
-## 2. The Problem
+## 1. Brand Vision
 
-Small local businesses in India — restaurants, salons, shops, clinics, coaching centres — are invisible online.
+### 1.1 Positioning sentence
 
-When a customer searches "salon near me" or "restaurant in Silchar" on Google, these businesses do not appear. Not because they are bad. Because they have no digital presence.
+> Locallify is the digital storefront for India's local legends. We get your shop found on Google and turn searches into WhatsApp messages — for the price of one Zomato ad.
 
-### Why Existing Solutions Fail Them
+### 1.2 Brand personality
 
-| Solution | Why It Fails |
+| Trait | What it means in design and copy |
 |---|---|
-| Full website | Too expensive (₹15,000+), too complex to manage |
-| Linktree | Built for global creators, no UPI, no WhatsApp, no Indian languages |
-| Justdial | They own your customer, you get nothing |
-| Google Business Profile | Hard to set up, no design, no store features |
-| Stan Store | Built for global creators, priced in dollars |
-| CONNECTit / review tools | Only solve one problem, not full presence |
+| **Audacious** | Big type, sharp angles, no apologies. Pricing on the home page, not behind a contact form. |
+| **Earned** | Numbers, case studies, real customer faces. Every claim has receipts. |
+| **Local** | "Made in the North East" treated as a banner, not a footnote. Bilingual touches (Hindi, Assamese, Manipuri scripts) used as design elements. |
+| **Modern** | Variable fonts, scroll motion, gradient meshes, bento grids — current state-of-the-art web craft. |
+| **Useful** | Every interaction earns its place. No animation for animation's sake. |
 
-### The Real Gap
+### 1.3 What this is NOT
 
-Nobody has built a simple, affordable, WhatsApp-first complete digital presence product specifically for small Indian businesses — priced in rupees, delivered in their language, requiring zero tech knowledge.
-
----
-
-## 3. The Solution — Locallify Pages
-
-A hosted business profile at `locallify.in/businessname` that gives every local Indian business:
-
-- A beautiful mobile-first page they can share anywhere
-- WhatsApp-first lead delivery — no dashboards, no logins
-- UPI payment collection from their page
-- Google Review QR code for their counter
-- Print-ready visiting card with QR code
-- 4 AI-generated branded social media posts every month
-
-Everything delivered through WhatsApp. Everything in their language. Everything for ₹999/month.
+- Not corporate-cream editorial (you have that already, it's beige).
+- Not cyberpunk-neon (cliché, off-brand for local businesses).
+- Not Wix-templated SaaS landing (everyone has that).
+- Not over-animated (no full-screen WebGL on hero — performance kills you in tier-2 India on 4G).
 
 ---
 
-## 4. Target Users
+## 2. Target Audience
 
-### Primary — Local Business Owner
-- Restaurants, dhabas, salons, beauty parlours, coaching institutes, clinics, retail shops, sweet shops, property dealers, service providers
-- Location: Silchar, Guwahati, and Tier 2/3 cities across Assam and NE India — expanding to all India
-- Age: 25–55
-- Tech comfort: Low — comfortable with WhatsApp and Instagram only
-- Language: Assamese, Bengali, Hindi, or English
-- Budget: ₹500–₹1,500/month comfortable range
+### 2.1 Primary visitor — the local-business owner
 
-### Secondary — Locallify Team (Internal)
-- Habib and team who onboard, build, and manage pages
-- Need a fast, templated workflow to deliver pages within 24 hours of payment
+- Age 28–55, owns a salon/gym/dental clinic/tuition center/restaurant in a tier-2 or tier-3 Indian city.
+- Mobile-first (95%+ of traffic from Android, average device a sub-₹20,000 phone).
+- Decision time: minutes, not weeks. If the site is slow or confusing, they leave.
+- Comfort with English: medium. Copy must be plain English, Hinglish-friendly, never jargon.
 
-### End User — Business Customer (Visitor)
-- Person who receives a Locallify page link via WhatsApp, Instagram bio, or QR scan
-- Needs to find contact info, location, hours, and reach the business instantly
-- Must work perfectly on a mobile phone
+### 2.2 Secondary visitor — collaborator / partner / hire
 
----
+- Looking at the site to decide if Locallify is "the real deal."
+- Will judge the company by the website's design quality alone.
+- This is why we are investing in a $50K-caliber design.
 
-## 5. Pricing — Paid Only From Day 1
+### 2.3 Tertiary visitor — Indian small-business Twitter / Indie Hackers
 
-No free plan. No trial. No exceptions.
-
-| | First Month | Month 2 Onwards |
-|---|---|---|
-| **Price** | ₹499 | ₹999/month |
-| **Why** | Low barrier to start | Full recurring revenue |
-
-### Psychological Logic
-- ₹499 removes hesitation — easy to say yes
-- After one month they have QR codes printed, cards distributed, page live
-- Cancelling costs them more than ₹999 — so they stay
-- ₹999/month feels justified once they see value
-
-### Payment Collection
-- Month 1: Send UPI ID or Razorpay link on WhatsApp — client pays — page live in 24 hours
-- Month 2+: WhatsApp reminder on day 25 — client pays — subscription continues
-- Non-payment: Page goes offline on day 7 — data preserved — reactivates on payment
-
-### If Page Goes Offline
-```
-Page shows: "This business is currently inactive.
-Contact them directly or visit locallify.in"
-```
-Their printed QR codes still point to this URL — creating urgency to reactivate.
+- A press-worthy site gets shared. The "show HN/Twitter" moment is real demand-gen.
+- Design has to be screenshot-worthy.
 
 ---
 
-## 6. Core Features — MVP Only
+## 3. Goals & KPIs
 
-These 7 features and nothing else until 50+ paying clients.
+### 3.1 Site goals (in priority order)
 
----
+1. **Convert visitors to WhatsApp inquiries** — primary CTA on every page.
+2. **Establish credibility** — case studies, live examples, founder presence.
+3. **Rank for local-business SEO terms** — long-tail tier-2 city queries.
+4. **Be share-worthy** — a site indie founders screenshot and post.
 
-### Feature 1 — Business Profile Page
+### 3.2 Measurable KPIs
 
-**What:** A beautiful mobile-first business page at `locallify.in/businessname`
-
-**Includes:**
-- Business name, logo, cover photo
-- Category tag (Restaurant / Salon / Shop / Coaching / Clinic / etc.)
-- Short bio — max 150 characters
-- Business hours with live Open Now / Closed badge (IST timezone)
-- Google Maps embed with Get Directions button
-- Social media links (Instagram, Facebook, YouTube)
-- "Powered by Locallify" footer — subtle branding
-
-**Design:** Cinematic, premium, dark-navy aesthetic — NOT generic Linktree cards. Every page must look designed, not auto-generated.
-
-**URL Structure:**
-```
-locallify.in/sharma-restaurant-silchar
-locallify.in/trendy-salon-guwahati
-locallify.in/icon-coaching-silchar
-```
-
----
-
-### Feature 2 — WhatsApp Contact Button
-
-**What:** One-tap WhatsApp button — most prominent element on the page
-
-**How it works:**
-- Large green WhatsApp button above the fold on every page
-- Pre-filled message: "Hi! I found you on Locallify 👋"
-- Opens WhatsApp directly — no app install needed
-- Tracks click count (shown in owner dashboard later)
-
-**Cost:** ₹0 — uses wa.me link, no API needed
-
----
-
-### Feature 3 — Lead Capture Form → WhatsApp Delivery
-
-**What:** Simple enquiry form that delivers leads instantly to owner's WhatsApp
-
-**Form fields:**
-```
-Name: [____________]
-Phone: [____________]
-Message: [____________]
-[Send on WhatsApp →]
-```
-
-**How it works:**
-1. Customer fills 3 fields
-2. Clicks Send on WhatsApp
-3. WhatsApp opens on customer's phone — pre-filled with formatted message
-4. Customer taps Send
-5. Owner receives on their WhatsApp instantly
-
-**Message format owner receives:**
-```
-🔔 New Lead — Locallify
-━━━━━━━━━━━━━━━
-👤 Name: Rahul Kumar
-📞 Phone: 9876543210
-💬 Message: Table for 2 tonight at 8pm
-🔗 Page: locallify.in/sharma-restaurant
-🕐 Time: 23 Apr 2026, 7:30 PM IST
-━━━━━━━━━━━━━━━
-Reply to connect with your lead.
-```
-
-**Technical implementation:**
-```javascript
-const waMessage = `New Lead from Locallify
-Name: ${name}
-Phone: ${phone}  
-Message: ${message}`
-
-const waLink = `https://wa.me/91${ownerNumber}
-?text=${encodeURIComponent(waMessage)}`
-
-window.open(waLink)
-```
-
-**Cost:** ₹0 — pure frontend, no backend, no API
-
----
-
-### Feature 4 — UPI Payment Button (Phase 2 — Coming Soon)
-
-**What:** One-tap UPI payment from the Locallify page
-
-**Status:** Not in MVP. To be added once 20+ clients are onboarded.
-
-**How it will work:**
-- Owner adds their UPI ID later
-- "Pay Us" button appears on their page
-- Customer taps — phone opens GPay / PhonePe / Paytm automatically
-- Customer enters amount and pays
-- Owner gets UPI notification on their phone
-
----
-
-### Feature 5 — Google Review QR Code
-
-**What:** A branded QR code that opens directly to the business's Google review page
-
-**How it works:**
-- Owner provides their Google Business Profile link during onboarding
-- Locallify generates a branded QR code
-- Delivered as print-ready PNG (300 DPI) on WhatsApp
-- Owner prints and places at counter, table, reception
-
-**The QR code design:**
-```
-[Locallify branded QR code]
-⭐ Scan to Review Us on Google
-[Business Name]
-locallify.in
-```
-
-**Why this works:**
-- Customer scans at emotional peak — right after the experience
-- Opens Google review page directly — no searching
-- Zero friction = more reviews
-- More reviews = higher Google Maps ranking = free organic customers
-
-**Cost:** ₹0 — free QR generation API
-
----
-
-### Feature 6 — Printable Business Card
-
-**What:** A professional print-ready visiting card generated from their Locallify profile
-
-**Card contains:**
-
-Front:
-```
-[Business Logo]
-[Business Name]
-[Tagline / Category]
-Powered by Locallify (subtle footer)
-```
-
-Back:
-```
-[Owner Name]
-📞 [Phone]
-💬 [WhatsApp]
-✉️ [Email]
-📍 [Address]
-🌐 locallify.in/theirbusiness
-[QR Code — links to Locallify page]
-```
-
-**Specifications:**
-- Size: 3.5 × 2 inches (standard visiting card)
-- Resolution: 300 DPI — print ready
-- Format: PDF download
-- Delivered on WhatsApp within 24 hours of onboarding
-
-**MVP workflow:**
-- Client pays → fills onboarding form → you create card in Canva using pre-made template → send PDF on WhatsApp
-- No automation needed for first 20 clients — manual is fine
-
-**Why this is powerful:**
-- Every printed card = Locallify URL visible to 50+ people
-- QR on card links to full digital profile — 100x better than a phone number card
-- Business owner gets ₹2,000 worth of design work included
-
----
-
-### Feature 7 — 4 AI Social Media Creatives Per Month
-
-**What:** 4 branded, ready-to-post Instagram/Facebook post images delivered every month
-
-**What they get:**
-- 4 posts sized 1080×1080px (feed) or 1080×1920px (story/reel cover)
-- Their logo, business name, brand colors
-- Relevant content: offers, product highlights, festive posts, tips
-- Delivered as images on WhatsApp — ready to post directly
-
-**Workflow:**
-- Day 1 of each month: WhatsApp client asking for that month's content theme
-- You generate using AI tools (your existing workflow)
-- Deliver within 48 hours
-- Client downloads from WhatsApp and posts
-
-**Why this retains clients:**
-- Designers charge ₹500–₹2,000 per post
-- 4 posts = ₹2,000–₹8,000 value
-- They get it included in ₹999 — they never cancel
-
-**Cost:** 2–3 hours of your time per client per month using existing AI tools
-
----
-
-## 7. What Is NOT In MVP
-
-Do not build these until you have 50+ paying clients and real user feedback:
-
-- ❌ Self-serve signup (manual onboarding for now)
-- ❌ Client dashboard / analytics
-- ❌ Multilingual toggle
-- ❌ Festive mode auto-scheduling
-- ❌ Booking / appointment system
-- ❌ Digital product store
-- ❌ Brand collaboration marketplace
-- ❌ Influencer features
-- ❌ Locallify Score
-- ❌ Google Reviews showcase wall
-- ❌ WhatsApp API integration
-- ❌ Mobile app
-- ❌ Today's Special self-serve update
-- ❌ Competitor report
-
----
-
-## 8. Technical Stack — Zero Budget
-
-| Need | Tool | Cost |
-|---|---|---|
-| Page hosting | Vercel | ₹0 |
-| Database | Appwrite (Current) | ₹0 |
-| Domain | locallify.in (already owned) | ₹0 |
-| Lead form | WhatsApp wa.me link — pure JS | ₹0 |
-| UPI button | UPI deep link | ₹0 |
-| QR code generation | qrcode.js library | ₹0 |
-| Business card | Canva manual template | ₹0 |
-| AI creatives | Existing AI workflow | ₹0 |
-| Payment collection | Razorpay payment link / UPI | 2% per transaction |
-| Client communication | WhatsApp Business app | ₹0 |
-
-**Total monthly infrastructure cost: ₹0**
-
----
-
-## 9. Build Order — Week By Week
-
-### Week 1 — Build One Perfect Page
-```
-→ Build one complete Locallify page template in Next.js
-→ All 7 features working on a single template
-→ Test on mobile — must be perfect on phone
-→ Create demo page: locallify.in/demo
-→ Create your own agency page: locallify.in/locallify
-```
-
-### Week 2 — Get First 3 Clients
-```
-→ Walk into 3 local businesses in Silchar
-→ Show demo page on their phone
-→ Collect ₹499 on UPI on the spot
-→ Take their details (name, phone, logo, photos, hours, UPI ID)
-→ Build their page within 24 hours
-→ Send page link + business card + QR code on WhatsApp
-```
-
-### Week 3 — WhatsApp Outreach
-```
-→ Message 30 business owners you know personally
-→ Send demo link + pricing
-→ Goal: 5 more paying clients
-→ Total: 8 clients, ₹3,992 revenue
-```
-
-### Week 4 — Instagram Content
-```
-→ Post before/after carousels (already have prompts)
-→ Post Shark Tank India clip with caption (already written)
-→ Post the anime motorcycle brand film
-→ Goal: 2 more inbound clients from Instagram
-→ Total: 10 clients
-```
-
-### Month 2
-```
-→ 10 existing clients pay ₹999 = ₹9,990
-→ Acquire 10 more new clients at ₹499 = ₹4,990
-→ Total month 2 revenue: ₹14,980
-→ Start building simple admin panel for managing pages
-```
-
-### Month 3
-```
-→ 20 existing × ₹999 = ₹19,980
-→ 10 new × ₹499 = ₹4,990
-→ Total: ₹24,970/month
-→ Hire one assistant to help with AI creatives
-→ Build self-serve onboarding form
-```
-
-### Month 6 Target
-```
-→ 50 clients × ₹999 = ₹49,950/month recurring
-→ Build client dashboard with basic analytics
-→ Add multilingual support
-→ Add festive mode
-→ Expand to Guwahati aggressively
-```
-
-### Month 12 Target
-```
-→ 100 clients × ₹999 = ₹99,900/month
-→ Full self-serve platform
-→ Expand to all of NE India
-→ Consider influencer tier
-```
-
----
-
-## 10. Onboarding Checklist — After Client Pays
-
-Every new client goes through this exact process:
-
-```
-Step 1 — Collect Information (WhatsApp form or call)
-□ Business name
-□ Business category
-□ Owner name
-□ Phone number
-□ WhatsApp number
-□ Email address
-□ Full address
-□ Business hours (each day)
-□ Instagram handle (Optional)
-□ Facebook page link (Optional)
-□ Google Business Profile link (Optional)
-□ Logo file (PNG with transparent background)
-□ Cover photo (best quality available)
-□ 3–5 product/business photos
-□ Short bio (you write this for them if needed)
-□ Preferred URL slug (locallify.in/their-choice)
-
-Step 2 — Build Page (2–3 hours)
-□ Set up page on template
-□ Add all info and photos
-□ Test WhatsApp lead button
-□ Test UPI button
-□ Test Google Maps
-□ Test on mobile — must look perfect
-□ Test Open/Closed badge timing
-
-Step 3 — Generate Assets (1 hour)
-□ Generate Google Review QR code
-□ Design visiting card in Canva template
-□ Export card as PDF (300 DPI)
-□ Generate page QR code
-
-Step 4 — Deliver On WhatsApp
-□ Send page link: locallify.in/theirbusiness
-□ Send Google Review QR code PNG
-□ Send visiting card PDF
-□ Send instructions on how to use everything
-□ Schedule month 1 AI creatives (within 48 hours)
-
-Step 5 — First Month AI Creatives
-□ WhatsApp client: "Kaunsa content chahiye is mahine?"
-□ Generate 4 branded posts using AI
-□ Send on WhatsApp as images
-□ Done
-```
-
----
-
-## 11. Client Retention System
-
-### Monthly Rhythm Per Client
-```
-Day 1    → WhatsApp: "Content theme for this month?"
-Day 3    → Deliver 4 AI creatives on WhatsApp
-Day 25   → WhatsApp renewal reminder + payment link
-Day 28   → Follow up if not paid
-Day 30   → Page goes offline if not paid (reactivates on payment)
-```
-
-### Why They Won't Cancel
-```
-1. QR codes already printed at counter — cancelling breaks their QR
-2. Visiting cards already distributed — URL goes dead
-3. Monthly AI creatives coming — they need content
-4. WhatsApp leads flowing — they don't want to miss enquiries
-5. Google Review QR working — reviews stop if page goes offline
-```
-
----
-
-## 12. Revenue Projections
-
-| Month | Existing Clients | New Clients | Total Revenue |
+| KPI | 30-day target | 90-day target | 12-month target |
 |---|---|---|---|
-| Month 1 | 0 | 10 × ₹499 | ₹4,990 |
-| Month 2 | 10 × ₹999 | 10 × ₹499 | ₹14,980 |
-| Month 3 | 20 × ₹999 | 10 × ₹499 | ₹24,970 |
-| Month 6 | 50 × ₹999 | 10 × ₹499 | ₹54,940 |
-| Month 12 | 100 × ₹999 | 10 × ₹499 | ₹99,900+ |
+| Unique monthly visitors | 1,000 | 5,000 | 50,000 |
+| WhatsApp CTA clicks | 80 | 500 | 8,000 |
+| Paid customers from site | 5 | 50 | 800 |
+| Lighthouse performance score | 95+ | 95+ | 95+ |
+| Core Web Vitals — LCP | <2.5s | <2.0s | <1.5s |
+| Bounce rate | <55% | <45% | <35% |
+| Avg. session duration | 45s | 75s | 110s |
+| Organic search traffic share | 15% | 35% | 60% |
 
 ---
 
-## 13. Competitive Advantage
+## 4. Information Architecture
 
-| Feature | Linktree | Justdial | CONNECTit | Locallify |
-|---|---|---|---|---|
-| Business profile page | ✅ | ❌ | ❌ | ✅ |
-| WhatsApp lead delivery | ❌ | ❌ | ❌ | ✅ |
-| UPI payment button | ❌ | ❌ | ❌ | ✅ |
-| Google Review QR | ❌ | ❌ | ✅ | ✅ |
-| Printable business card | ❌ | ❌ | ❌ | ✅ |
-| AI social media creatives | ❌ | ❌ | ✅ | ✅ |
-| ₹ pricing India-first | ❌ | ✅ | ✅ | ✅ |
-| WhatsApp-first delivery | ❌ | ❌ | ❌ | ✅ |
-| Done-for-you service | ❌ | ❌ | ❌ | ✅ |
-| NE India local knowledge | ❌ | ❌ | ❌ | ✅ |
+### 4.1 Sitemap
 
-**Locallify wins on combination — no single competitor offers all of these together.**
+```
+/                         Home (the showcase)
+/work                     Customer gallery (live examples)
+/work/[slug]              Individual case study
+/pricing                  Detailed pricing + comparison
+/services                 What we do, in depth
+/services/websites        The Page
+/services/google          The Presence
+/services/social          The Lead Engine
+/about                    Made in the North East story
+/blog                     SEO content engine (long-form articles)
+/blog/[slug]              Individual blog post
+/blog/category/[slug]     Industry or city category page
+/templates                Industry-vertical template gallery
+/templates/[industry]     E.g. /templates/salon
+/cities/[city]            City landing pages for local SEO
+/help                     FAQ + support
+/help/[slug]              Individual help article
+/privacy                  Privacy policy
+/terms                    Terms & conditions
+/refund                   Refund policy
+/contact                  Contact (mostly redirects to WhatsApp)
+```
+
+### 4.2 Primary navigation (header)
+
+`Work · Services · Pricing · About · [WhatsApp button]`
+
+### 4.3 Footer navigation
+
+Three columns: Product · Company · Legal. Plus newsletter signup, social icons, "Made in the North East" badge.
 
 ---
 
-## 14. Honest Risks
+## 5. Design System
 
-| Risk | Likelihood | Mitigation |
+### 5.1 Color tokens
+
+```css
+:root {
+  /* Base — midnight, never pure black */
+  --bg-primary:     #0A0A0E;
+  --bg-surface:     #14141A;
+  --bg-elevated:    #1C1C24;
+  --bg-inverse:     #EFEFF2;
+
+  /* Borders & dividers */
+  --border-subtle:  #1F1F28;
+  --border-default: #2A2A36;
+  --border-strong:  #3A3A48;
+
+  /* Accent — voltage lime is the signature */
+  --accent-primary:  #D0FF14;
+  --accent-hover:    #B8E600;
+  --accent-soft:     #2E3A0A;
+
+  /* Secondary — burn orange for heat */
+  --accent-secondary:  #FF5C28;
+  --accent-secondary-hover: #E04A1C;
+
+  /* Text */
+  --text-primary:   #EFEFF2;
+  --text-secondary: #B4B4BE;
+  --text-muted:     #7F7F8A;
+  --text-subtle:    #5A5A66;
+  --text-inverse:   #0A0A0E;
+
+  /* Semantic */
+  --semantic-good:  #5BE49B;
+  --semantic-warn:  #FFB454;
+  --semantic-bad:   #FF6B7A;
+
+  /* Glass / gradient */
+  --gradient-mesh-1: radial-gradient(at 20% 30%, rgba(208,255,20,0.10), transparent 50%);
+  --gradient-mesh-2: radial-gradient(at 80% 70%, rgba(255,92,40,0.08), transparent 50%);
+}
+```
+
+**Rules:**
+- Lime is for emphasis, not decoration. One lime element per viewport.
+- Orange is for heat (CTAs, "live" status, hot moments).
+- Body text on dark is `#EFEFF2`, NOT pure white (causes eye strain on OLED).
+- No cream, beige, warm white, sand, ivory.
+
+### 5.2 Typography
+
+| Role | Family | Weights | Use |
+|---|---|---|---|
+| **Display** | Instrument Serif (Variable) | 400 + italic | Hero headlines, section openers, pull quotes |
+| **Sans (UI)** | Geist (Variable) | 300 / 400 / 500 / 600 / 700 | Body, navigation, buttons, all UI |
+| **Mono** | Geist Mono | 400 / 500 | Labels, numbers, code, micro-meta |
+
+All three are free Google Fonts. Variable fonts only (so we ship one file per family, not eight).
+
+**Type scale** (1.250 perfect-fourth, fluid via `clamp()`):
+
+```css
+--text-xs:   clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);
+--text-sm:   clamp(0.875rem, 0.83rem + 0.2vw, 0.9375rem);
+--text-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+--text-lg:   clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
+--text-xl:   clamp(1.375rem, 1.25rem + 0.6vw, 1.5rem);
+--text-2xl:  clamp(1.75rem, 1.5rem + 1.2vw, 2.125rem);
+--text-3xl:  clamp(2.25rem, 1.8rem + 2.2vw, 3rem);
+--text-4xl:  clamp(3rem, 2.2rem + 4vw, 4.5rem);
+--text-5xl:  clamp(4rem, 2.6rem + 7vw, 7rem);
+--text-6xl:  clamp(5rem, 3rem + 10vw, 10rem);
+```
+
+**Display rules:**
+- Hero uses `Instrument Serif` Italic. Always.
+- Display text always negative letter-spacing (`-0.025em` to `-0.04em`).
+- Line height for display: 0.95–1.05. Tight.
+- Body line height: 1.55.
+- Never set body type below 16px on mobile.
+
+### 5.3 Spacing scale
+
+8-point grid (rems for accessibility):
+
+```
+--space-0:  0;
+--space-1:  0.25rem;  /* 4 */
+--space-2:  0.5rem;   /* 8 */
+--space-3:  0.75rem;  /* 12 */
+--space-4:  1rem;     /* 16 */
+--space-5:  1.5rem;   /* 24 */
+--space-6:  2rem;     /* 32 */
+--space-7:  3rem;     /* 48 */
+--space-8:  4rem;     /* 64 */
+--space-9:  6rem;     /* 96 */
+--space-10: 8rem;     /* 128 */
+--space-11: 12rem;    /* 192 */
+```
+
+### 5.4 Radius
+
+```
+--radius-sm:   4px;
+--radius-md:   8px;
+--radius-lg:   16px;
+--radius-xl:   24px;
+--radius-pill: 999px;
+```
+
+Cards: `--radius-lg`. Buttons: `--radius-pill` or `--radius-md` (consistent within the site).
+
+### 5.5 Elevation / shadow
+
+Dark themes don't use heavy shadows — they use **light glow** instead.
+
+```
+--glow-subtle:  0 0 0 1px var(--border-default);
+--glow-accent:  0 0 24px rgba(208, 255, 20, 0.15);
+--glow-warm:    0 0 24px rgba(255, 92, 40, 0.15);
+```
+
+### 5.6 Grid system
+
+12-column, 24px gutters, max content width 1280px (with 1440px breakout for full-bleed sections). Bento grid uses CSS `grid-template-areas`.
+
+### 5.7 Iconography
+
+- Lucide icons (open source, free, consistent stroke weight).
+- Stroke width 1.5px.
+- Same size as adjacent text.
+- Never colored — always `currentColor`.
+
+### 5.8 Imagery direction
+
+- Real customer photography only. No stock.
+- High-grain, slightly desaturated, warm-on-cool color grading.
+- Hand-shot phone photography acceptable and on-brand (this is local India).
+- Avoid: AI-generated faces, generic SaaS illustrations, glowing-particles "AI" art.
+
+---
+
+## 6. Page-by-Page Specifications
+
+### 6.1 Home (`/`)
+
+The most important page. Every section must earn its viewport.
+
+**Sections in order:**
+
+1. **Hero**
+   - Full-bleed midnight background with subtle gradient mesh (lime + orange, very low opacity, animated slowly via SVG filter).
+   - Top-left: word mark `Locallify` in Geist 600.
+   - Top-right: nav links + a primary WhatsApp button (lime fill, midnight text).
+   - Center-left: **Hero headline** in Instrument Serif Italic — "We make your shop *findable*."
+   - Beneath, in Geist 400: subhead — "On Google. On WhatsApp. In 48 hours. Starts at ₹1,499/month."
+   - CTA row: lime "Claim your page" button + ghost "See live examples" link.
+   - Right side: a "live device" — phone mockup running an actual customer's Locallify page, with a subtle scroll loop showing GBP → site → WhatsApp.
+   - Below the fold: a horizontal **marquee** strip in mono — "MADE IN THE NORTH EAST · 1,000+ LOCAL LEGENDS · LIVE IN 48 HOURS · BUILT IN SILCHAR · ..."
+
+2. **Stats strip**
+   - Four large numbers in Instrument Serif, on dark surface card.
+   - "48 hours · live page" / "₹1,499/mo · starts at" / "100% · WhatsApp-first" / "5 cities · NE India."
+   - Numbers reveal on scroll (counter animation, brief).
+
+3. **Problem → Solution**
+   - Two-column. Left: "Most local businesses are invisible on Google." Right: a sketchy, lo-fi list of pain points — "no website, GBP unclaimed, customers can't find you, leads die in DMs."
+   - Beneath: large pull quote — "We fix all of that. In a week."
+
+4. **What we do — bento grid**
+   - 6-card asymmetric bento layout.
+   - Big card (2x2): "The Page" — visual showing a phone with a salon page.
+   - Two stacked: "The Presence" (GBP grid) and "The Lead Engine" (WhatsApp / social posts).
+   - Small cards: "Live status badge" / "QR visiting card" / "AI-drafted reviews."
+   - Each card has a subtle hover (slight lift + lime border glow).
+
+5. **Live examples — work gallery**
+   - "Real shops. Real pages. Click any." — horizontal scroll carousel of 12 customer page thumbnails.
+   - Each thumbnail = phone mockup with the page screenshot.
+   - Hover reveals customer name + city.
+   - Clicking opens a side drawer with the full case study, or links to `/work/[slug]`.
+
+6. **Pricing teaser**
+   - Three pricing cards (Starter / Growth / Dominate).
+   - Growth is the featured center card with lime border and lime "Most picked" pill.
+   - Prices in Instrument Serif huge. Features in compact Geist.
+   - "See full pricing →" link below.
+
+7. **Testimonials**
+   - Three customer cards with real photo + quote + name + city + business.
+   - Photos must be real (you have the rights, use them).
+
+8. **Founder note**
+   - Single paragraph from the founder, displayed like a handwritten note.
+   - Photo of founder + signature.
+   - "Why I built this from Silchar, not Bangalore."
+
+9. **CTA closer**
+   - Full-bleed lime section (rare — only here).
+   - Massive type: "Your customers are already searching for you."
+   - WhatsApp button + secondary "Talk to a human" link.
+
+10. **Footer**
+    - Three columns + newsletter + socials.
+    - Bottom strip in mono: "Made in the North East · Silchar, Assam · © 2026 Locallify."
+
+### 6.2 Work (`/work`)
+
+- Grid gallery of all customer pages.
+- Filterable by industry and city.
+- Each card: thumbnail + business name + city + small "View page →" link to live customer page.
+- Lazy-loaded with skeleton states.
+- 60 customers visible by month 12 — this page is the proof.
+
+### 6.3 Case study (`/work/[slug]`)
+
+Long-form template:
+- Cover image (the customer's storefront).
+- One-line summary ("How a Silchar salon went from 0 to 14 Google calls a week").
+- "The shop" — who they are, photo.
+- "The challenge" — what wasn't working.
+- "What we built" — page screenshot + GBP screenshot + social post screenshots.
+- "The results" — three big numbers in Instrument Serif.
+- "In their words" — pull quote.
+- Related case studies.
+- CTA.
+
+### 6.4 Pricing (`/pricing`)
+
+- Detailed three-tier table with every feature.
+- Comparison table at bottom (Locallify vs. "doing it yourself" vs. "hiring an agency").
+- FAQ section.
+- Trust strip — refund policy, no lock-in, real human support.
+
+### 6.5 Services (`/services` + sub-pages)
+
+Each service gets its own page:
+- The Page — what we build, examples, who it's for, pricing.
+- The Presence — GBP work, sample reports, before/after.
+- The Lead Engine — sample posts, sample Reels, content workflow.
+
+### 6.6 About (`/about`)
+
+The founder story, the team, why North East, the long-term plan. No corporate boilerplate.
+
+### 6.7 Blog (`/blog`)
+
+SEO engine. Each post follows a content template (see CLAUDE.md). Categories by city and industry.
+
+### 6.8 Templates (`/templates/[industry]`)
+
+Industry-specific landing pages with industry-specific examples. Critical for both SEO and conversion. One per major vertical (salon, gym, dental, tuition, restaurant, boutique, hardware, real estate).
+
+### 6.9 City pages (`/cities/[city]`)
+
+City-specific landing pages. "Get your Silchar business on Google." Critical for local SEO. One per priority city.
+
+---
+
+## 7. Component Library
+
+Components to build (in order of priority):
+
+1. **Button** — `primary` (lime fill), `secondary` (orange fill), `ghost` (outline), `link`.
+2. **Nav header** — scroll-blur background, transforms on scroll.
+3. **Hero device mockup** — animated phone with looped customer page scroll.
+4. **Marquee** — infinite horizontal scroll of text, GPU-accelerated.
+5. **Bento card** — variable spans, hover state.
+6. **Pricing card** — three states (default, featured, hovered).
+7. **Testimonial card** — photo + quote + meta.
+8. **Case study card** — thumbnail + meta.
+9. **FAQ accordion** — single-open behavior.
+10. **Footer** — three-col grid + newsletter form.
+11. **Cursor** — magnetic cursor (desktop only, prefers-reduced-motion respected).
+12. **Scroll progress bar** — thin lime line at top of viewport on long pages.
+13. **WhatsApp floating button** — visible after 100vh scroll.
+14. **Section header** — number + label + display title (consistent across the site).
+
+---
+
+## 8. Animation & Motion Design
+
+### 8.1 Motion principles
+
+- **Motion has purpose.** It guides the eye, communicates state, rewards attention. Never decorative.
+- **Performance over flair.** 60fps mandatory. If an animation can't hold 60fps on a mid-range Android, cut it.
+- **Prefers-reduced-motion is honored.** Every animation has a no-motion fallback.
+- **Easing is custom.** Default `cubic-bezier(0.16, 1, 0.3, 1)` (smooth out) and `cubic-bezier(0.7, 0, 0.84, 0)` (smooth in).
+
+### 8.2 Specific animations to implement
+
+| Element | Animation | Duration | Easing |
+|---|---|---|---|
+| Hero headline | Word-by-word fade-up on mount | 600ms stagger 80ms | smooth out |
+| Section headlines | Mask reveal on scroll into view | 700ms | smooth out |
+| Stats counters | Count up from 0 when in view | 1200ms | linear |
+| Marquee | Infinite horizontal scroll | 30s linear loop | linear |
+| Bento card hover | Lift 4px + lime border glow | 200ms | smooth out |
+| Button hover | Background swap + arrow translate | 180ms | smooth out |
+| Page transitions | Fade + slight scale | 300ms | smooth out |
+| Cursor (desktop) | Magnetic pull on links, scale on hover | 150ms | smooth |
+| Image reveal | Mask + grain overlay fades in | 600ms | smooth out |
+| Pricing card | Tilt 5deg on hover (desktop only) | 200ms | smooth out |
+
+### 8.3 Libraries
+
+- **GSAP** + ScrollTrigger — for scroll-triggered choreography.
+- **Lenis** — smooth scroll (optional, with proper reduced-motion handling).
+- **Framer Motion** — if using React (preferred for component-level motion).
+- No three.js / WebGL on landing pages — too heavy for the audience.
+
+### 8.4 What NOT to animate
+
+- Loading spinners that block content.
+- Page-load splash screens (Gen-Z hates them, performance kills them).
+- Particle backgrounds.
+- Confetti.
+- Anything autoplaying with sound.
+
+---
+
+## 9. Content Strategy
+
+### 9.1 Voice & tone
+
+- **Direct.** "We get your shop on Google." Not "We help businesses unlock digital presence solutions."
+- **Confident.** Pricing on the home page. Capacity stated. Promises specific.
+- **Warm.** Indian-English, occasional Hinglish micro-copy ("Bas itna kafi hai.").
+- **Modest where it counts.** "We're a small team from Silchar."
+- **Numerical.** Specific numbers, not vague claims. "Live in 48 hours" not "Quick turnaround."
+
+### 9.2 Headline writing rules
+
+- Always one verb at the start ("We build," "We get," "We turn").
+- Always one specific outcome.
+- Always one number where possible.
+- Italicize one word per headline using Instrument Serif italic — that's the visual hook.
+
+### 9.3 Microcopy
+
+Specific phrases to use throughout:
+
+- WhatsApp CTAs: "Send 'PAGE' on WhatsApp" not "Get started."
+- Footer signoff: "Built with chai, in Silchar."
+- 404 page: "Yeh page kahin chala gaya."
+- Empty states: "Nothing here yet. Soon though."
+- Form errors: human ("That phone number doesn't look right.").
+
+---
+
+## 10. SEO Requirements
+
+(Detailed in CLAUDE.md — summary here.)
+
+- Every page must have a unique `<title>` (50–60 chars) and `<meta description>` (150–160 chars).
+- All pages use semantic HTML (`<main>`, `<article>`, `<section>`, `<nav>`, `<aside>`).
+- One `<h1>` per page; clean hierarchy beneath.
+- Open Graph + Twitter Card meta on every page.
+- Schema.org JSON-LD: `Organization`, `LocalBusiness`, `Service`, `BlogPosting`, `FAQPage`, `BreadcrumbList`.
+- Sitemap.xml auto-generated.
+- robots.txt configured.
+- All images have `alt`. All decorative images: `alt=""`.
+- Internal linking strategy enforced (every blog post links to 3+ related posts and 1+ service page).
+
+---
+
+## 11. Performance Requirements
+
+| Metric | Target | Hard limit |
 |---|---|---|
-| Client says no customer came — wants refund | High | Clear terms: we promise visibility not customers. Written in onboarding. |
-| Client stops paying after month 1 | Medium | Page goes offline — their QR and card stop working — creates urgency to renew |
-| Manual workflow doesn't scale past 20 clients | High | Build admin panel by month 3 before it becomes a problem |
-| AI creative quality not good enough | Low | You already have proven AI workflow from Mr. Haddi and other projects |
-| Competitor copies the idea | Low near-term | First mover advantage + local relationships + done-for-you layer they can't replicate |
+| LCP (Largest Contentful Paint) | <1.8s | <2.5s |
+| FID (First Input Delay) | <100ms | <200ms |
+| CLS (Cumulative Layout Shift) | <0.05 | <0.1 |
+| TTI (Time to Interactive) | <3s | <4s |
+| Total page weight (mobile) | <500KB | <1MB |
+| Total HTTP requests | <30 | <50 |
+| Lighthouse performance | 95+ | 90+ |
+
+**Practices:**
+- Variable fonts (one file per family).
+- All images served as AVIF with WebP fallback.
+- Lazy-load all below-fold images.
+- Preload hero image and critical fonts.
+- Critical CSS inlined.
+- JS deferred or async.
+- No render-blocking third-party scripts.
+- Use Cloudflare or Vercel edge.
 
 ---
 
-## 15. Terms Of Service — Key Clause
+## 12. Accessibility Requirements
 
-Must be communicated clearly to every client before payment:
-
-> *"Locallify provides digital visibility services. We make your business visible online — on Google, Instagram, and WhatsApp. We do NOT guarantee customers, sales, revenue, footfall, leads, or any specific business outcome. Results depend on your business quality, location, pricing, and factors outside our control. We promise visibility. What you do with that visibility is your business."*
-
----
-
-## 16. The One Sentence Pitch
-
-For every sales conversation — WhatsApp message, in-person meeting, Instagram DM:
-
-> **"Locallify pe aapka business Google, Instagram aur WhatsApp pe visible ho jayega — sirf ₹499 pehle mahine mein. 24 ghante mein live."**
-
-Or in English:
-
-> **"Get your business on Google, Instagram and WhatsApp — for ₹499 your first month. Live in 24 hours."**
+- **WCAG 2.2 AA minimum.**
+- Color contrast: 4.5:1 for body, 3:1 for large text. Lime on dark passes.
+- All interactive elements keyboard-navigable.
+- Focus styles visible (custom, on-brand).
+- `prefers-reduced-motion` respected — all animations have static fallbacks.
+- All form fields have labels (visible or `aria-label`).
+- Skip-to-content link.
+- Image alt text on all meaningful images.
+- ARIA landmarks correct.
 
 ---
 
-*Document finalised for Locallify MVP build — April 2026.*  
-*Next review: When 20 paying clients are onboarded.*  
-*Do not add new features before reaching 20 clients.*
+## 13. Tech Stack Recommendation
+
+| Layer | Recommendation | Why |
+|---|---|---|
+| **Framework** | Next.js 15 (App Router) | SSR/SSG for SEO, image optimization, edge runtime |
+| **Styling** | Tailwind CSS v4 + CSS variables | Fast, design-system-friendly |
+| **Motion** | Framer Motion + GSAP (selective) | Component motion + scroll choreography |
+| **Smooth scroll** | Lenis (optional) | Premium feel without performance cost |
+| **CMS** | Sanity OR MDX in repo | Sanity for non-tech team editing, MDX if founder-only |
+| **Forms** | Resend (email) + WhatsApp API | Direct to WhatsApp where possible |
+| **Analytics** | Plausible OR Vercel Analytics | Privacy-first, lightweight |
+| **Hosting** | Vercel (edge) OR Cloudflare Pages | Global CDN, free tier ample |
+| **Image hosting** | Cloudinary OR `next/image` + Vercel | Auto AVIF/WebP, srcset |
+| **SEO** | next-sitemap + next-seo | Automated sitemap, structured data |
+| **Error monitoring** | Sentry (free tier) | Catch production issues |
+
+---
+
+## 14. Implementation Phases
+
+### Phase 1 — Foundation (Weeks 1–2)
+- Set up Next.js + Tailwind + design tokens.
+- Build the component library (buttons, nav, footer, cards).
+- Build the home page in skeleton form.
+- Wire WhatsApp CTA + analytics.
+
+### Phase 2 — Content pages (Weeks 3–4)
+- Build Pricing, About, Services pages.
+- Set up Sanity (or MDX) for blog.
+- Migrate any existing content.
+- Implement the case-study template.
+
+### Phase 3 — Motion & polish (Week 5)
+- Add scroll choreography (GSAP).
+- Add hover/cursor effects.
+- Magnetic cursor on desktop.
+- Marquee.
+- Bento hover states.
+
+### Phase 4 — SEO & performance (Week 6)
+- Structured data on every page.
+- Sitemap, robots, meta tags audit.
+- Image optimization pass.
+- Lighthouse run, hit 95+.
+- Set up Search Console + Bing Webmaster.
+
+### Phase 5 — Launch + iteration (Week 7+)
+- Soft-launch to existing customers and Indie Hackers India.
+- Capture feedback for one week.
+- Public launch.
+- Begin blog cadence (2 posts/week, see CLAUDE.md).
+
+---
+
+## 15. Open Questions / Decisions Needed
+
+1. **Domain strategy** — does each customer page live at `yourname.locallify.in` or `locallify.in/yourname`? Recommendation: subdomain (better SEO, perceived separateness).
+2. **Hindi/regional language UI** — full localization or English-only with regional script flourishes in design? Recommendation: English UI, regional script as decoration, full localization in Phase 6.
+3. **Brand mark** — current word mark needs sharpening or a dedicated logotype designed. Recommendation: commission an indie type designer for a custom wordmark (₹15–30K spend, worth it).
+4. **Founder photography** — needs professional shoot. Recommendation: one half-day shoot, ₹10–15K, gives you 6 months of brand imagery.
+
+---
+
+## 16. Definition of Done
+
+The website ships when:
+
+- [ ] All 14 page templates built and live.
+- [ ] Lighthouse 95+ on home, pricing, and three case studies.
+- [ ] All forms route to WhatsApp or a working endpoint.
+- [ ] Structured data validates without errors in Google Rich Results.
+- [ ] Site is mobile-perfect (tested on 3 real devices).
+- [ ] All animations respect `prefers-reduced-motion`.
+- [ ] Founder has signed off on copy, voice, brand mark.
+- [ ] Three real customer case studies live on `/work`.
+- [ ] First 10 blog posts published.
+- [ ] Analytics dashboard live and tracking the 8 KPIs in Section 3.2.
+
+---
+
+*End of PRD.*

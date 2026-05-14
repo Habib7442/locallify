@@ -1,0 +1,41 @@
+:root {
+  /* Core Base - Deep Midnight */
+  --bg-primary: #0A0A0E;
+  --bg-surface: #14141A;
+  --bg-elevated: #1C1C24;
+  --bg-inverse: #EFEFF2;
+
+  /* Voltage Accents */
+  --accent-primary: #D0FF14;          /* Voltage lime */
+  --accent-hover: #B8E600;
+  --accent-soft: #2E3A0A;
+
+  /* Burn Orange Accent */
+  --accent-secondary: #FF5C28;        /* Burn orange */
+  --accent-secondary-hover: #E04A1C;
+
+  /* Text System */
+  --text-primary: #EFEFF2;
+  --text-secondary: #B4B4BE;
+  --text-muted: #7F7F8A;
+  --text-subtle: #5A5A66;
+  --text-inverse: #0A0A0E;
+
+  /* Borders & Dividers */
+  --border-subtle: #1F1F28;
+  --border-default: #2A2A36;
+  --border-strong: #3A3A48;
+
+  /* Semantic */
+  --semantic-good: #5BE49B;
+  --semantic-warn: #FFB454;
+  --semantic-bad: #FF6B7A;
+
+  /* Gradients */
+  --gradient-mesh-1: radial-gradient(at 20% 30%, rgba(208,255,20,0.10), transparent 50%);
+  --gradient-mesh-2: radial-gradient(at 80% 70%, rgba(255,92,40,0.08), transparent 50%);
+}
+
+[data-theme='light'] {
+  /* Fallback or light mode tokens if ever needed, but we stay dark for Voltage */
+}

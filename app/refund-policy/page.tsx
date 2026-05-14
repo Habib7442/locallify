@@ -1,58 +1,61 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function RefundPolicy() {
+  const lastUpdated = "May 2026";
+
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-[#0066FF] selection:text-white">
+    <div className="min-h-screen bg-bg-primary text-text-primary">
       <Navbar />
-      <main className="pt-32 pb-20 px-6">
+      <main className="pt-40 pb-24 px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="space-y-4 mb-16 text-center">
-            <span className="inline-block px-6 py-2 rounded-full bg-[#0066FF]/10 text-[#0066FF] text-xs font-black uppercase tracking-[0.3em]">Legal</span>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-zinc-900">Refund <span className="text-[#0066FF]">Policy.</span></h1>
-            <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Last Updated: April 2024</p>
+          
+          {/* Header */}
+          <div className="mb-20">
+            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary mb-6 block">
+              Financial Transparency
+            </span>
+            <h1 className="font-display italic text-5xl md:text-8xl leading-[0.9] tracking-tight text-text-primary mb-8">
+              Refund <br /> 
+              <span className="text-text-muted not-italic">Policy.</span>
+            </h1>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
+              Last Updated: {lastUpdated}
+            </p>
           </div>
 
-          <div className="prose prose-zinc max-w-none space-y-12">
+          {/* Content */}
+          <div className="space-y-16">
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">1. Service Quality</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                At Locallify, we take pride in our work and strive to deliver the highest quality digital products. Our refund policy is designed to be fair to both our clients and our creative team.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">1. Onboarding Fees</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                The one-time onboarding fee for the Scale plan is non-refundable once the project setup has commenced. This fee covers our manual engineering work and initial SEO configuration.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">2. Refund Eligibility</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                Due to the digital nature of our services, refunds are generally not provided once the project work has commenced. However, if a project is canceled before any design or development work begins, a full or partial refund may be issued at our discretion.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">2. Subscription Refunds</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                Monthly subscription fees are non-refundable. You may cancel your subscription at any time, and your services will remain active until the end of the current billing cycle.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">3. Project Milestones</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                For larger projects, payments are often tied to specific milestones. Once a milestone is approved by the client, the corresponding payment is non-refundable.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">3. Service Guarantee</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                If we fail to deliver a live storefront within the guaranteed 48-hour window (assuming all client details were provided), you are entitled to a full refund of that month&apos;s subscription fee.
               </p>
             </section>
 
-            <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">4. Processing Refunds</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                If a refund is approved, it will be processed through the original payment method within 7-10 business days.
-              </p>
-            </section>
-
-            <section className="space-y-6 border-t border-zinc-100 pt-12">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">Contact Us</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                If you have any questions or would like to request a refund, please contact our support team at <span className="text-[#0066FF] font-bold">locallify26@gmail.com</span>.
+            <section className="space-y-8 pt-12 border-t border-border-subtle">
+              <h2 className="font-display italic text-4xl text-text-primary">Request a Refund</h2>
+              <p className="text-text-secondary leading-relaxed text-lg max-w-xl">
+                To initiate a refund request based on our Service Guarantee, please email <span className="text-accent-primary font-medium">locallify26@gmail.com</span> with your business name and onboarding date.
               </p>
             </section>
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
