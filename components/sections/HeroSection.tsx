@@ -176,7 +176,7 @@ export default function HeroSection() {
           </Link>
           
           <Link 
-            href="/work" 
+            href="/portfolio" 
             className="btn-ghost px-10 py-5 text-lg"
           >
             See live examples
