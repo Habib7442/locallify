@@ -22,12 +22,12 @@ export const useBusinessStore = create<BusinessState>((set) => ({
     try {
       const profiles = await profileService.getPublicProfiles();
       set({ publicProfiles: profiles, isLoading: false });
-    } catch (error: any) {
-      set({ error: error.message, isLoading: false });
+    } catch (error) {
+      set({ error: error instanceof Error ? error.message : "An unknown error occurred", isLoading: false });
     }
   },
 
-  addProfileToState: (profile: any) => {
+  addProfileToState: (profile: BusinessProfile) => {
     set((state) => ({
       publicProfiles: [profile, ...state.publicProfiles].slice(0, 6)
     }));

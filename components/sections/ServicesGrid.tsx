@@ -1,12 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
 import { Search, MessageSquare, Monitor, ShieldCheck, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion, type Variants } from 'motion/react';
 
 const services = [
   {
@@ -40,56 +36,40 @@ const services = [
 ];
 
 export default function ServicesGrid() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header reveal
-      gsap.from(".services-header", {
-        scrollTrigger: {
-          trigger: ".services-header",
-          start: "top 85%",
-        },
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: "power4.out"
-      });
-
-      // Cards staggered reveal
-      if (cardsRef.current) {
-        gsap.fromTo(cardsRef.current.children, 
-          { 
-            opacity: 0, 
-            y: 40 
-          },
-          {
-            scrollTrigger: {
-              trigger: cardsRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none"
-            },
-            opacity: 1,
-            y: 0,
-            stagger: 0.15,
-            duration: 1.2,
-            ease: "power4.out",
-            onComplete: () => ScrollTrigger.refresh()
-          }
-        );
-      }
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
 
   return (
-    <section id="services" ref={containerRef} className="py-16 px-6 bg-bg-primary relative overflow-hidden">
+    <section id="services" className="py-16 px-6 bg-bg-primary relative overflow-hidden">
       <div className="container mx-auto">
         
         {/* Header */}
-        <div className="services-header max-w-2xl mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
+          className="services-header max-w-2xl mb-12"
+        >
           <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary mb-4 block">
             Core Capabilities
           </span>
@@ -97,13 +77,20 @@ export default function ServicesGrid() {
             Everything you need to <br />
             <span className="text-text-muted not-italic">rule the local market.</span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Bento Grid */}
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
           {services.map((service, index) => (
-            <div 
+            <motion.div 
               key={service.title}
+              variants={itemVariants}
               className={cn(
                 "group relative p-8 rounded-3xl bg-bg-surface border border-border-subtle transition-all duration-500 hover:border-accent-primary/30 hover:bg-bg-elevated overflow-hidden",
                 service.className
@@ -132,9 +119,9 @@ export default function ServicesGrid() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Bottom Decorative Line */}
         <div className="mt-24 w-full h-px bg-gradient-to-r from-transparent via-border-subtle to-transparent" />

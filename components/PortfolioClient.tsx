@@ -1,8 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { Search, Globe, ArrowUpRight } from "lucide-react";
 import { Project } from "@/lib/types";
 import { projectService } from "@/lib/appwrite-service";
@@ -11,6 +10,8 @@ import { cn } from "@/lib/utils";
 interface PortfolioClientProps {
   initialProjects: Project[];
 }
+
+import { motion, AnimatePresence, type Variants } from 'motion/react';
 
 export default function PortfolioClient({ initialProjects }: PortfolioClientProps) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,6 +36,42 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
     
     return matchesSearch && matchesStatus;
   });
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    }
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      scale: 0.95,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
 
   const statuses: { label: string; value: "all" | "ongoing" | "completed" }[] = [
     { label: "All Projects", value: "all" },
@@ -86,17 +123,21 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
       {/* ─── GALLERY ──────────────────────────────────────────────── */}
       <section className="py-16 md:py-24 relative min-h-[60vh] px-6">
         <div className="container mx-auto relative z-10">
-          {filteredItems.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="popLayout">
+            {filteredItems.length > 0 ? (
+              <motion.div 
+                key="grid"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
                 {filteredItems.map((item) => (
-                  <motion.div
-                    layout
+                  <motion.div 
                     key={item.$id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    variants={itemVariants}
+                    layout
                     className="group"
                   >
                     <div className="bg-bg-surface border border-border-subtle p-8 rounded-3xl h-full flex flex-col transition-all duration-500 hover:border-accent-primary/30 hover:bg-bg-elevated">
@@ -128,7 +169,7 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                               {item.title}
                            </h3>
                            <a 
-                             href={item.live_url} 
+                             href={item.live_url || "#"} 
                              target="_blank" 
                              rel="noopener noreferrer"
                              className="p-2 rounded-full border border-border-subtle text-text-muted hover:text-accent-primary hover:border-accent-primary transition-all"
@@ -152,17 +193,23 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                     </div>
                   </motion.div>
                 ))}
-              </AnimatePresence>
-            </div>
-          ) : (
-            <div className="text-center py-32 bg-bg-surface border border-border-subtle rounded-3xl">
-              <div className="w-16 h-16 bg-bg-primary border border-border-subtle flex items-center justify-center mx-auto mb-6 rounded-2xl">
-                <Globe className="text-text-muted" size={24} />
-              </div>
-              <h3 className="text-xl font-sans font-bold text-text-primary">No results found</h3>
-              <p className="text-text-muted font-mono mt-2 uppercase text-[10px] tracking-widest">Adjust your filters and try again.</p>
-            </div>
-          )}
+              </motion.div>
+            ) : (
+              <motion.div 
+                key="empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-center py-32 bg-bg-surface border border-border-subtle rounded-3xl"
+              >
+                <div className="w-16 h-16 bg-bg-primary border border-border-subtle flex items-center justify-center mx-auto mb-6 rounded-2xl">
+                  <Globe className="text-text-muted" size={24} />
+                </div>
+                <h3 className="text-xl font-sans font-bold text-text-primary">No results found</h3>
+                <p className="text-text-muted font-mono mt-2 uppercase text-[10px] tracking-widest">Adjust your filters and try again.</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
     </div>

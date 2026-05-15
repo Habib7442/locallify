@@ -1,18 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-
-gsap.registerPlugin(ScrollTrigger);
+import { cn } from '@/lib/utils';
+import { motion } from 'motion/react';
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subheadRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
   
   // Serenity Style States
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, opacity: 0 });
@@ -40,55 +35,36 @@ export default function HeroSection() {
     };
   }, []);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: 'power4.out', duration: 1.2 }
-      });
+  const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false;
 
-      // Staggered word reveal for headline
-      if (titleRef.current) {
-        const originalText = "We make your shop findable.";
-        const words = originalText.split(' ');
-        
-        titleRef.current.innerHTML = words.map((word, i) => {
-          const isItalic = word.toLowerCase().includes('findable');
-          return `<span class="inline-block overflow-hidden">
-            <span class="inline-block translate-y-[120%] ${isItalic ? 'italic' : ''}">${word}</span>
-          </span>${i < words.length - 1 ? '&nbsp;' : ''}`;
-        }).join('');
+  const headlineText = "We make your shop findable.";
+  const words = headlineText.split(' ');
 
-        tl.to(titleRef.current.querySelectorAll('span span'), {
-          y: 0,
-          stagger: 0.1,
-          duration: 1.5,
-        });
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: prefersReducedMotion ? 0 : 20 
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: prefersReducedMotion ? 0 : 0.8,
+        ease: [0.16, 1, 0.3, 1] as const
       }
-
-      tl.from(subheadRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 1,
-      }, '-=1');
-
-      tl.from(ctaRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 1,
-      }, '-=0.8');
-
-      // Grid line animation
-      gsap.from('.grid-line', {
-        strokeDashoffset: 1000,
-        opacity: 0,
-        duration: 2.5,
-        stagger: 0.2,
-        ease: 'power2.out'
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+  };
 
   return (
     <section 
@@ -105,8 +81,22 @@ export default function HeroSection() {
         <rect width="100%" height="100%" fill="url(#voltageGrid)" />
         
         {/* Animated Accent Lines */}
-        <line x1="0" y1="30%" x2="100%" y2="30%" className="grid-line stroke-accent-primary/10" style={{ strokeDasharray: '5 5', strokeDashoffset: 1000 }} />
-        <line x1="70%" y1="0" x2="70%" y2="100%" className="grid-line stroke-accent-primary/10" style={{ strokeDasharray: '5 5', strokeDashoffset: 1000 }} />
+        <motion.line 
+          x1="0" y1="30%" x2="100%" y2="30%" 
+          className="grid-line stroke-accent-primary/10" 
+          style={{ strokeDasharray: '5 5' }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+        />
+        <motion.line 
+          x1="70%" y1="0" x2="70%" y2="100%" 
+          className="grid-line stroke-accent-primary/10" 
+          style={{ strokeDasharray: '5 5' }}
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2, delay: 0.7 }}
+        />
         
         {/* Detail Dots */}
         <circle cx="70%" cy="30%" r="2" className="fill-accent-primary/40 animate-pulse" />
@@ -133,37 +123,52 @@ export default function HeroSection() {
         />
       ))}
 
-      <div className="container mx-auto relative z-20 text-center flex flex-col items-center">
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="container mx-auto relative z-20 text-center flex flex-col items-center"
+      >
         
         {/* Top Tagline */}
-        <div className="mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <motion.div variants={itemVariants} className="mb-8">
           <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary">
             Stillness in the Noise
           </span>
           <div className="mt-4 w-12 h-px bg-gradient-to-r from-transparent via-accent-primary/30 to-transparent mx-auto" />
-        </div>
+        </motion.div>
 
         {/* Headline */}
-        <h1 
-          ref={titleRef}
+        <motion.h1 
           className="font-display text-5xl md:text-7xl lg:text-9xl leading-[0.9] tracking-tight text-text-primary mb-6 max-w-5xl"
         >
-          We make your shop findable.
-        </h1>
+          {words.map((word, i) => (
+            <motion.span 
+              key={i} 
+              variants={itemVariants}
+              className={cn(
+                "inline-block mr-[0.2em]",
+                word.toLowerCase().includes('findable') && "italic font-display text-accent-primary"
+              )}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </motion.h1>
         
         {/* Subhead */}
-        <p 
-          ref={subheadRef}
+        <motion.p 
+          variants={itemVariants}
           className="font-sans text-xl md:text-2xl text-text-secondary mb-8 max-w-2xl leading-relaxed font-light"
         >
           On Google. On WhatsApp. In 48 hours. <br className="hidden md:block" />
           The new standard for local businesses in <span className="text-accent-primary font-medium">India</span>.
-        </p>
+        </motion.p>
 
         {/* CTA Row */}
-        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-6">
+        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6">
           <Link 
-            href="https://wa.me/916000163450?text=PAGE" 
+            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to claim my Locallify page.")}`}
             className="btn-primary gap-2 group px-10 py-5 text-lg"
           >
             Claim your page
@@ -176,11 +181,16 @@ export default function HeroSection() {
           >
             See live examples
           </Link>
-        </div>
+        </motion.div>
 
         {/* Minimal Detail Line */}
-        <div className="mt-12 w-px h-16 bg-gradient-to-b from-accent-primary/40 to-transparent" />
-      </div>
+        <motion.div 
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 64, opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="mt-12 w-px bg-gradient-to-b from-accent-primary/40 to-transparent" 
+        />
+      </motion.div>
 
       {/* Marquee Strip */}
       <div className="absolute bottom-0 left-0 w-full bg-bg-surface/30 backdrop-blur-sm border-y border-border-subtle py-5 overflow-hidden">
@@ -217,6 +227,26 @@ export default function HeroSection() {
         }
         .animate-fade-in {
           animation: fade-in 1.2s ease-out forwards;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-marquee {
+            animation: none;
+            transform: none;
+          }
+          .animate-ripple {
+            animation: none;
+            display: none;
+          }
+          .animate-fade-in {
+            animation: none;
+            opacity: 1;
+            transform: none;
+          }
+          .grid-line {
+            animation: none !important;
+            stroke-dashoffset: 0 !important;
+            opacity: 0.1 !important;
+          }
         }
       `}</style>
     </section>

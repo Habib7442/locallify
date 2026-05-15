@@ -7,6 +7,9 @@ interface MetadataProps {
   icons?: Metadata["icons"];
   noIndex?: boolean;
   keywords?: string[];
+  alternates?: {
+    canonical?: string;
+  };
 }
 
 export function constructMetadata({
@@ -30,6 +33,7 @@ export function constructMetadata({
     "App Development Service Silchar",
     "Best Web Agency Silchar",
   ],
+  alternates = {},
 }: MetadataProps = {}): Metadata {
   return {
     title: {
@@ -38,6 +42,7 @@ export function constructMetadata({
     },
     description,
     keywords,
+    alternates,
     openGraph: {
       title,
       description,
@@ -46,7 +51,7 @@ export function constructMetadata({
           url: image,
           width: 1200,
           height: 630,
-          alt: "Locallify - Voltage Design",
+          alt: "Locallify | Digital Storefronts for Local Legends",
         },
       ],
       type: "website",

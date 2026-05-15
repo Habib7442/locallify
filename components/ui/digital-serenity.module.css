@@ -1,0 +1,148 @@
+.mouseGradient {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 9999px;
+  background-image: radial-gradient(circle, var(--text-muted, rgba(156, 163, 175, 0.05)), transparent 70%);
+  transform: translate(-50%, -50%);
+  will-change: left, top, opacity;
+  transition: left 70ms linear, top 70ms linear, opacity 300ms ease-out;
+}
+
+@keyframes wordAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes gridDraw {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.15;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+}
+
+.wordAnimate {
+  display: inline-block;
+  opacity: 0;
+  margin: 0 0.1em;
+  transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.wordAnimate:hover {
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  text-shadow: 0 0 20px var(--accent-primary);
+}
+
+.gridLine {
+  stroke: var(--text-muted);
+  stroke-width: 0.5;
+  opacity: 0;
+  stroke-dasharray: 5 5;
+  stroke-dashoffset: 1000;
+  animation: gridDraw 2s ease-out forwards;
+}
+
+.detailDot {
+  fill: var(--text-secondary);
+  opacity: 0;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.cornerElement {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-subtle);
+  opacity: 0;
+  animation: wordAppear 1s ease-out forwards;
+}
+
+.textDecoration {
+  position: relative;
+}
+
+.textDecoration::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--text-secondary), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineGrow 2s ease-out forwards;
+  animation-delay: 2s;
+}
+
+@keyframes underlineGrow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.floatingElement {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--text-secondary);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float 4s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-5px) translateX(-3px);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translateY(-15px) translateX(7px);
+    opacity: 0.8;
+  }
+}
+
+.rippleEffect {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: pulseGlow 1s ease-out forwards;
+  z-index: 9999;
+}

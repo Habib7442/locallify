@@ -63,6 +63,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BusinessProfilePage({ params }: PageProps) {
   const { slug } = await params;
+  console.log('DEBUG: BusinessProfilePage slug:', slug);
   
   if (!slug) {
     notFound();
@@ -195,6 +196,7 @@ export default async function BusinessProfilePage({ params }: PageProps) {
               <a 
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(business.full_address)}`}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="bg-white/[0.03] border border-white/10 p-6 rounded-[30px] flex items-center gap-4 group hover:bg-white/[0.06] transition-all"
               >
                 <div className="p-3 bg-[#0066FF]/10 rounded-xl group-hover:bg-[#0066FF]/20 transition-all">
@@ -234,6 +236,7 @@ export default async function BusinessProfilePage({ params }: PageProps) {
               <a 
                 href={`https://wa.me/91${business.whatsapp_number}`} 
                 target="_blank" 
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 w-full bg-[#25D366] text-white p-5 rounded-2xl font-black hover:scale-[1.02] transition-all group"
               >
                 <div className="relative w-6 h-6">
@@ -256,19 +259,19 @@ export default async function BusinessProfilePage({ params }: PageProps) {
                 <p className="text-[10px] text-zinc-400 font-black uppercase tracking-[0.2em] mb-4 text-center">Follow & Review</p>
                 <div className="flex justify-center gap-4">
                   {business.instagram_handle && (
-                    <a href={`https://instagram.com/${business.instagram_handle}`} target="_blank" className="p-4 bg-zinc-50 rounded-2xl hover:bg-zinc-100 transition-all flex items-center justify-center">
+                    <a href={`https://instagram.com/${business.instagram_handle}`} target="_blank" rel="noopener noreferrer" className="p-4 bg-zinc-50 rounded-2xl hover:bg-zinc-100 transition-all flex items-center justify-center">
                       <div className="relative w-6 h-6">
                         <Image src="/social-icons/instagram.png" alt="Instagram" fill sizes="24px" className="object-contain grayscale hover:grayscale-0 transition-all" />
                       </div>
                     </a>
                   )}
                   {business.facebook_page_link && (
-                    <a href={business.facebook_page_link} target="_blank" className="p-4 bg-zinc-50 rounded-2xl hover:bg-zinc-100 transition-all">
+                    <a href={business.facebook_page_link} target="_blank" rel="noopener noreferrer" className="p-4 bg-zinc-50 rounded-2xl hover:bg-zinc-100 transition-all">
                       <GlobeIcon className="w-6 h-6" />
                     </a>
                   )}
                   {business.google_review_link && (
-                    <a href={business.google_review_link} target="_blank" className="p-4 bg-[#0066FF]/10 rounded-2xl hover:bg-[#0066FF]/20 transition-all text-[#0066FF]">
+                    <a href={business.google_review_link} target="_blank" rel="noopener noreferrer" className="p-4 bg-[#0066FF]/10 rounded-2xl hover:bg-[#0066FF]/20 transition-all text-[#0066FF]">
                       <Star className="w-6 h-6 fill-current" />
                     </a>
                   )}

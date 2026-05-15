@@ -1,10 +1,6 @@
-'use client';
-
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Mail } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,7 +13,7 @@ export default function Footer() {
     ],
     company: [
       { name: "About", href: "/about" },
-      { name: "Contact", href: "https://wa.me/916000163450" },
+      { name: "Contact", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to talk.")}` },
       { name: "Reviews", href: "/reviews" },
     ],
     legal: [
@@ -28,7 +24,7 @@ export default function Footer() {
   };
 
   const socials = [
-    { name: "WhatsApp", icon: "/social-icons/whatsapp.png", href: "https://wa.me/916000163450" },
+    { name: "WhatsApp", icon: "/social-icons/whatsapp.png", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'm interested in Locallify.")}` },
     { name: "Instagram", icon: "/social-icons/instagram.png", href: "https://www.instagram.com/locallify.in/" },
   ];
 
@@ -113,7 +109,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-border-subtle flex flex-col md:row justify-between items-center gap-6">
+        <div className="pt-12 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-6">
            <div className="font-mono text-[10px] text-text-subtle tracking-widest uppercase">
              &copy; {currentYear} Locallify Digital Services. All rights reserved.
            </div>

@@ -116,13 +116,13 @@ export default function OnboardingPage() {
         slug: values.slug.toLowerCase(),
       };
 
-      const newProfile = await profileService.createProfile(profileData as any, logoFile, coverFile);
+      const newProfile = await profileService.createProfile(profileData, logoFile, coverFile);
       if (newProfile.is_public) addProfileToState(newProfile);
 
       toast.success('Registration Complete! Setting up your cinematic profile...');
       setTimeout(() => router.push(`/${newProfile.slug}`), 2000);
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to register business.');
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to register business.');
     } finally {
       setLoading(false);
     }

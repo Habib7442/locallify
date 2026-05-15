@@ -2,14 +2,78 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import Pricing from "@/components/sections/Pricing";
 import { HelpCircle, Zap, Shield, Clock } from "lucide-react";
+import { constructMetadata } from "@/lib/seo";
+import Link from "next/link";
+
+export const metadata = constructMetadata({
+  title: "Pricing & Plans | Locallify",
+  description: "Simple, transparent pricing for India's local legends. Choose a plan that fuels your business growth without hidden fees.",
+});
 
 export default function PricingPage() {
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Locallify Digital Presence",
+            "description": "Professional local business digital presence services including one-page websites, Google Business optimization, and managed storefronts.",
+            "provider": {
+              "@type": "Organization",
+              "name": "Locallify",
+              "url": "https://locallify.in"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Service Plans",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Scale Plan"
+                  },
+                  "price": "499",
+                  "priceCurrency": "INR"
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Growth Plan"
+                  },
+                  "price": "999",
+                  "priceCurrency": "INR"
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Dominate Plan"
+                  },
+                  "price": "2499",
+                  "priceCurrency": "INR"
+                }
+              ]
+            }
+          })
+        }}
+      />
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2"
+      >
+        Skip to content
+      </a>
+      
       <Navbar />
 
-      {/* ─── HERO SECTION ────────────────────────────────────────── */}
-      <section className="relative pt-40 pb-16 px-6 overflow-hidden">
+      <main id="main-content">
+        {/* ─── HERO SECTION ────────────────────────────────────────── */}
+      <section className="relative pt-32 pb-6 px-6 overflow-hidden">
         <div className="container mx-auto relative z-10">
           <div className="max-w-4xl">
             <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-secondary mb-6 block">
@@ -27,7 +91,7 @@ export default function PricingPage() {
       </section>
 
       {/* ─── PRICING COMPONENT ────────────────────────────────────── */}
-      <Pricing />
+      <Pricing showHeader={false} />
 
       {/* ─── TRUST PILLARS ────────────────────────────────────────── */}
       <section className="py-16 px-6 bg-bg-surface border-y border-border-subtle">
@@ -82,15 +146,28 @@ export default function PricingPage() {
               Ready to claim <br />
               <span className="text-accent-secondary not-italic">your market?</span>
             </h2>
-            <a 
-              href="https://wa.me/916000163450" 
-              className="inline-flex h-16 px-12 items-center justify-center bg-accent-secondary text-text-inverse font-sans font-bold uppercase tracking-widest text-sm rounded-full hover:bg-accent-secondary-hover transition-all scale-110"
+            <Link 
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'm ready to claim my market.")}`}
+              className="inline-flex h-16 px-12 items-center justify-center bg-accent-secondary text-bg-primary font-sans font-bold uppercase tracking-widest text-sm rounded-full hover:bg-accent-secondary-hover transition-all scale-110 mb-12"
             >
               Start growing now
-            </a>
+            </Link>
+
+            <div className="flex flex-wrap justify-center gap-8 md:gap-12 mt-4 border-t border-white/5 pt-12">
+              <Link href="/portfolio" className="font-mono text-[10px] uppercase tracking-widest text-text-muted hover:text-accent-secondary transition-colors">
+                See Our Portfolio
+              </Link>
+              <Link href="/services" className="font-mono text-[10px] uppercase tracking-widest text-text-muted hover:text-accent-secondary transition-colors">
+                What We Build
+              </Link>
+              <Link href="/about" className="font-mono text-[10px] uppercase tracking-widest text-text-muted hover:text-accent-secondary transition-colors">
+                The Locallify Mission
+              </Link>
+            </div>
           </div>
         </div>
       </section>
+      </main>
     </div>
   );
 }

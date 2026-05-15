@@ -3,64 +3,61 @@
 import React, { useEffect, useRef } from 'react';
 import { Review } from '@/lib/types';
 import { Star, Quote, CheckCircle2 } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
 interface TestimonialsProps {
   reviews: Review[];
 }
 
+import { motion } from 'motion/react';
+
 export default function Testimonials({ reviews }: TestimonialsProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  if (reviews.length === 0) return null;
 
-  useEffect(() => {
-    if (reviews.length === 0) return;
-
-    const ctx = gsap.context(() => {
-      // Reveal header
-      gsap.from(".testimonials-header", {
-        scrollTrigger: {
-          trigger: ".testimonials-header",
-          start: "top 85%",
-        },
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: "power4.out"
-      });
-
-      // Reveal cards
-      if (scrollRef.current) {
-        gsap.fromTo(scrollRef.current.children, 
-          { opacity: 0, x: 50 },
-          {
-            scrollTrigger: {
-              trigger: scrollRef.current,
-              start: "top 92%",
-              toggleActions: "play none none none"
-            },
-            opacity: 1,
-            x: 0,
-            stagger: 0.1,
-            duration: 1.2,
-            ease: "power4.out"
-          }
-        );
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1] as const
       }
-    }, containerRef);
+    }
+  };
 
-    return () => ctx.revert();
-  }, [reviews]);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1] as const
+      }
+    }
+  };
 
   if (reviews.length === 0) return null;
 
   return (
-    <section ref={containerRef} className="py-24 bg-bg-primary overflow-hidden">
+    <section className="py-24 bg-bg-primary overflow-hidden">
       <div className="container mx-auto px-6 mb-16">
-        <div className="testimonials-header max-w-2xl">
+        <motion.div 
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="testimonials-header max-w-2xl"
+        >
           <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary mb-4 block">
             Client Success
           </span>
@@ -68,18 +65,22 @@ export default function Testimonials({ reviews }: TestimonialsProps) {
             Voices of the <br />
             <span className="text-text-muted not-italic">Community.</span>
           </h2>
-        </div>
+        </motion.div>
       </div>
 
       {/* Horizontal Scroll Container */}
-      <div 
-        ref={scrollRef}
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
         className="flex gap-6 overflow-x-auto pb-12 px-6 no-scrollbar snap-x snap-mandatory"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {reviews.map((review) => (
-          <div 
+          <motion.div 
             key={review.$id}
+            variants={cardVariants}
             className="flex-shrink-0 w-[300px] md:w-[450px] bg-bg-surface border border-border-subtle rounded-[2rem] p-8 md:p-10 snap-center flex flex-col justify-between group hover:border-accent-primary/20 transition-all duration-500"
           >
             <div>
@@ -111,12 +112,12 @@ export default function Testimonials({ reviews }: TestimonialsProps) {
               </div>
               <CheckCircle2 className="w-5 h-5 text-accent-primary opacity-40" />
             </div>
-          </div>
+          </motion.div>
         ))}
         
         {/* Extra spacing at end */}
         <div className="flex-shrink-0 w-6" />
-      </div>
+      </motion.div>
 
       <style jsx>{`
         .no-scrollbar::-webkit-scrollbar {

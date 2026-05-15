@@ -1,5 +1,3 @@
-'use client';
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +6,7 @@ import { MapPin } from "lucide-react";
 export default function Footer() {
   const socials = [
     { icon: "/social-icons/instagram.png", href: "https://www.instagram.com/locallify.in/", label: "Instagram" },
-    { icon: "/social-icons/whatsapp.png", href: "https://wa.me/919957882204", label: "WhatsApp" },
+    { icon: "/social-icons/whatsapp.png", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify! I'm interested in working with you.")}`, label: "WhatsApp" },
   ];
 
   return (

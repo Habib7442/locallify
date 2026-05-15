@@ -250,14 +250,9 @@ const button = cva(
 
 ## 6. Motion conventions
 
-### 6.1 When to use what
-
-- **Framer Motion** — component-level animation, entry/exit, layout transitions, hover/tap.
-- **GSAP + ScrollTrigger** — scroll-triggered timelines, complex sequencing, marquees, pinning.
-- **CSS transitions** — simple hover states, color changes, transforms <300ms.
-- **CSS animations** — infinite loops (marquee, gradient mesh, subtle ambient).
-
-Never use both Framer and GSAP on the same element.
+- **GSAP + ScrollTrigger** — Complex choreography, scroll-triggered timelines, and dynamic entrance animations.
+- **CSS transitions** — Simple hover states, color changes, transforms <300ms.
+- **CSS animations** — Infinite loops (marquee, gradient mesh, subtle ambient).
 
 ### 6.2 Easing
 
@@ -280,16 +275,16 @@ Default is `smoothOut`. Use `smoothIn` only when something is leaving the viewpo
 | Macro (page transition, hero reveal) | 500–700ms |
 | Continuous (marquee, ambient) | 20–40s |
 
-### 5.4 prefers-reduced-motion
-
-Every motion component must wrap with the `useReducedMotion` hook (Framer) or check `(prefers-reduced-motion: reduce)` (CSS). When motion is reduced, animation duration becomes 0 and any movement collapses to a fade.
+Every motion component must check `window.matchMedia('(prefers-reduced-motion: reduce)').matches`. When motion is reduced, animation duration becomes 0 and any movement collapses to a fade.
 
 ```tsx
-const shouldReduceMotion = useReducedMotion();
-const variants = {
-  hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
-  visible: { opacity: 1, y: 0 },
-};
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+gsap.from(element, {
+  opacity: prefersReducedMotion ? 1 : 0,
+  y: prefersReducedMotion ? 0 : 20,
+  duration: prefersReducedMotion ? 0 : 0.6
+});
 ```
 
 ### 5.5 Performance
