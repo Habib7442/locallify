@@ -11,7 +11,7 @@ export const metadata = constructMetadata({
   description: "A showcase of India's most ambitious local businesses, powered by high-performance digital storefronts.",
 });
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 60; // Revalidate every minute
 
 export default async function PortfolioPage() {
   let projects: Project[] = [];
