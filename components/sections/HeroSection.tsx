@@ -71,7 +71,13 @@ export default function HeroSection() {
       ref={containerRef}
       className="relative min-h-screen flex items-center pt-40 pb-16 overflow-hidden px-6 bg-bg-primary select-none"
     >
-      {/* Serenity-style SVG Grid Background */}
+      {/* Glowing Mesh Gradients (Behind the grid) */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-80">
+        <div className="absolute top-[10%] left-[15%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(208,255,20,0.08)_0%,transparent_70%)] blur-[80px]" />
+        <div className="absolute bottom-[10%] right-[15%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(255,92,40,0.06)_0%,transparent_70%)] blur-[100px]" />
+      </div>
+
+      {/* SVG Grid Overlay */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="voltageGrid" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -79,27 +85,6 @@ export default function HeroSection() {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#voltageGrid)" />
-        
-        {/* Animated Accent Lines */}
-        <motion.line 
-          x1="0" y1="30%" x2="100%" y2="30%" 
-          className="grid-line stroke-accent-primary/10" 
-          style={{ strokeDasharray: '5 5' }}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2, delay: 0.5 }}
-        />
-        <motion.line 
-          x1="70%" y1="0" x2="70%" y2="100%" 
-          className="grid-line stroke-accent-primary/10" 
-          style={{ strokeDasharray: '5 5' }}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2, delay: 0.7 }}
-        />
-        
-        {/* Detail Dots */}
-        <circle cx="70%" cy="30%" r="2" className="fill-accent-primary/40 animate-pulse" />
       </svg>
 
       {/* Mouse Follow Gradient */}

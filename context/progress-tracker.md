@@ -15,6 +15,8 @@
   - [x] `PortfolioClient` layout animations.
   - [x] `Testimonials` scroll reveals.
   - [x] `CTA` and `Services` page migration.
+- [x] Portfolio Card Redesign: Glassmorphism, sharp corners, full-image presentation, line-clamping, and responsive details modal.
+- [x] Local Dominance SEO Suite: Dynamic city-level landing page generator (`/cities/[city]`), dynamic profiles and routing sitemap (`/sitemap.ts`), and robot rules mapping (`/robots.ts`).
 
 ## Next Up
 - [ ] Unit 01: Global Theme & Font Implementation (Verification).
