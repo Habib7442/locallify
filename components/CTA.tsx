@@ -14,10 +14,10 @@ interface CTAProps {
 export default function CTA({ 
   title = <>JOIN THE <br /> <span className="text-accent-primary italic font-display">REVOLUTION.</span></>,
   subtitle = "We don't just build pages. We build digital legacies. Join the elite businesses across India who are already winning the digital game.",
-  primaryBtnText = "CLAIM YOUR PAGE →",
-  primaryBtnHref = "/onboarding",
+  primaryBtnText = "START A PROJECT →",
+  primaryBtnHref = "https://wa.me",
   secondaryBtnText = "WHATSAPP US",
-  secondaryBtnHref = "https://wa.me/919957882204"
+  secondaryBtnHref = "https://wa.me"
 }: CTAProps) {
   return (
     <section className="py-20 md:py-32 relative overflow-hidden bg-bg-primary">

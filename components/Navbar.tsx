@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to start a software project.")}`;
+
 export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,10 +21,9 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
   }, []);
 
   const navItems = [
-    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Work', href: '/portfolio' },
     { name: 'Services', href: '/services' },
     { name: 'Pricing', href: '/pricing' },
-    { name: 'Reviews', href: '/reviews' },
     { name: 'About', href: '/about' },
   ];
 
@@ -57,24 +58,24 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-10">
-            <div className="flex gap-10 font-mono text-[10px] uppercase tracking-[0.3em] text-text-secondary">
+            <div className="flex gap-8 text-sm font-medium text-text-secondary">
               {navItems.map((item) => (
                 <Link 
                   key={item.name} 
                   href={item.href}
-                  className="hover:text-accent-primary transition-colors relative group"
+                  className="hover:text-text-primary transition-colors relative group"
                 >
                   {item.name}
-                  <span className="absolute -bottom-2 left-0 w-0 h-px bg-accent-primary transition-all group-hover:w-full"></span>
+                  <span className="absolute -bottom-2 left-0 h-px w-0 bg-accent-primary transition-all group-hover:w-full" />
                 </Link>
               ))}
             </div>
             
             <Link 
-              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to get started.")}`}
-              className="btn-primary py-3 px-6 text-sm gap-2"
+              href="/contact"
+              className="btn-primary gap-2"
             >
-              Claim your page
+              Start a project
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -99,9 +100,6 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
             ? "opacity-100 pointer-events-auto translate-y-0" 
             : "opacity-0 pointer-events-none -translate-y-4"
         )}
-        style={{
-          transitionDuration: typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? '0ms' : '300ms'
-        }}
       >
         {/* Dedicated Close Button */}
         <button 
@@ -125,11 +123,11 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
           ))}
           <div className="pt-8 flex flex-col gap-4">
             <Link 
-              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to talk to an expert.")}`}
-              className="btn-primary w-full text-lg"
+              href="/contact"
+              className="btn-primary w-full"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Claim your page
+              Start a project
             </Link>
           </div>
         </div>

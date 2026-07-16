@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import { Instrument_Serif, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
@@ -25,7 +25,7 @@ const geistMono = Geist_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0A0A0E",
+  themeColor: "#F7F6FB",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,

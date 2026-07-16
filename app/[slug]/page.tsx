@@ -16,7 +16,7 @@ import {
   Navigation
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { profileService } from '@/lib/appwrite-service';
+import { profileService } from '@/lib/cms';
 import LeadForm from '@/components/LeadForm';
 import { Toaster } from 'sonner';
 import { getBusinessStatus } from '@/lib/business-utils';
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!business) return { title: 'Business Not Found | Locallify' };
 
-  const coverUrl = profileService.getFileUrl(business.cover_id);
+  const coverUrl = business.cover || '/placeholder.jpg';
 
   return {
     title: `${business.business_name} | Locallify Profile`,
@@ -103,8 +103,8 @@ export default async function BusinessProfilePage({ params }: PageProps) {
     );
   }
 
-  const logoUrl = profileService.getFileUrl(business.logo_id);
-  const coverUrl = profileService.getFileUrl(business.cover_id);
+  const logoUrl = business.logo || '/placeholder.jpg';
+  const coverUrl = business.cover || '/placeholder.jpg';
   const status = getBusinessStatus(business.business_hours);
 
   return (

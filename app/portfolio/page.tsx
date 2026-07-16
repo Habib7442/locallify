@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import { projectService } from "@/lib/appwrite-service";
+import { projectService } from "@/lib/cms";
 import PortfolioClient from "@/components/PortfolioClient";
 import { Project } from "@/lib/types";
 import { constructMetadata } from "@/lib/seo";
@@ -74,17 +74,17 @@ export default async function PortfolioPage() {
       <section className="py-24 bg-bg-surface border-t border-border-subtle text-center px-6">
         <div className="container mx-auto">
           <h2 className="font-display italic text-5xl md:text-7xl text-text-primary mb-8">
-            Ready to be our <br />
-            <span className="text-accent-primary not-italic">next legend?</span>
+            Ready to build <br />
+            <span className="text-accent-primary not-italic">something serious?</span>
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto mb-12">
-            We don't just build pages. We build digital legacies for elite businesses across India.
+            We don&apos;t just ship screens. We build software that works, scales, and gets found.
           </p>
           <Link 
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I saw your portfolio and I'd like to claim my page.")}`}
+            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I saw your work and I'd like to discuss a software project.")}`}
             className="inline-flex h-14 px-10 items-center justify-center bg-accent-primary text-bg-primary font-sans font-bold uppercase tracking-widest text-xs rounded-full hover:bg-accent-hover transition-colors mb-8"
           >
-            Claim your page
+            Start a project
           </Link>
 
           <div className="flex flex-wrap justify-center gap-8 md:gap-12 mt-4 border-t border-white/5 pt-12">

@@ -17,6 +17,9 @@
   - [x] `CTA` and `Services` page migration.
 - [x] Portfolio Card Redesign: Glassmorphism, sharp corners, full-image presentation, line-clamping, and responsive details modal.
 - [x] Local Dominance SEO Suite: Dynamic city-level landing page generator (`/cities/[city]`), dynamic profiles and routing sitemap (`/sitemap.ts`), and robot rules mapping (`/robots.ts`).
+- [x] Redesigned Hero Section: Integrated `/hero_bg.png` starry sky background with Voltage-brand display italic typography layout.
+- [x] Services capability cards overlay: Overwrote blank mock card placeholders with detailed inline SVGs representing Database schemas, metric charts, device frames, Search performance graphs, and workflow triggers.
+- [x] Hybrid Contact Flow: Created `/contact` and `/api/contact` using client/server honeypot validation, rate limiting, and an inline `@calcom/embed-react` booking widget.
 
 ## Next Up
 - [ ] Unit 01: Global Theme & Font Implementation (Verification).
@@ -24,5 +27,5 @@
 
 ## Session Notes
 - Migration from GSAP to `motion/react` is complete. 
-- All imperative ScrollTrigger logic replaced with declarative `whileInView` and `AnimatePresence`.
-- Verified that no `gsap` imports remain in the `.tsx` codebase.
+- Integrated Cal.com's official `@calcom/embed-react` module inside the custom Next.js step structure.
+- Verified TypeScript compilations (`npx tsc --noEmit`) complete with **zero errors**.

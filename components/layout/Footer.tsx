@@ -1,128 +1,119 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+
+const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to talk about a software project.")}`;
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    platform: [
-      { name: "Portfolio", href: "/portfolio" },
+    studio: [
+      { name: "Work", href: "/portfolio" },
       { name: "Services", href: "/services" },
       { name: "Pricing", href: "/pricing" },
-    ],
-    company: [
       { name: "About", href: "/about" },
-      { name: "Contact", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to talk.")}` },
+    ],
+    contact: [
+      { name: "WhatsApp", href: whatsappHref },
+      { name: "Email", href: "mailto:hello@locallifyagency.com" },
       { name: "Reviews", href: "/reviews" },
     ],
     legal: [
       { name: "Privacy Policy", href: "/privacy-policy" },
       { name: "Terms of Service", href: "/terms" },
       { name: "Refund Policy", href: "/refund-policy" },
-    ]
+    ],
   };
 
   const socials = [
-    { name: "WhatsApp", icon: "/social-icons/whatsapp.png", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'm interested in Locallify.")}` },
-    { name: "Instagram", icon: "/social-icons/instagram.png", href: "https://www.instagram.com/locallify.in/" },
+    { name: "WhatsApp", href: whatsappHref },
+    { name: "Instagram", href: "https://www.instagram.com/locallify.in/" },
+    { name: "Email", href: "mailto:hello@locallifyagency.com" },
   ];
 
   return (
-    <footer className="bg-bg-primary pt-24 pb-12 px-6 border-t border-border-subtle overflow-hidden relative">
+    <footer className="relative overflow-hidden border-t border-border-default bg-bg-primary px-6 pb-8 pt-24">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-24">
-          
-          {/* Brand Info */}
-          <div className="md:col-span-5 space-y-8">
-            <Link href="/" className="font-display italic text-4xl text-text-primary">
-              Locallify.
+        <div className="grid gap-12 md:grid-cols-12 pb-16">
+          <div className="md:col-span-6">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="relative h-10 w-10 overflow-hidden rounded-full border border-border-default bg-bg-surface">
+                <Image src="/logo2.png" alt="Locallify logo" fill sizes="40px" className="object-cover" />
+              </div>
+              <span className="text-xl font-sans font-bold tracking-tight text-text-primary">Locallify</span>
             </Link>
-            <p className="text-text-secondary max-w-sm leading-relaxed font-light text-lg">
-              Modernizing the street. We build elite digital infrastructure for India&apos;s local market legends.
+            <p className="mt-6 max-w-md text-base leading-relaxed text-text-secondary font-light">
+              A global software studio for custom software, web apps, mobile apps,
+              AI features, and SEO + GEO systems built to be found.
             </p>
-            <div className="flex gap-4">
+            <p className="mt-4 text-xs font-mono uppercase tracking-wider text-text-subtle">
+              Founded in India &middot; Serving companies globally.
+            </p>
+            
+            {/* Pill-shaped modern social buttons */}
+            <div className="mt-8 flex flex-wrap gap-2">
               {socials.map((social) => (
-                <a 
+                <a
                   key={social.name}
-                  href={social.href} 
-                  className="w-11 h-11 rounded-full bg-bg-surface border border-border-subtle flex items-center justify-center hover:border-accent-primary/30 transition-all duration-500"
+                  href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border-default bg-bg-surface/30 text-[10px] font-mono uppercase tracking-wider text-text-muted hover:text-text-primary hover:border-accent-primary hover:bg-bg-surface/80 transition-all duration-300"
                 >
-                  <Image 
-                    src={social.icon} 
-                    alt={social.name} 
-                    width={20} 
-                    height={20} 
-                    className="object-contain"
-                  />
+                  {social.name}
+                  <ArrowUpRight className="h-3 w-3 text-text-subtle transition-transform duration-300" />
                 </a>
               ))}
-              <a href="mailto:locallify26@gmail.com" className="w-11 h-11 rounded-full bg-bg-surface border border-border-subtle flex items-center justify-center text-text-muted hover:text-accent-primary hover:border-accent-primary/30 transition-all duration-500">
-                <Mail className="w-5 h-5" />
-              </a>
             </div>
           </div>
 
-          {/* Links */}
-          <div className="md:col-span-2 space-y-6">
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-text-muted">Platform</h4>
-            <ul className="space-y-4">
-              {footerLinks.platform.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-text-secondary hover:text-accent-primary transition-colors inline-flex items-center group">
-                    {link.name}
-                    <ArrowUpRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-2 space-y-6">
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-text-muted">Company</h4>
-            <ul className="space-y-4">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-text-secondary hover:text-accent-primary transition-colors inline-flex items-center group">
-                    {link.name}
-                    <ArrowUpRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-3 space-y-6">
-            <h4 className="font-mono text-[10px] uppercase tracking-[0.3em] text-text-muted">Legal</h4>
-            <ul className="space-y-4">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-text-secondary hover:text-accent-primary transition-colors inline-flex items-center group text-sm">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="md:col-span-6 grid grid-cols-3 gap-6">
+            <FooterColumn title="Studio" links={footerLinks.studio} />
+            <FooterColumn title="Contact" links={footerLinks.contact} />
+            <FooterColumn title="Legal" links={footerLinks.legal} />
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-12 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-6">
-           <div className="font-mono text-[10px] text-text-subtle tracking-widest uppercase">
-             &copy; {currentYear} Locallify Digital Services. All rights reserved.
-           </div>
-           <div className="flex items-center gap-2 font-mono text-[9px] text-text-subtle tracking-widest uppercase">
-             Made with <span className="text-accent-secondary">⚡</span> for India
-           </div>
+        {/* Large screen-spanning brand signature */}
+        <div className="select-none text-center font-display italic text-[12vw] font-light leading-[0.8] tracking-tight text-border-default/40 py-8 border-y border-border-default/50 selection:bg-transparent">
+          Locallify.
         </div>
-      </div>
 
-      {/* Background Watermark */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 font-display italic text-[12vw] leading-none text-white/[0.03] pointer-events-none select-none whitespace-nowrap z-0">
-        Locallify
+        <div className="mt-8 flex flex-col gap-4 text-xs font-mono uppercase tracking-wider text-text-subtle md:flex-row md:items-center md:justify-between">
+          <p>&copy; {currentYear} Locallify Digital Services &bull; All rights reserved.</p>
+          <p className="text-accent-primary font-bold">Design &bull; Build &bull; Rank.</p>
+        </div>
       </div>
     </footer>
+  );
+}
+
+interface FooterColumnProps {
+  title: string;
+  links: Array<{ name: string; href: string }>;
+}
+
+function FooterColumn({ title, links }: FooterColumnProps) {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-2">
+        <span className="h-1 w-1 rounded-full bg-accent-primary shrink-0 animate-pulse" />
+        <h2 className="text-[10px] font-mono uppercase tracking-widest text-text-muted">{title}</h2>
+      </div>
+      <ul className="space-y-3.5">
+        {links.map((link) => (
+          <li key={link.name}>
+            <Link 
+              href={link.href} 
+              className="group inline-flex items-center text-sm font-light text-text-secondary transition-all duration-300 hover:text-text-primary hover:translate-x-0.5"
+            >
+              {link.name}
+              <ArrowUpRight className="ml-1 h-3.5 w-3.5 text-text-subtle transition-transform duration-300 group-hover:text-accent-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

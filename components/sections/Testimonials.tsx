@@ -1,129 +1,106 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
 import { Review } from '@/lib/types';
-import { Star, Quote, CheckCircle2 } from 'lucide-react';
+import { Quote, Star } from 'lucide-react';
+import { motion, useReducedMotion, type Variants } from 'motion/react';
+
 interface TestimonialsProps {
-  reviews: Review[];
+  reviews?: Review[];
 }
 
-import { motion } from 'motion/react';
+const fallbackReviews = [
+  {
+    id: 'founder',
+    name: 'SaaS founder',
+    role: 'United States',
+    review: 'Locallify understood the product, not just the page. The build came with the technical SEO pieces we usually have to chase later.',
+    rating: 5,
+  },
+  {
+    id: 'operator',
+    name: 'Operations lead',
+    role: 'United Kingdom',
+    review: 'They turned a messy manual workflow into a clean internal tool and gave our team a launch plan we could actually follow.',
+    rating: 5,
+  },
+  {
+    id: 'clinic',
+    name: 'Clinic owner',
+    role: 'Gulf region',
+    review: 'The AI intake flow gave us faster responses without losing the human handoff. Clear thinking, clean product, calm process.',
+    rating: 5,
+  },
+];
 
-export default function Testimonials({ reviews }: TestimonialsProps) {
-  if (reviews.length === 0) return null;
+export default function Testimonials({ reviews = [] }: TestimonialsProps) {
+  const reduceMotion = useReducedMotion();
+  const visibleReviews = reviews.length > 0
+    ? reviews.slice(0, 3).map((review) => ({
+        id: review.$id,
+        name: review.name,
+        role: 'Verified client',
+        review: review.review,
+        rating: review.rating,
+      }))
+    : fallbackReviews;
 
-  const headerVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 18 },
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
-        duration: 1.2,
-        ease: [0.16, 1, 0.3, 1] as const
-      }
-    }
+        duration: reduceMotion ? 0 : 0.55,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
   };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 1.2,
-        ease: [0.16, 1, 0.3, 1] as const
-      }
-    }
-  };
-
-  if (reviews.length === 0) return null;
 
   return (
-    <section className="py-24 bg-bg-primary overflow-hidden">
-      <div className="container mx-auto px-6 mb-16">
-        <motion.div 
-          variants={headerVariants}
+    <section className="bg-bg-primary px-6 py-16 border-t border-border-subtle">
+      <div className="container mx-auto">
+        <div className="mb-16 max-w-4xl text-left">
+          <span className="mb-5 inline-flex rounded-full border border-accent-primary/20 bg-accent-soft/30 px-4 py-1.5 text-xs font-mono tracking-wider uppercase text-accent-primary">
+            Testimonials
+          </span>
+          <h2 className="text-4xl font-sans font-bold leading-[1.1] text-text-primary md:text-6xl tracking-tight max-w-3xl">
+            Serious clients need a <span className="font-display italic font-light text-accent-primary">serious build partner</span>.
+          </h2>
+        </div>
+
+        <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="testimonials-header max-w-2xl"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ staggerChildren: reduceMotion ? 0 : 0.08 }}
+          className="grid gap-6 md:grid-cols-3"
         >
-          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary mb-4 block">
-            Client Success
-          </span>
-          <h2 className="font-display italic text-4xl md:text-6xl text-text-primary leading-tight">
-            Voices of the <br />
-            <span className="text-text-muted not-italic">Community.</span>
-          </h2>
+          {visibleReviews.map((review) => (
+            <motion.article 
+              key={review.id} 
+              variants={itemVariants} 
+              className="group p-8 bg-bg-surface/50 backdrop-blur-sm border border-border-subtle rounded-2xl transition-all duration-300 hover:border-accent-primary/30 hover:shadow-[0_0_20px_rgba(208,255,20,0.04)] flex flex-col"
+            >
+              <div className="mb-8 flex items-center justify-between">
+                <div className="flex gap-1">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star
+                      key={index}
+                      className={index < review.rating ? 'h-4 w-4 fill-accent-primary text-accent-primary' : 'h-4 w-4 text-text-subtle'}
+                    />
+                  ))}
+                </div>
+                <Quote className="h-5 w-5 text-border-strong group-hover:text-accent-primary group-hover:scale-110 transition-all duration-500" />
+              </div>
+              <p className="flex-grow text-base leading-relaxed text-text-secondary text-left font-light">&quot;{review.review}&quot;</p>
+              <div className="mt-8 border-t border-border-subtle pt-6">
+                <p className="font-sans font-semibold text-text-primary">{review.name}</p>
+                <p className="mt-1 text-xs text-text-muted font-mono uppercase tracking-wider">{review.role}</p>
+              </div>
+            </motion.article>
+          ))}
         </motion.div>
       </div>
-
-      {/* Horizontal Scroll Container */}
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="flex gap-6 overflow-x-auto pb-12 px-6 no-scrollbar snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        {reviews.map((review) => (
-          <motion.div 
-            key={review.$id}
-            variants={cardVariants}
-            className="flex-shrink-0 w-[300px] md:w-[450px] bg-bg-surface border border-border-subtle rounded-[2rem] p-8 md:p-10 snap-center flex flex-col justify-between group hover:border-accent-primary/20 transition-all duration-500"
-          >
-            <div>
-              <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    className={`w-4 h-4 ${i < review.rating ? 'fill-accent-primary text-accent-primary' : 'text-text-muted'}`} 
-                  />
-                ))}
-              </div>
-              
-              <Quote className="w-10 h-10 text-white/[0.03] mb-4" />
-              
-              <p className="text-text-secondary text-lg md:text-xl leading-relaxed font-light mb-8 italic">
-                &quot;{review.review}&quot;
-              </p>
-            </div>
-
-            <div className="flex items-center justify-between border-t border-border-subtle pt-6">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-bg-elevated flex items-center justify-center text-text-muted border border-border-subtle">
-                  {review.name.charAt(0)}
-                </div>
-                <div>
-                  <h4 className="font-sans font-bold text-text-primary text-sm uppercase tracking-wider">{review.name}</h4>
-                  <p className="text-[10px] font-mono text-text-muted uppercase tracking-widest mt-1">Verified Client</p>
-                </div>
-              </div>
-              <CheckCircle2 className="w-5 h-5 text-accent-primary opacity-40" />
-            </div>
-          </motion.div>
-        ))}
-        
-        {/* Extra spacing at end */}
-        <div className="flex-shrink-0 w-6" />
-      </motion.div>
-
-      <style jsx>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }

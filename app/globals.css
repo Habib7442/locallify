@@ -54,11 +54,11 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-pill bg-accent-primary px-8 py-4 font-sans text-base font-bold text-text-inverse transition-all hover:bg-accent-hover active:scale-95;
+    @apply inline-flex items-center justify-center rounded-xl bg-bg-inverse px-6 py-3 font-sans text-sm font-semibold text-text-inverse transition-all hover:bg-accent-primary hover:text-white active:scale-95;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center rounded-pill border border-border-default px-8 py-4 font-sans text-base font-bold text-text-primary transition-all hover:border-text-primary hover:bg-bg-surface active:scale-95;
+    @apply inline-flex items-center justify-center rounded-xl border border-border-default bg-bg-surface px-6 py-3 font-sans text-sm font-semibold text-text-primary transition-all hover:border-text-primary active:scale-95;
   }
 
   .voltage-gradient-bg {
@@ -77,7 +77,11 @@
   }
 
   .glass-surface {
-    @apply bg-bg-surface/50 backdrop-blur-xl border border-border-subtle;
+    @apply bg-bg-surface/80 backdrop-blur-xl border border-border-default;
+  }
+
+  .studio-card {
+    @apply rounded-3xl border border-border-default bg-bg-surface shadow-sm;
   }
 }
 
@@ -101,6 +105,17 @@
   animation: marquee linear infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* GSAP Reveal Masks */
 .mask-reveal {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
@@ -108,4 +123,30 @@
 
 .mask-reveal-child {
   display: block;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border: 2px solid var(--bg-primary);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) var(--bg-primary);
 }

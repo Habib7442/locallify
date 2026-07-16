@@ -4,7 +4,10 @@ import ServicesGrid from "@/components/sections/ServicesGrid";
 import WorkGallery from "@/components/sections/WorkGallery";
 import Pricing from "@/components/sections/Pricing";
 import Testimonials from "@/components/sections/Testimonials";
-import { projectService, reviewService } from "@/lib/appwrite-service";
+import SeoGeoEdge from "@/components/sections/SeoGeoEdge";
+import Process from "@/components/sections/Process";
+import FinalCTA from "@/components/sections/FinalCTA";
+import { projectService, reviewService } from "@/lib/cms";
 import { Project, Review } from "@/lib/types";
 import { constructMetadata } from "@/lib/seo";
 
@@ -14,13 +17,31 @@ export const revalidate = 3600; // Revalidate the home page every hour
 export default async function HomePage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Locallify",
-    "url": "https://locallify.in",
-    "logo": "https://locallify.in/logo2.png",
-    "description": "Modernizing the street with elite digital presence for local businesses in India.",
-    "sameAs": [
-      "https://instagram.com/locallify.in"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://locallifyagency.com/#organization",
+        "name": "Locallify",
+        "url": "https://locallifyagency.com",
+        "logo": "https://locallifyagency.com/logo2.png",
+        "description": "Locallify is a global software studio building custom software, web apps, mobile apps, AI features, and SEO + GEO systems.",
+        "sameAs": ["https://instagram.com/locallify.in"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://locallifyagency.com/#website",
+        "url": "https://locallifyagency.com",
+        "name": "Locallify",
+        "publisher": { "@id": "https://locallifyagency.com/#organization" }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://locallifyagency.com/#software-development",
+        "name": "Custom software, web app, and mobile app development",
+        "provider": { "@id": "https://locallifyagency.com/#organization" },
+        "areaServed": "Worldwide",
+        "serviceType": "Software development with SEO and Generative Engine Optimization"
+      }
     ]
   };
 
@@ -34,19 +55,12 @@ export default async function HomePage() {
       reviewService.getPublishedReviews(6)
     ]);
 
-    if (projectsData.status === 'fulfilled') {
-      projects = projectsData.value;
-    } else {
-      console.error("Appwrite timeout or error fetching projects:", projectsData.reason);
-    }
+    if (projectsData.status === 'fulfilled') projects = projectsData.value;
 
-    if (reviewsData.status === 'fulfilled') {
-      reviews = reviewsData.value;
-    } else {
-      console.error("Appwrite timeout or error fetching reviews:", reviewsData.reason);
-    }
-  } catch (error) {
-    console.error("Unexpected failure in home page data fetch sequence:", error);
+    if (reviewsData.status === 'fulfilled') reviews = reviewsData.value;
+  } catch {
+    projects = [];
+    reviews = [];
   }
 
   return (
@@ -66,10 +80,13 @@ export default async function HomePage() {
 
       <main id="main-content">
         <HeroSection />
-        <ServicesGrid />
         <WorkGallery initialProjects={projects} />
-        <Testimonials reviews={reviews} />
+        <ServicesGrid />
+        <SeoGeoEdge />
+        <Process />
         <Pricing />
+        <Testimonials reviews={reviews} />
+        <FinalCTA />
       </main>
     </div>
   );

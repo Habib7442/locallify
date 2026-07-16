@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import { projectService } from "@/lib/appwrite-service";
+import { projectService } from "@/lib/cms";
 import { constructMetadata } from "@/lib/seo";
 import { Metadata } from "next";
 import Link from "next/link";

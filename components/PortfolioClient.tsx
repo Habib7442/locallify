@@ -1,44 +1,22 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Search, Globe, ArrowUpRight, X } from "lucide-react";
+import Link from "next/link";
+import { Search, Globe, ArrowUpRight } from "lucide-react";
 import { Project } from "@/lib/types";
-import { projectService } from "@/lib/appwrite-service";
+import { projectService } from "@/lib/cms";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence, type Variants } from 'motion/react';
 
 interface PortfolioClientProps {
   initialProjects: Project[];
 }
 
-import { motion, AnimatePresence, type Variants } from 'motion/react';
-
 export default function PortfolioClient({ initialProjects }: PortfolioClientProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | "ongoing" | "completed">("all");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-  // Prevent background scroll when modal is open
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedProject]);
-
-  // Close modal on Escape key press
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedProject(null);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
   // Debouncing search
   useEffect(() => {
@@ -157,7 +135,7 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
               >
                 {filteredItems.map((item, index) => (
                   <motion.div 
-                    key={item.$id}
+                    key={item.slug}
                     variants={itemVariants}
                     layout
                     className="group"
@@ -165,26 +143,28 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                     <div className={cn(
                       "relative bg-bg-surface/30 backdrop-blur-md border border-border-subtle p-8 rounded-none h-full flex flex-col transition-all duration-500 hover:bg-bg-elevated/30",
                       index % 2 === 0 
-                        ? "hover:border-accent-primary/30 hover:shadow-[0_0_30px_rgba(208,255,20,0.1)]" 
-                        : "hover:border-accent-secondary/30 hover:shadow-[0_0_30px_rgba(255,92,40,0.1)]"
+                        ? "hover:border-accent-primary/30 hover:shadow-[0_0_30px_rgba(0,102,255,0.06)]" 
+                        : "hover:border-accent-secondary/30 hover:shadow-[0_0_30px_rgba(255,92,40,0.04)]"
                     )}>
-                      {/* Neon Top Border Highlight on Hover */}
+                      {/* Brand accent Top Border Highlight on Hover */}
                       <div className={cn(
                         "absolute top-0 left-0 right-0 h-[2px] opacity-0 transition-all duration-300 group-hover:opacity-100",
                         index % 2 === 0 
-                          ? "bg-accent-primary shadow-[0_0_12px_rgba(208,255,20,0.8)]" 
+                          ? "bg-accent-primary shadow-[0_0_12px_rgba(0,102,255,0.8)]" 
                           : "bg-accent-secondary shadow-[0_0_12px_rgba(255,92,40,0.8)]"
                       )} />
 
                       {/* Image Container */}
                       <div className="relative aspect-video overflow-hidden rounded-none bg-[#0C0C10] mb-8 border border-border-subtle flex items-center justify-center p-2">
-                        <Image
-                          src={projectService.getThumbnailUrl(item.thumbnail)}
-                          alt={item.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-contain p-1 transition-transform duration-700 group-hover:scale-[1.02]"
-                        />
+                        <Link href={`/portfolio/${item.slug}`} className="w-full h-full relative block">
+                          <Image
+                            src={projectService.getThumbnailUrl(item.heroBannerImage || item.thumbnail)}
+                            alt={item.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-contain p-1 transition-transform duration-700 group-hover:scale-[1.02]"
+                          />
+                        </Link>
                         <div className="absolute top-4 right-4 z-10">
                           <span className={cn(
                             "px-3 py-1 rounded-none text-[8px] font-mono font-bold uppercase tracking-[0.2em] border shadow-sm backdrop-blur-md",
@@ -202,7 +182,9 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                         <div>
                           <div className="flex justify-between items-start mb-4">
                              <h3 className="text-2xl font-sans font-bold text-text-primary group-hover:text-accent-primary transition-colors leading-tight">
-                                {item.title}
+                                <Link href={`/portfolio/${item.slug}`}>
+                                  {item.title}
+                                </Link>
                              </h3>
                              {item.live_url && (
                                <a 
@@ -221,24 +203,15 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                           </p>
 
                           <div className="min-h-[28px] mb-6 flex items-center">
-                            {item.description && item.description.length > 130 ? (
-                              <button
-                                onClick={() => setSelectedProject(item)}
-                                className={cn(
-                                  "text-[10px] font-mono uppercase tracking-widest flex items-center gap-1 transition-colors cursor-pointer border-b border-transparent hover:border-current pb-0.5",
-                                  index % 2 === 0 ? "text-accent-primary" : "text-accent-secondary"
-                                )}
-                              >
-                                Expand More +
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => setSelectedProject(item)}
-                                className="text-[10px] font-mono uppercase tracking-widest flex items-center gap-1 text-text-muted hover:text-text-primary transition-colors cursor-pointer border-b border-transparent hover:border-current pb-0.5"
-                              >
-                                View Details +
-                              </button>
-                            )}
+                            <Link
+                              href={`/portfolio/${item.slug}`}
+                              className={cn(
+                                "text-[10px] font-mono uppercase tracking-widest flex items-center gap-1 transition-colors cursor-pointer border-b border-transparent hover:border-current pb-0.5",
+                                index % 2 === 0 ? "text-accent-primary" : "text-accent-secondary"
+                              )}
+                            >
+                              View Case Study & Outcomes →
+                            </Link>
                           </div>
                         </div>
                         
@@ -272,57 +245,6 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
           </AnimatePresence>
         </div>
       </section>
-
-      {/* ─── DETAIL DIALOG (MODAL) ────────────────────────────────── */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md z-[999] flex items-center justify-center p-4 md:p-6 overflow-y-auto"
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-bg-surface/95 backdrop-blur-xl border border-white/10 rounded-none w-full max-w-xl overflow-hidden shadow-2xl relative flex flex-col p-8 md:p-10 my-8"
-            >
-              {/* Glow indicator at the top */}
-              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-accent-primary to-accent-secondary shadow-[0_1px_10px_rgba(208,255,20,0.5)]" />
-
-              <div className="flex justify-between items-start mb-6">
-                <h2 className="text-2xl font-sans font-bold text-text-primary leading-tight pr-4">
-                  {selectedProject.title}
-                </h2>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="p-2 text-text-muted hover:text-text-primary border border-transparent hover:border-border-subtle transition-all cursor-pointer rounded-none"
-                  aria-label="Close dialog"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              <div className="overflow-y-auto mb-8 max-h-[350px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                <p className="text-sm text-text-secondary leading-relaxed whitespace-pre-line">
-                  {selectedProject.description}
-                </p>
-              </div>
-
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="inline-flex h-11 px-6 items-center justify-center border border-border-subtle text-text-primary font-sans font-bold uppercase tracking-widest text-[10px] rounded-none hover:border-text-primary hover:bg-bg-surface/50 transition-colors cursor-pointer w-full mt-auto"
-              >
-                Close
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

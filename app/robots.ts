@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://locallify.in";
+  const baseUrl = "https://locallifyagency.com";
   
   return {
     rules: {
@@ -9,8 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: [
         "/api/",
-        "/onboarding/",
-        "/onboarding/*",
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,

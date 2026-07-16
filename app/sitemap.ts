@@ -1,8 +1,8 @@
 import { MetadataRoute } from "next";
-import { profileService } from "@/lib/appwrite-service";
+import { profileService } from "@/lib/cms";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://locallify.in";
+  const baseUrl = "https://locallifyagency.com";
 
   // Core Marketing Routes
   const coreRoutes = [
@@ -12,11 +12,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/services",
     "/about",
     "/reviews",
+    "/contact",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split("T")[0],
     changeFrequency: "weekly" as const,
-    priority: route === "" ? 1.0 : 0.8,
+    priority: route === "" ? 1.0 : route === "/contact" ? 0.9 : 0.8,
   }));
 
   // Target Cities Routes for Local SEO

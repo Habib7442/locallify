@@ -1,4 +1,4 @@
-import { reviewService } from "@/lib/appwrite-service";
+import { reviewService } from "@/lib/cms";
 import ReviewPageClient from "@/components/ReviewPageClient";
 import { constructMetadata } from "@/lib/seo";
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { profileService } from './appwrite-service';
+import { profileService } from './cms';
 import { BusinessProfile } from './types';
 
 interface BusinessState {

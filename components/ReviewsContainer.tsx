@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReviewsMarquee from "@/components/ReviewsMarquee";
-import { reviewService } from "@/lib/appwrite-service";
+import { reviewService } from "@/lib/cms";
 import { Review } from "@/lib/types";
 
 export default function ReviewsContainer() {

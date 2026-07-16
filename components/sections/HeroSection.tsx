@@ -1,239 +1,86 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { motion } from 'motion/react';
+import Image from 'next/image';
+import { ArrowRight, Globe } from 'lucide-react';
+import { motion, useReducedMotion, type Variants } from 'motion/react';
+
+const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to start a software project.")}`;
+
+const capabilities = ['Custom software', 'Web apps', 'Mobile apps', 'SEO + GEO'];
 
 export default function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Serenity Style States
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0, opacity: 0 });
-  const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
+  const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY, opacity: 1 });
-    };
-    const handleMouseLeave = () => setMousePos(prev => ({ ...prev, opacity: 0 }));
-    const handleClick = (e: MouseEvent) => {
-      const newRipple = { id: Date.now(), x: e.clientX, y: e.clientY };
-      setRipples(prev => [...prev, newRipple]);
-      setTimeout(() => setRipples(prev => prev.filter(r => r.id !== newRipple.id)), 1000);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('click', handleClick);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('click', handleClick);
-    };
-  }, []);
-
-  const prefersReducedMotion = typeof window !== 'undefined' ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false;
-
-  const headlineText = "We make your shop findable.";
-  const words = headlineText.split(' ');
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 18 },
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: 0.2,
+        duration: reduceMotion ? 0 : 0.7,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   };
 
-  const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: prefersReducedMotion ? 0 : 20 
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.8,
-        ease: [0.16, 1, 0.3, 1] as const
-      }
-    },
-  };
-
   return (
-    <section 
-      ref={containerRef}
-      className="relative min-h-screen flex items-center pt-40 pb-16 overflow-hidden px-6 bg-bg-primary select-none"
-    >
-      {/* Glowing Mesh Gradients (Behind the grid) */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-80">
-        <div className="absolute top-[10%] left-[15%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(208,255,20,0.08)_0%,transparent_70%)] blur-[80px]" />
-        <div className="absolute bottom-[10%] right-[15%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(255,92,40,0.06)_0%,transparent_70%)] blur-[100px]" />
-      </div>
-
-      {/* SVG Grid Overlay */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="voltageGrid" width="80" height="80" patternUnits="userSpaceOnUse">
-            <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(208, 255, 20, 0.03)" strokeWidth="0.5"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#voltageGrid)" />
-      </svg>
-
-      {/* Mouse Follow Gradient */}
-      <div 
-        className="fixed pointer-events-none z-10 w-96 h-96 rounded-full blur-[100px] transition-opacity duration-500 will-change-transform"
-        style={{
-          left: mousePos.x,
-          top: mousePos.y,
-          transform: 'translate(-50%, -50%)',
-          opacity: mousePos.opacity * 0.15,
-          background: 'radial-gradient(circle, var(--accent-primary), transparent 70%)'
-        }}
-      />
-
-      {/* Click Ripples */}
-      {ripples.map(ripple => (
-        <div
-          key={ripple.id}
-          className="fixed w-1 h-1 bg-accent-primary/40 rounded-full pointer-events-none z-50 animate-ripple"
-          style={{ left: ripple.x, top: ripple.y }}
+    <section className="relative isolate overflow-hidden bg-bg-primary px-6 pb-16 pt-32 md:pb-20 md:pt-40">
+      {/* Starry night & mountain background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden bg-bg-primary">
+        <Image
+          src="/hero_bg.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-bottom opacity-45"
         />
-      ))}
-
-      <motion.div 
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="container mx-auto relative z-20 text-center flex flex-col items-center"
-      >
-        
-        {/* Top Tagline */}
-        <motion.div variants={itemVariants} className="mb-8">
-          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary">
-            Stillness in the Noise
-          </span>
-          <div className="mt-4 w-12 h-px bg-gradient-to-r from-transparent via-accent-primary/30 to-transparent mx-auto" />
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1 
-          className="font-display text-5xl md:text-7xl lg:text-9xl leading-[0.9] tracking-tight text-text-primary mb-6 max-w-5xl"
-        >
-          {words.map((word, i) => (
-            <motion.span 
-              key={i} 
-              variants={itemVariants}
-              className={cn(
-                "inline-block mr-[0.2em]",
-                word.toLowerCase().includes('findable') && "italic font-display text-accent-primary"
-              )}
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.h1>
-        
-        {/* Subhead */}
-        <motion.p 
-          variants={itemVariants}
-          className="font-sans text-xl md:text-2xl text-text-secondary mb-8 max-w-2xl leading-relaxed font-light"
-        >
-          On Google. On WhatsApp. In 48 hours. <br className="hidden md:block" />
-          The new standard for local businesses in <span className="text-accent-primary font-medium">India</span>.
-        </motion.p>
-
-        {/* CTA Row */}
-        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6">
-          <Link 
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to claim my Locallify page.")}`}
-            className="btn-primary gap-2 group px-10 py-5 text-lg"
-          >
-            Claim your page
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </Link>
-          
-          <Link 
-            href="/portfolio" 
-            className="btn-ghost px-10 py-5 text-lg"
-          >
-            See live examples
-          </Link>
-        </motion.div>
-
-        {/* Minimal Detail Line */}
-        <motion.div 
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 64, opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="mt-12 w-px bg-gradient-to-b from-accent-primary/40 to-transparent" 
-        />
-      </motion.div>
-
-      {/* Marquee Strip */}
-      <div className="absolute bottom-0 left-0 w-full bg-bg-surface/30 backdrop-blur-sm border-y border-border-subtle py-5 overflow-hidden">
-        <div className="flex whitespace-nowrap animate-marquee font-mono text-[10px] text-text-muted uppercase tracking-[0.3em]">
-          <span className="mx-12">Made in the North East</span>
-          <span className="mx-12">1,000+ Local Legends</span>
-          <span className="mx-12">Live in 48 Hours</span>
-          <span className="mx-12">Built in India</span>
-          <span className="mx-12">Made in the North East</span>
-          <span className="mx-12">1,000+ Local Legends</span>
-          <span className="mx-12">Live in 48 Hours</span>
-          <span className="mx-12">Built in India</span>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-primary/45 to-bg-primary" />
       </div>
+      <div className="container mx-auto">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          transition={{ staggerChildren: reduceMotion ? 0 : 0.08 }}
+          className="mx-auto flex max-w-6xl flex-col items-center text-center"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="mb-5 inline-flex items-center gap-2 rounded-pill border border-border-subtle bg-bg-surface px-4 py-2 text-xs font-semibold text-text-secondary shadow-sm"
+          >
+            <Globe className="h-4 w-4 text-accent-primary" />
+            Global software studio with SEO + GEO built in
+          </motion.div>
 
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes ripple {
-          0% { transform: scale(0); opacity: 1; }
-          100% { transform: scale(100); opacity: 0; }
-        }
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-marquee {
-          animation: marquee 40s linear infinite;
-        }
-        .animate-ripple {
-          animation: ripple 1s cubic-bezier(0, 0.2, 0.8, 1) forwards;
-        }
-        .animate-fade-in {
-          animation: fade-in 1.2s ease-out forwards;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .animate-marquee {
-            animation: none;
-            transform: none;
-          }
-          .animate-ripple {
-            animation: none;
-            display: none;
-          }
-          .animate-fade-in {
-            animation: none;
-            opacity: 1;
-            transform: none;
-          }
-          .grid-line {
-            animation: none !important;
-            stroke-dashoffset: 0 !important;
-            opacity: 0.1 !important;
-          }
-        }
-      `}</style>
+          <motion.h1
+            variants={itemVariants}
+            className="max-w-5xl font-display italic text-5xl font-normal leading-[1.2] tracking-tight text-text-primary md:text-7xl lg:text-[5.5rem]"
+          >
+            Custom software, web & mobile apps <span className="text-accent-primary font-normal">built to be found.</span>
+          </motion.h1>
+
+          <motion.div variants={itemVariants} className="mt-12 flex flex-row items-center justify-center gap-4">
+            <Link href={whatsappHref} className="btn-primary gap-2">
+              Start a project
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/portfolio" className="btn-ghost">
+              See our work
+            </Link>
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            className="mt-8 flex flex-row items-center justify-start md:justify-center gap-2 overflow-x-auto whitespace-nowrap text-xs md:text-sm text-text-muted max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-6"
+          >
+            {capabilities.map((item) => (
+              <span key={item} className="rounded-xl border border-border-subtle bg-bg-surface px-3 py-1.5 md:px-4 md:py-2 flex-shrink-0">
+                {item}
+              </span>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

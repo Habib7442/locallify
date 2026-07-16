@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Star, Send, CheckCircle, User, MessageSquare, Quote, ArrowRight } from "lucide-react";
 import { Review } from "@/lib/types";
-import { reviewService } from "@/lib/appwrite-service";
+import { reviewService } from "@/lib/cms";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
