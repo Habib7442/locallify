@@ -60,7 +60,7 @@ export default function Footer() {
            <div className="flex flex-wrap justify-center gap-4 md:gap-12">
              <span>© 2026 LOCALLIFY · ALL RIGHTS RESERVED</span>
              <span className="flex items-center gap-2 text-zinc-500"><MapPin className="w-3 h-3 text-[#0066FF]" /> Fakirtilla, Masimpur, Silchar, Assam 788010</span>
-             <span className="text-[#0066FF]">business@locallify.in</span>
+             <span className="text-accent-primary">hello@locallifyagency.com</span>
            </div>
            <p className="text-zinc-300">MADE IN THE NORTH EAST</p>
         </div>

@@ -60,17 +60,17 @@ export default function PrivacyPolicy() {
               </p>
             </section>
 
-            <section className="space-y-6">
-              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">4. Security</h2>
+             <section className="space-y-6">
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">4. Security & Data Processors</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                We use industry-standard encryption and secure cloud infrastructure (Appwrite) to protect your business profile data. Access is strictly limited to the Locallify engineering team for maintenance and optimization.
+                We protect your business data using industry-standard encryption and secure cloud database infrastructure (Sanity CMS). To deliver our scheduling and notification systems, we route contact details and bookings through trusted third-party services including Resend (email notification), Cal.com (meeting booking), and Google Workspace (calendar scheduling). Access to stored databases is strictly limited to authorized engineering personnel and system administrators who maintain the platform.
               </p>
             </section>
 
             <section className="space-y-8 pt-12 border-t border-border-subtle">
               <h2 className="font-display italic text-4xl text-text-primary">Questions?</h2>
               <p className="text-text-secondary leading-relaxed text-lg max-w-xl">
-                If you have concerns about your data or wish to request deletion, contact our compliance team at <span className="text-accent-primary font-medium">business@locallify.in</span>.
+                If you have concerns about your data or wish to request deletion, contact our compliance team at <span className="text-accent-primary font-medium">hello@locallifyagency.com</span>.
               </p>
             </section>
           </div>

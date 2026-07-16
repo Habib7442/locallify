@@ -39,7 +39,7 @@ export default function ShippingPolicy() {
             <section className="space-y-6 border-t border-zinc-100 pt-12">
               <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">Contact Us</h2>
               <p className="text-zinc-600 leading-relaxed font-medium">
-                If you have any questions regarding our delivery process, please contact us at <span className="text-[#0066FF] font-bold">business@locallify.in</span>.
+                If you have any questions regarding our delivery process, please contact us at <span className="text-[#0066FF] font-bold">hello@locallifyagency.com</span>.
               </p>
             </section>
           </div>
