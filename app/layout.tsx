@@ -24,6 +24,7 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Global viewport settings matching brand colors
 export const viewport: Viewport = {
   themeColor: "#0A0A0E",
   width: "device-width",
