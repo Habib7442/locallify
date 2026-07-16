@@ -226,7 +226,7 @@ export default async function CityPage({ params }: PageProps) {
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }}
       />
       <a 
         href="#main-content" 

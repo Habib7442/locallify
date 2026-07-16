@@ -48,7 +48,9 @@ export default function CTA({
                {primaryBtnText}
              </Link>
              <Link 
-               href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to chat with the team.")}`}
+               href={secondaryBtnHref.startsWith('https://wa.me') 
+                 ? `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like to chat with the team.")}`
+                 : secondaryBtnHref}
                className="w-full sm:w-auto bg-bg-surface border-2 border-border-subtle text-text-primary px-10 py-5 rounded-2xl text-base font-sans font-black uppercase tracking-widest hover:bg-bg-elevated transition-all flex items-center justify-center gap-4 group text-center shadow-sm"
              >
                <div className="relative w-6 h-6 group-hover:scale-110 transition-transform">

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+import { sanityWriteClient } from "@/lib/sanity";
 
 // ─── Schema ────────────────────────────────────────────────────────────────────
 
@@ -27,20 +30,62 @@ const ContactSchema = z.object({
   _hp: z.string().max(0, "Bot detected"), // honeypot — must be empty
 });
 
-// ─── Rate limiting (simple in-memory, swap for Upstash in production) ──────────
-// TODO: Replace with Upstash Redis when UPSTASH_REDIS_REST_URL is set.
+// ─── Rate limiting (Shared TTL store with self-cleaning memory fallback) ──────
+const upstashRatelimit =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? new Ratelimit({
+        redis: Redis.fromEnv(),
+        limiter: Ratelimit.slidingWindow(3, "10 m"),
+        analytics: true,
+        prefix: "@upstash/ratelimit/locallify-contact",
+      })
+    : null;
+
+// Bounded local fallback to prevent memory leaks in long-running processes
 const ipTimestamps = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 min
 const RATE_LIMIT_MAX = 3;
+let lastCleanup = Date.now();
 
-function isRateLimited(ip: string): boolean {
+function isRateLimitedMemory(ip: string): boolean {
   const now = Date.now();
+
+  // Periodic eviction of stale keys (runs once per hour) to bound memory footprint
+  if (now - lastCleanup > 60 * 60 * 1000) {
+    for (const [key, times] of ipTimestamps.entries()) {
+      const activeTimes = times.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+      if (activeTimes.length === 0) {
+        ipTimestamps.delete(key);
+      } else {
+        ipTimestamps.set(key, activeTimes);
+      }
+    }
+    lastCleanup = now;
+  }
+
   const timestamps = (ipTimestamps.get(ip) ?? []).filter(
     (t) => now - t < RATE_LIMIT_WINDOW_MS
   );
-  if (timestamps.length >= RATE_LIMIT_MAX) return true;
+
+  if (timestamps.length >= RATE_LIMIT_MAX) {
+    return true;
+  }
+
   ipTimestamps.set(ip, [...timestamps, now]);
   return false;
+}
+
+async function checkRateLimit(ip: string): Promise<boolean> {
+  if (upstashRatelimit) {
+    try {
+      const { success } = await upstashRatelimit.limit(ip);
+      return !success;
+    } catch (err) {
+      console.error("[RateLimit] Upstash error, falling back to memory:", err);
+      return isRateLimitedMemory(ip);
+    }
+  }
+  return isRateLimitedMemory(ip);
 }
 
 // ─── Handler ───────────────────────────────────────────────────────────────────
@@ -52,7 +97,7 @@ export async function POST(req: NextRequest) {
     req.headers.get("x-real-ip") ??
     "unknown";
 
-  if (isRateLimited(ip)) {
+  if (await checkRateLimit(ip)) {
     return NextResponse.json(
       { error: "Too many requests. Please wait a few minutes and try again." },
       { status: 429 }
@@ -137,6 +182,28 @@ export async function POST(req: NextRequest) {
   //     ]],
   //   },
   // });
+  // ───────────────────────────────────────────────────────────────────────────
+
+  // ── Write lead to Sanity CMS (Durable datastore handoff) ───────────────────
+  try {
+    await sanityWriteClient.create({
+      _type: "lead",
+      name: data.name,
+      email: data.email,
+      company: data.company ?? "",
+      projectType: data.projectType,
+      budget: data.budget,
+      description: data.description ?? "",
+      ipAddress: ip,
+      status: "new",
+    });
+  } catch (error) {
+    console.error("[contact] Sanity database write failed:", error);
+    return NextResponse.json(
+      { error: "Could not save your project details. Please try again or email us directly." },
+      { status: 500 }
+    );
+  }
   // ───────────────────────────────────────────────────────────────────────────
 
   // Log in development

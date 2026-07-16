@@ -53,15 +53,20 @@ export default function WorkGallery({ initialProjects = [] }: WorkGalleryProps) 
         <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
             <span className="mb-4 inline-flex rounded-full border border-accent-primary/20 bg-accent-soft/30 px-4 py-1.5 text-xs font-mono tracking-wider uppercase text-accent-primary">
-              Selected work
+              {initialProjects.length > 0 ? 'Selected work' : 'Example concepts'}
             </span>
             <h2 className="text-4xl font-sans font-bold leading-[1.1] text-text-primary md:text-6xl tracking-tight">
-              Product builds with <span className="font-display italic font-light text-accent-primary">clear outcomes</span>.
+              {initialProjects.length > 0 ? (
+                <>Product builds with <span className="font-display italic font-light text-accent-primary">clear outcomes</span>.</>
+              ) : (
+                <>Illustrative software <span className="font-display italic font-light text-accent-primary">concepts</span>.</>
+              )}
             </h2>
           </div>
           <p className="max-w-md text-lg leading-relaxed text-text-secondary font-light text-left">
-            Every project is framed as problem, product, and discoverability:
-            what we built, why it mattered, and how people find it.
+            {initialProjects.length > 0 
+              ? 'Every project is framed as problem, product, and discoverability: what we built, why it mattered, and how people find it.'
+              : 'These representative configurations illustrate how we structure custom software schema, API triggers, and indexing.'}
           </p>
         </div>
 

@@ -4,29 +4,29 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Locallify - Digital Infrastructure for Indian Businesses",
-  description: "Review Locallify's Terms of Service. Understand subscription terms, service delivery guarantees, and usage policies for our digital business solutions.",
+  title: "Terms of Service | Locallify - Custom Software, Web & Mobile Apps",
+  description: "Review Locallify's Terms of Service. Understand project engagement milestones, support retainers, and compliance conditions for our custom software solutions.",
   openGraph: {
     title: "Terms of Service | Locallify",
-    description: "Review Locallify's Terms of Service. Understand subscription terms, service delivery guarantees, and usage policies.",
+    description: "Review Locallify's Terms of Service. Understand project engagement milestones, support retainers, and compliance conditions.",
     type: "website",
     images: [{ url: "/og-terms.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Terms of Service | Locallify",
-    description: "Review Locallify's Terms of Service for digital business solutions.",
+    description: "Review Locallify's Terms of Service for custom software development.",
   },
 };
 
 export default function TermsOfService() {
-  const lastUpdated = "May 2026";
+  const lastUpdated = "July 2026";
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Terms of Service",
-    "description": "Locallify Terms of Service",
+    "description": "Locallify Terms of Service for custom software development and retainers.",
     "publisher": {
       "@type": "Organization",
       "name": "Locallify"
@@ -37,7 +37,7 @@ export default function TermsOfService() {
     <div className="min-h-screen bg-bg-primary text-text-primary">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
       <a 
         href="#main-content" 
@@ -70,41 +70,41 @@ export default function TermsOfService() {
             <section className="space-y-6">
               <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">1. Acceptance of Terms</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                By subscribing to <Link href="/" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">Locallify</Link>, you agree to these terms. Our service is designed to provide professional digital infrastructure for local businesses in India.
+                By entering into a project agreement or subscribing to any retainer plan with <Link href="/" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">Locallify</Link>, you agree to these Terms of Service. Our platforms are designed to deliver custom software development, high-performance web products, mobile applications, and automated operations.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">2. Subscription & Continuity</h2>
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">2. Project Engagements & Retainers</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                Locallify operates on a monthly <Link href="/pricing" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">subscription model</Link>. To keep your digital shop and services active, payments must be settled on time. 
+                Locallify offers custom fixed-price projects and monthly ongoing support retainers (Care, Growth, and Scale plans). Flat-rate custom projects are billed on milestone schedules. Retainers are billed monthly in advance. To maintain active monitoring, security configurations, and API integrations, retainer payments must be settled on time.
               </p>
               <div className="p-6 bg-bg-surface border-l-2 border-accent-primary rounded-r-2xl italic text-text-primary">
-                Important: If a subscription is not renewed, your shop page and related services will be temporarily deactivated until the subscription is resumed.
+                Important: If a monthly retainer is cancelled or default in payment occurs, Locallify reserves the right to suspend support hours, database hosting maintenance, or active API routing after notice.
               </div>
             </section>
 
             <section className="space-y-6">
-              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">3. Service Delivery</h2>
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">3. Deliverables & Scope</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                We guarantee a live <Link href="/services" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">storefront</Link> within 48 hours of receiving all necessary business details. This timeline is subject to client cooperation and prompt feedback.
+                Each custom software deliverable, technical SLA, and development timeline is exclusively governed by the specific Statement of Work (SOW) signed before project commencement. Timely delivery is subject to the client providing all necessary content, API keys, database access parameters, and reviews.
               </p>
             </section>
 
             <section className="space-y-6">
               <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">4. Usage Restrictions</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                You may not use Locallify services to sell illegal items, spread misinformation, or engage in fraudulent business practices as per Indian Law.
+                You may not use Locallify services, custom systems, or intellectual property to build platforms for illegal operations, distribute malicious codes, or engage in fraudulent activities. 
               </p>
             </section>
 
             <section className="space-y-8 pt-12 border-t border-border-subtle">
               <h2 className="font-display italic text-4xl text-text-primary">Legal Jurisdiction</h2>
               <p className="text-text-secondary leading-relaxed text-lg max-w-xl">
-                These terms are governed by the laws of India. Any disputes will be subject to the exclusive jurisdiction of the courts in Assam.
+                These terms are governed by the laws of India. Any disputes arising out of our development agreements or digital services will be subject to the exclusive jurisdiction of the competent courts in Assam, India.
               </p>
               <p className="text-text-secondary leading-relaxed text-lg max-w-xl mt-6">
-                For more information, review our <Link href="/privacy" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">Privacy Policy</Link> or <Link href="/contact" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">contact us</Link> with questions.
+                For more information, review our <Link href="/privacy-policy" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">Privacy Policy</Link> or <Link href="/contact" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">contact us</Link> with questions.
               </p>
             </section>
 

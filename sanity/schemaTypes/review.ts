@@ -26,6 +26,18 @@ export const review = defineType({
       validation: (Rule) => Rule.required().min(1).max(5),
     }),
     defineField({
+      name: 'role',
+      title: 'Role / Designation / Location',
+      type: 'string',
+      initialValue: 'Verified client',
+    }),
+    defineField({
+      name: 'is_verified',
+      title: 'Is Verified Review',
+      type: 'boolean',
+      initialValue: true,
+    }),
+    defineField({
       name: 'is_published',
       title: 'Is Published Status',
       type: 'boolean',

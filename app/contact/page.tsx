@@ -155,7 +155,7 @@ export default function ContactPage() {
               email: "hello@locallifyagency.com",
               url: "https://locallifyagency.com",
             },
-          }),
+          }).replace(/</g, '\\u003c'),
         }}
       />
 
@@ -352,6 +352,7 @@ export default function ContactPage() {
                               <button
                                 key={pt.value}
                                 type="button"
+                                aria-pressed={form.projectType === pt.value}
                                 onClick={() => updateForm("projectType", pt.value)}
                                 className={`flex items-start gap-3 text-left px-4 py-3 rounded-xl border transition-all duration-200 ${
                                   form.projectType === pt.value
@@ -385,6 +386,7 @@ export default function ContactPage() {
                               <button
                                 key={b.value}
                                 type="button"
+                                aria-pressed={form.budget === b.value}
                                 onClick={() => updateForm("budget", b.value)}
                                 className={`text-xs px-3 py-2.5 rounded-xl border text-center transition-all duration-200 ${
                                   form.budget === b.value

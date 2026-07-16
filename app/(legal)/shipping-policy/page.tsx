@@ -1,51 +1,61 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function ShippingPolicy() {
+  const lastUpdated = "July 2026";
+
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-[#0066FF] selection:text-white">
+    <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       <Navbar />
-      <main className="pt-32 pb-20 px-6">
+      <main id="main-content" className="pt-40 pb-24 px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="space-y-4 mb-16 text-center">
-            <span className="inline-block px-6 py-2 rounded-full bg-[#0066FF]/10 text-[#0066FF] text-xs font-black uppercase tracking-[0.3em]">Legal</span>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-zinc-900">Delivery <span className="text-[#0066FF]">Policy.</span></h1>
-            <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Last Updated: April 2024</p>
+          
+          {/* Header */}
+          <div className="mb-20">
+            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary mb-6 block">
+              Legal Framework
+            </span>
+            <h1 className="font-display italic text-5xl md:text-8xl leading-[0.9] tracking-tight text-text-primary mb-8">
+              Delivery <br /> 
+              <span className="text-text-muted not-italic">Policy.</span>
+            </h1>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
+              Last Updated: {lastUpdated}
+            </p>
           </div>
 
-          <div className="prose prose-zinc max-w-none space-y-12">
+          {/* Content */}
+          <div className="space-y-16">
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">1. Digital Delivery</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                Locallify provides digital services including website design, development, and hosting. There are no physical goods to be shipped. All deliverables are provided digitally via email or direct access to the web platform.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">1. Digital Delivery</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                Locallify designs, engineers, and hosts digital deliverables including custom software, web applications, mobile builds, and automation pipelines. We do not package or ship physical goods. All source codes, staging deployments, and administrative credentials are delivered digitally.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">2. Delivery Timelines</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                Our standard delivery timeline for "One Page Websites" is 24-48 hours after receiving all necessary business details. For custom websites, timelines are agreed upon at the start of the project and typically range from 5-10 business days.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">2. Project Timelines & Milestones</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                Because we build premium bespoke systems, delivery timelines are customized per client and governed by the specific Statement of Work (SOW) signed before setup. The schedule depends on project complexity and timely provision of system assets, APIs, copy, or database specifications by the client.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">3. Project Handover</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                A project is considered "delivered" once the website is live on the agreed-upon domain and the client is provided with the necessary access or documentation.
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">3. Verification & Handover</h2>
+              <p className="text-text-secondary leading-relaxed font-light text-lg">
+                A milestone or complete project is officially delivered once it is deployed to the production environment, published to the app stores (Google Play / Apple App Store), or when admin ownership access is transferred to the client.
               </p>
             </section>
 
-            <section className="space-y-6 border-t border-zinc-100 pt-12">
-              <h2 className="text-2xl font-black uppercase tracking-tight text-zinc-900">Contact Us</h2>
-              <p className="text-zinc-600 leading-relaxed font-medium">
-                If you have any questions regarding our delivery process, please contact us at <span className="text-[#0066FF] font-bold">hello@locallifyagency.com</span>.
+            <section className="space-y-8 pt-12 border-t border-border-subtle">
+              <h2 className="font-display italic text-4xl text-text-primary">Questions?</h2>
+              <p className="text-text-secondary leading-relaxed text-lg max-w-xl">
+                If you have questions regarding project delivery milestones, please contact your project manager or email our support desk at <span className="text-accent-primary font-medium">hello@locallifyagency.com</span>.
               </p>
             </section>
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

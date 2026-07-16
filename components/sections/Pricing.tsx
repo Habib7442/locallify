@@ -8,30 +8,30 @@ import { motion, useReducedMotion, type Variants } from 'motion/react';
 const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like a quote for a software project.")}`;
 
 const buildPackages = [
-  ['Landing / marketing site', 'from $299'],
-  ['Business website, multi-page', 'from $799'],
-  ['Web app / MVP', 'from $2,499'],
-  ['Mobile app, iOS + Android', 'from $3,999'],
+  ['Landing / marketing site', 'from $600'],
+  ['Business website, multi-page', 'from $1,800'],
+  ['Web app / MVP', 'from $6,000'],
+  ['Mobile app, iOS + Android', 'from $9,000'],
   ['Custom software / larger builds', 'Custom quote'],
 ];
 
 const retainers = [
   {
     name: 'Care',
-    price: '$49',
+    price: '$99',
     description: 'Hosting, maintenance, updates, monitoring, and support.',
     features: ['Managed hosting', 'Security updates', 'Uptime checks', 'Support queue'],
   },
   {
     name: 'Growth',
-    price: '$149',
+    price: '$399',
     description: 'Care plus ongoing SEO + GEO, content, and reporting.',
     features: ['Everything in Care', 'SEO + GEO roadmap', 'Monthly reporting', 'Content updates'],
     featured: true,
   },
   {
     name: 'Scale',
-    price: '$399',
+    price: '$899',
     description: 'Growth plus priority development hours and deeper analytics.',
     features: ['Everything in Growth', 'Priority dev hours', 'Analytics reviews', 'Launch experiments'],
   },

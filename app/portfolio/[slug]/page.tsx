@@ -69,7 +69,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
 
       {/* Skip to content */}
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full">
@@ -83,10 +83,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
         {/* ─── HERO SECTION ─────────────────────────────────────────────── */}
         <section className="relative min-h-[75vh] flex items-end overflow-hidden">
           {/* Background image */}
-          {project.thumbnail && (
+          {(project.heroBannerImage || project.thumbnail) && (
             <div className="absolute inset-0 bg-bg-primary">
               <Image
-                src={project.thumbnail}
+                src={project.heroBannerImage || project.thumbnail}
                 alt={project.title}
                 fill
                 className="object-cover opacity-8 blur-[3px] scale-105 transition-opacity duration-1000"

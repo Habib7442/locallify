@@ -4,23 +4,23 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Refund Policy | Locallify - Digital Infrastructure for Indian Businesses",
-  description: "Review Locallify's Refund Policy. Understand our service guarantees, onboarding fee terms, and subscription refund conditions.",
+  title: "Refund Policy | Locallify - Custom Software, Web & Mobile Apps",
+  description: "Review Locallify's Refund Policy. Understand our project milestone terms, retainer cancellations, and service conditions.",
   openGraph: {
     title: "Refund Policy | Locallify",
-    description: "Review Locallify's Refund Policy. Understand our service guarantees, onboarding fee terms, and subscription refund conditions.",
+    description: "Review Locallify's Refund Policy. Understand our project milestone terms, retainer cancellations, and service conditions.",
     url: "https://locallifyagency.com/refund-policy",
   },
 };
 
 export default function RefundPolicy() {
-  const lastUpdated = "May 2026";
+  const lastUpdated = "July 2026";
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Refund Policy | Locallify",
-    "description": "Financial transparency and refund conditions for Locallify services.",
+    "description": "Financial transparency and refund conditions for Locallify custom software services and retainers.",
     "publisher": {
       "@type": "Organization",
       "name": "Locallify",
@@ -35,7 +35,7 @@ export default function RefundPolicy() {
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
       <a 
         href="#main-content" 
@@ -64,30 +64,30 @@ export default function RefundPolicy() {
           {/* Content */}
           <div className="space-y-16">
             <section className="space-y-6">
-              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">1. Onboarding Fees</h2>
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">1. Project Deposits & Fees</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                The one-time onboarding fee for the <Link href="/pricing" className="text-accent-primary hover:underline">Scale plan</Link> is non-refundable once the project setup has commenced. This fee covers our manual engineering work and initial SEO configuration.
+                Custom software, web application, and mobile app developments are structured with upfront deposits (typically 50%) or milestone payments. Once project scoping, architecture design, or active development has commenced, deposits and completed milestone payments are non-refundable.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">2. Subscription Refunds</h2>
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">2. Support & Maintenance Retainers</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                Monthly subscription fees are non-refundable. You may cancel your subscription at any time, and your services will remain active until the end of the current billing cycle.
+                Monthly Care, Growth, and Scale retainers are billed in advance and are non-refundable. You may cancel your retainer subscription at any time via your client portal or by contacting your account manager. Services and support will remain active until the end of your current billing cycle.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">3. Service Guarantee</h2>
+              <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">3. Service Level Agreements (SLAs)</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                If we fail to deliver a live <Link href="/services" className="text-accent-primary hover:underline">storefront</Link> within the guaranteed 48-hour window (assuming all client details were provided), you are entitled to a full refund of that month&apos;s subscription fee.
+                All custom software project timelines and deliverables are governed by the specific Statement of Work (SOW) agreed upon by both parties. If Locallify fails to meet critical SOW milestones due to factors solely within our control, terms for remedy or refund will follow the specific terms outlined in your project agreement.
               </p>
             </section>
 
             <section className="space-y-8 pt-12 border-t border-border-subtle">
-              <h2 className="font-display italic text-4xl text-text-primary">Request a Refund</h2>
+              <h2 className="font-display italic text-4xl text-text-primary">Questions?</h2>
               <p className="text-text-secondary leading-relaxed text-lg max-w-xl">
-                To initiate a refund request based on our Service Guarantee, please <Link href="/contact" className="text-accent-primary hover:underline font-medium">contact us</Link> or email <span className="text-accent-primary font-medium">hello@locallifyagency.com</span> with your business name and onboarding date.
+                To ask questions or discuss billing terms, please <Link href="/contact" className="text-accent-primary hover:underline font-medium">contact us</Link> or email our finance team directly at <span className="text-accent-primary font-medium">hello@locallifyagency.com</span>.
               </p>
               <p className="text-text-muted text-sm mt-8 border-t border-border-subtle pt-8">
                 For complete terms and conditions, see our <Link href="/terms" className="text-accent-primary hover:underline">Terms of Service</Link>.

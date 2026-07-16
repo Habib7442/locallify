@@ -1,5 +1,8 @@
-import { sanityClient } from './sanity';
+import { sanityClient, sanityWriteClient } from './sanity';
 import { Project, BusinessProfile, Review } from './types';
+import { fallbackProfiles } from './data/profiles';
+import { fallbackReviews } from './data/reviews';
+import { fallbackProjects } from './data/case-studies';
 
 // Helper to parse Sanity Image references into direct CDN URLs without heavy dependencies
 export function getSanityImageUrl(source: any): string {
@@ -79,7 +82,8 @@ export const profileService = {
         }));
       }
     } catch (error) {
-      console.error("Failed fetching profiles from Sanity:", error);
+      console.error("Failed fetching profiles from Sanity, using fallback data:", error);
+      return fallbackProfiles;
     }
     return [];
   },
@@ -87,7 +91,7 @@ export const profileService = {
   // Get single profile by slug
   async getProfileBySlug(slug: string): Promise<BusinessProfile | null> {
     try {
-      const query = `*[_type == "businessProfile" && (slug == $slug || slug.current == $slug)][0]`;
+      const query = `*[_type == "businessProfile" && is_public == true && is_active == true && (slug == $slug || slug.current == $slug)][0]`;
       const doc = await sanityClient.fetch(query, { slug });
       if (doc) {
         return {
@@ -113,10 +117,11 @@ export const profileService = {
         };
       }
     } catch (error) {
-      console.error(`Failed fetching profile ${slug} from Sanity:`, error);
+      console.error(`Failed fetching profile ${slug} from Sanity, using fallback lookup:`, error);
     }
     
-    return null;
+    const fallback = fallbackProfiles.find(p => p.slug === slug);
+    return fallback || null;
   },
 
   // Check if slug is available
@@ -136,7 +141,7 @@ export const profileService = {
   // Upload file to Sanity Assets
   async uploadFile(file: File): Promise<string> {
     try {
-      const asset = await sanityClient.assets.upload('image', file);
+      const asset = await sanityWriteClient.assets.upload('image', file);
       return asset._id;
     } catch (error) {
       console.error('Error uploading asset to Sanity:', error);
@@ -201,7 +206,7 @@ export const profileService = {
         is_active: true,
       };
 
-      const response = await sanityClient.create(doc);
+      const response = await sanityWriteClient.create(doc);
       return {
         slug: (typeof response.slug === 'object' ? response.slug?.current : response.slug) || '',
         business_name: response.business_name,
@@ -267,7 +272,7 @@ export const projectService = {
           clientLogo: getSanityImageUrl(doc.clientLogo),
           heroBannerImage: getSanityImageUrl(doc.heroBannerImage),
           gallery: doc.gallery?.map((img: any) => ({
-            image: getSanityImageUrl(img),
+            image: getSanityImageUrl(img.image),
             caption: img.caption
           })) || [],
           
@@ -324,7 +329,10 @@ export const projectService = {
         }));
       }
     } catch (error) {
-      console.error("Failed fetching projects from Sanity:", error);
+      console.error("Failed fetching projects from Sanity, using fallback data:", error);
+      return status 
+        ? fallbackProjects.filter(p => p.status === status)
+        : fallbackProjects;
     }
     return [];
   },
@@ -332,7 +340,7 @@ export const projectService = {
   // Get project details by slug
   async getProjectBySlug(slug: string): Promise<Project | null> {
     try {
-      const query = `*[_type == "project" && (slug == $slug || slug.current == $slug)][0]`;
+      const query = `*[_type == "project" && is_public == true && (slug == $slug || slug.current == $slug)][0]`;
       const doc = await sanityClient.fetch(query, { slug });
       if (doc) {
         return {
@@ -367,7 +375,7 @@ export const projectService = {
           clientLogo: getSanityImageUrl(doc.clientLogo),
           heroBannerImage: getSanityImageUrl(doc.heroBannerImage),
           gallery: doc.gallery?.map((img: any) => ({
-            image: getSanityImageUrl(img),
+            image: getSanityImageUrl(img.image),
             caption: img.caption
           })) || [],
           
@@ -424,9 +432,11 @@ export const projectService = {
         };
       }
     } catch (error) {
-      console.error(`Failed fetching project ${slug} from Sanity:`, error);
+      console.error(`Failed fetching project ${slug} from Sanity, using fallback lookup:`, error);
     }
-    return null;
+    
+    const fallback = fallbackProjects.find(p => p.slug === slug);
+    return fallback || null;
   },
 
   // Compatibility helper returning image URL directly
@@ -457,7 +467,7 @@ export const reviewService = {
         rating: data.rating,
         is_published: false, // Hidden by default till admin approves in Studio
       };
-      const response = await sanityClient.create(doc);
+      const response = await sanityWriteClient.create(doc);
       return {
         $id: response._id,
         name: response.name,
@@ -483,11 +493,14 @@ export const reviewService = {
           name: doc.name,
           review: doc.review,
           rating: doc.rating,
+          role: doc.role || 'Verified client',
+          is_verified: doc.is_verified ?? true,
           is_published: doc.is_published,
         }));
       }
     } catch (error) {
-      console.error("Failed fetching reviews from Sanity:", error);
+      console.error("Failed fetching reviews from Sanity, using fallback data:", error);
+      return fallbackReviews.slice(0, limit);
     }
     return [];
   }

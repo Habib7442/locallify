@@ -12,21 +12,24 @@ const fallbackReviews = [
   {
     id: 'founder',
     name: 'SaaS founder',
-    role: 'United States',
+    role: 'Illustrative Feedback (United States)',
+    is_verified: false,
     review: 'Locallify understood the product, not just the page. The build came with the technical SEO pieces we usually have to chase later.',
     rating: 5,
   },
   {
     id: 'operator',
     name: 'Operations lead',
-    role: 'United Kingdom',
+    role: 'Illustrative Feedback (United Kingdom)',
+    is_verified: false,
     review: 'They turned a messy manual workflow into a clean internal tool and gave our team a launch plan we could actually follow.',
     rating: 5,
   },
   {
     id: 'clinic',
     name: 'Clinic owner',
-    role: 'Gulf region',
+    role: 'Illustrative Feedback (Gulf region)',
+    is_verified: false,
     review: 'The AI intake flow gave us faster responses without losing the human handoff. Clear thinking, clean product, calm process.',
     rating: 5,
   },
@@ -38,7 +41,8 @@ export default function Testimonials({ reviews = [] }: TestimonialsProps) {
     ? reviews.slice(0, 3).map((review) => ({
         id: review.$id,
         name: review.name,
-        role: 'Verified client',
+        role: review.role || 'Client Partner',
+        is_verified: review.is_verified ?? true,
         review: review.review,
         rating: review.rating,
       }))
@@ -93,9 +97,16 @@ export default function Testimonials({ reviews = [] }: TestimonialsProps) {
                 <Quote className="h-5 w-5 text-border-strong group-hover:text-accent-primary group-hover:scale-110 transition-all duration-500" />
               </div>
               <p className="flex-grow text-base leading-relaxed text-text-secondary text-left font-light">&quot;{review.review}&quot;</p>
-              <div className="mt-8 border-t border-border-subtle pt-6">
-                <p className="font-sans font-semibold text-text-primary">{review.name}</p>
-                <p className="mt-1 text-xs text-text-muted font-mono uppercase tracking-wider">{review.role}</p>
+              <div className="mt-8 border-t border-border-subtle pt-6 flex items-center justify-between">
+                <div>
+                  <p className="font-sans font-semibold text-text-primary">{review.name}</p>
+                  <p className="mt-1 text-xs text-text-muted font-mono uppercase tracking-wider">{review.role}</p>
+                </div>
+                {review.is_verified && (
+                  <span className="text-[9px] bg-accent-primary/10 border border-accent-primary/20 rounded-full px-2 py-0.5 text-accent-primary font-mono font-medium flex items-center gap-1 select-none">
+                    ✓ Verified
+                  </span>
+                )}
               </div>
             </motion.article>
           ))}

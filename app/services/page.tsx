@@ -82,10 +82,13 @@ function WebAppsGraphic() {
         </div>
       </div>
       {/* Stack badge */}
-      <div className="flex gap-2">
-        <span className="text-[9px] bg-bg-elevated border border-border-default rounded-full px-2.5 py-1 text-text-muted">Next.js 15</span>
-        <span className="text-[9px] bg-bg-elevated border border-border-default rounded-full px-2.5 py-1 text-text-muted">React 19</span>
-        <span className="text-[9px] bg-bg-elevated border border-border-default rounded-full px-2.5 py-1 text-text-muted">Edge Runtime</span>
+      <div className="flex justify-between items-center w-full mt-1">
+        <div className="flex gap-2">
+          <span className="text-[9px] bg-bg-elevated border border-border-default rounded-full px-2.5 py-1 text-text-muted">Next.js 15</span>
+          <span className="text-[9px] bg-bg-elevated border border-border-default rounded-full px-2.5 py-1 text-text-muted">React 19</span>
+          <span className="text-[9px] bg-bg-elevated border border-border-default rounded-full px-2.5 py-1 text-text-muted">Edge Runtime</span>
+        </div>
+        <span className="text-[8px] text-text-muted/50 uppercase tracking-widest shrink-0">*Illustrative data</span>
       </div>
     </div>
   );
@@ -181,8 +184,11 @@ function SEOGraphic() {
         ))}
       </div>
       {/* AI snippet badge */}
-      <div className="bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl px-3 py-2 text-[9px] text-accent-secondary">
-        ✦ Featured in AI Overview · locallifyagency.com
+      <div className="flex items-center justify-between gap-4 mt-1">
+        <div className="flex-1 bg-accent-secondary/10 border border-accent-secondary/25 rounded-xl px-3 py-2 text-[9px] text-accent-secondary">
+          ✦ Featured in AI Overview · locallifyagency.com
+        </div>
+        <span className="text-[8px] text-text-muted/50 uppercase tracking-widest shrink-0">*Illustrative data</span>
       </div>
     </div>
   );
@@ -200,7 +206,7 @@ function AutomationGraphic() {
       {nodes.map((node, i) => (
         <React.Fragment key={i}>
           <div className={`flex items-center gap-2 border ${node.bg} rounded-xl px-4 py-3 w-full max-w-xs`}>
-            <span className={`w-2 h-2 rounded-full ${node.color} bg-current animate-pulse`} style={{ animationDelay: `${i * 0.3}s` }} />
+            <span className={`w-2 h-2 rounded-full ${node.color} bg-current animate-pulse motion-reduce:animate-none`} style={{ animationDelay: `${i * 0.3}s` }} />
             <span className={`text-[10px] ${node.color} font-medium tracking-wide`}>{node.label}</span>
           </div>
           {i < nodes.length - 1 && (
@@ -221,6 +227,9 @@ function AutomationGraphic() {
             <div className="text-[8px] text-text-muted mt-0.5">{l}</div>
           </div>
         ))}
+      </div>
+      <div className="w-full text-right mt-1">
+        <span className="text-[8px] text-text-muted/50 uppercase tracking-widest">*Illustrative data</span>
       </div>
     </div>
   );
@@ -335,7 +344,7 @@ export default function ServicesPage() {
             },
             "serviceType": ["Custom Software Development", "Web Application Development", "Mobile App Development", "SEO & GEO Optimization", "n8n Workflow Automation"],
             "areaServed": "Worldwide"
-          })
+          }).replace(/</g, '\\u003c')
         }}
       />
       <a 
@@ -447,8 +456,9 @@ export default function ServicesPage() {
         <section className="py-24 px-6 bg-bg-surface border-y border-border-default">
           <div className="container mx-auto">
             <motion.div 
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 15 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduceMotion ? 0 : 0.6 }}
               viewport={{ once: true }}
               className="text-left max-w-2xl mb-20"
             >
@@ -498,8 +508,9 @@ export default function ServicesPage() {
               <Link href="/about" className="text-accent-primary hover:underline font-medium">About Locallify</Link>
             </div>
             <motion.h2 
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 15 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduceMotion ? 0 : 0.6 }}
               viewport={{ once: true }}
               className="font-display italic text-5xl md:text-8xl text-text-primary mb-12 leading-[0.9]"
             >
@@ -507,8 +518,9 @@ export default function ServicesPage() {
               <span className="text-accent-primary not-italic">Be the leader.</span>
             </motion.h2>
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: reduceMotion ? 0 : 0.4 }}
               viewport={{ once: true }}
             >
               <Link 

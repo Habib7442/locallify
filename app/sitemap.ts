@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { profileService } from "@/lib/cms";
+import { profileService, projectService } from "@/lib/cms";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://locallifyagency.com";
@@ -45,5 +45,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Error generating dynamic profiles sitemap entries:", error);
   }
 
-  return [...coreRoutes, ...cityRoutes, ...profileRoutes];
+  // Public case studies dynamically loaded from DB
+  let projectRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const projects = await projectService.getPublicProjects();
+    projectRoutes = projects.map((project) => ({
+      url: `${baseUrl}/portfolio/${project.slug}`,
+      lastModified: project.completionDate || new Date().toISOString().split("T")[0],
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+  } catch (error) {
+    console.error("Error generating dynamic project sitemap entries:", error);
+  }
+
+  return [...coreRoutes, ...cityRoutes, ...profileRoutes, ...projectRoutes];
 }

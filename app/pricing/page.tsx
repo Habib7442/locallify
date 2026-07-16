@@ -36,7 +36,7 @@ export default function PricingPage() {
                     "@type": "Service",
                     "name": "Landing / Marketing Website"
                   },
-                  "price": "299",
+                  "price": "600",
                   "priceCurrency": "USD"
                 },
                 {
@@ -45,7 +45,7 @@ export default function PricingPage() {
                     "@type": "Service",
                     "name": "Business Website (Multi-page)"
                   },
-                  "price": "799",
+                  "price": "1800",
                   "priceCurrency": "USD"
                 },
                 {
@@ -54,7 +54,7 @@ export default function PricingPage() {
                     "@type": "Service",
                     "name": "Web App / MVP"
                   },
-                  "price": "2499",
+                  "price": "6000",
                   "priceCurrency": "USD"
                 },
                 {
@@ -63,12 +63,12 @@ export default function PricingPage() {
                     "@type": "Service",
                     "name": "Mobile App (iOS + Android)"
                   },
-                  "price": "3999",
+                  "price": "9000",
                   "priceCurrency": "USD"
                 }
               ]
             }
-          })
+          }).replace(/</g, '\\u003c')
         }}
       />
       <a 
@@ -134,7 +134,7 @@ export default function PricingPage() {
               { q: "How long does a standard build take?", a: "Marketing landing pages launch in 1 to 2 weeks. Custom web portals, database-driven MVPs, and mobile applications take between 4 to 8 weeks depending on features." },
               { q: "Are there setup fees or hidden costs?", a: "No. We quote fixed package prices or custom milestone-based quotes for larger custom systems. What we agree upon in the project brief is exactly what you pay." },
               { q: "Do we get full ownership of the source code?", a: "Yes. Once the final milestone payment is completed, 100% intellectual property (IP) and source code ownership is transferred to you." },
-              { q: "Can we support the software after launch?", a: "Yes. We offer monthly Care, Growth, and Scale retainers starting at $49/mo to handle security updates, content updates, hosting monitoring, and continuous SEO/GEO tuning." },
+              { q: "Can we support the software after launch?", a: "Yes. We offer monthly Care, Growth, and Scale retainers starting at $99/mo to handle security updates, content updates, hosting monitoring, and continuous SEO/GEO tuning." },
               { q: "Do you design and write everything custom?", a: "Yes. Every storefront, application, and interface is custom designed in Figma and coded natively in Next.js/React. We do not use generic templates or page builders." }
             ].map((faq, i) => (
               <div key={i} className="p-8 bg-bg-surface/50 border border-border-default rounded-2xl">
