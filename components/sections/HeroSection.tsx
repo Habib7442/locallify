@@ -71,7 +71,7 @@ export default function HeroSection() {
 
           <motion.div
             variants={itemVariants}
-            className="mt-8 flex flex-row items-center justify-start md:justify-center gap-2 overflow-x-auto whitespace-nowrap text-xs md:text-sm text-text-muted max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-6"
+            className="scrollbar-hide mt-8 flex flex-row items-center justify-start md:justify-center gap-2 overflow-x-auto whitespace-nowrap text-xs md:text-sm text-text-muted max-w-full px-6"
           >
             {capabilities.map((item) => (
               <span key={item} className="rounded-xl border border-border-subtle bg-bg-surface px-3 py-1.5 md:px-4 md:py-2 flex-shrink-0">

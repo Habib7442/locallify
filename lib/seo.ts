@@ -15,8 +15,20 @@ interface MetadataProps {
 export function constructMetadata({
   title = "Locallify | Custom Software, Web & Mobile Apps",
   description = "Global software studio for custom software, web apps, mobile apps, AI features, and SEO + GEO. Built to launch fast and get found.",
-  image = "/og_image.png",
-  icons = "/favicon.ico",
+  image = "/og_image.jpg",
+  icons = {
+    icon: [
+      { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicons/favicon-48.png",    sizes: "48x48", type: "image/png" },
+      { url: "/favicons/icon-192.png",      sizes: "192x192", type: "image/png" },
+      { url: "/favicons/icon-512.png",      sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/favicons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicons/favicon-32x32.png",
+  } satisfies Metadata["icons"],
   noIndex = false,
   keywords = [
     "Locallify",

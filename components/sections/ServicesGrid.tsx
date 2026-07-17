@@ -90,8 +90,8 @@ const services = [
     }
   },
   {
-    title: 'AI features & agents',
-    description: 'Practical AI inside real workflows: intake, support, search, reporting, content operations, and automation.',
+    title: 'AI features & voice agents',
+    description: 'Practical AI inside real workflows: voice agents (phone intake & support), search, reporting, content operations, and automation.',
     icon: SparklesIcon,
     badge: 'AI Agents',
     theme: {
