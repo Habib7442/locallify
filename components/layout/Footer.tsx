@@ -29,6 +29,7 @@ export default function Footer() {
 
   const socials = [
     { name: "WhatsApp", href: whatsappHref, icon: "/social-icons/whatsapp.png" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/company/locallifyagency/", icon: "/social-icons/linkedin.png" },
     { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61592029269964", icon: "/social-icons/facebook.png" },
     { name: "Instagram", href: "https://www.instagram.com/locallify.in/", icon: "/social-icons/instagram.png" },
     { name: "Email", href: "mailto:hello@locallifyagency.com", icon: null },

@@ -27,7 +27,8 @@ export default async function HomePage() {
         "description": "Locallify is a global software studio building custom software, web apps, mobile apps, AI features, and SEO + GEO systems.",
         "sameAs": [
           "https://instagram.com/locallify.in",
-          "https://www.facebook.com/profile.php?id=61592029269964"
+          "https://www.facebook.com/profile.php?id=61592029269964",
+          "https://www.linkedin.com/company/locallifyagency/"
         ]
       },
       {

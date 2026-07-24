@@ -24,7 +24,8 @@ export default function AboutLayout({
       "logo": "https://locallifyagency.com/locallify_dark.svg",
       "sameAs": [
         "https://www.instagram.com/locallify.in/",
-        "https://www.facebook.com/profile.php?id=61592029269964"
+        "https://www.facebook.com/profile.php?id=61592029269964",
+        "https://www.linkedin.com/company/locallifyagency/"
       ]
     }
   };
