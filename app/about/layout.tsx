@@ -20,10 +20,11 @@ export default function AboutLayout({
       "@type": "Organization",
       "name": "Locallify",
       "description": "Locallify provides elite digital infrastructure and marketing services for local businesses in India.",
-      "url": "https://locallify.in",
-      "logo": "https://locallify.in/logo.png",
+      "url": "https://locallifyagency.com",
+      "logo": "https://locallifyagency.com/locallify_dark.svg",
       "sameAs": [
-        "https://www.instagram.com/locallify.in/"
+        "https://www.instagram.com/locallify.in/",
+        "https://www.facebook.com/profile.php?id=61592029269964"
       ]
     }
   };

@@ -28,9 +28,10 @@ export default function Footer() {
   };
 
   const socials = [
-    { name: "WhatsApp", href: whatsappHref },
-    { name: "Instagram", href: "https://www.instagram.com/locallify.in/" },
-    { name: "Email", href: "mailto:hello@locallifyagency.com" },
+    { name: "WhatsApp", href: whatsappHref, icon: "/social-icons/whatsapp.png" },
+    { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61592029269964", icon: "/social-icons/facebook.png" },
+    { name: "Instagram", href: "https://www.instagram.com/locallify.in/", icon: "/social-icons/instagram.png" },
+    { name: "Email", href: "mailto:hello@locallifyagency.com", icon: null },
   ];
 
   return (
@@ -38,11 +39,8 @@ export default function Footer() {
       <div className="container mx-auto">
         <div className="grid gap-12 md:grid-cols-12 pb-16">
           <div className="md:col-span-6">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="relative h-10 w-10 overflow-hidden rounded-full border border-border-default bg-bg-surface">
-                <Image src="/logo2.png" alt="Locallify logo" fill sizes="40px" className="object-cover" />
-              </div>
-              <span className="text-xl font-sans font-bold tracking-tight text-text-primary">Locallify</span>
+            <Link href="/" className="flex items-center">
+              <Image src="/locallify_dark.svg" alt="Locallify Logo" width={160} height={45} className="h-8 w-auto" />
             </Link>
             <p className="mt-6 max-w-md text-base leading-relaxed text-text-secondary font-light">
               A global software studio for custom software, web apps, mobile apps,
@@ -60,10 +58,19 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border-default bg-bg-surface/30 text-[10px] font-mono uppercase tracking-wider text-text-muted hover:text-text-primary hover:border-accent-primary hover:bg-bg-surface/80 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border-default bg-bg-surface/30 text-[10px] font-mono uppercase tracking-wider text-text-muted hover:text-text-primary hover:border-accent-primary hover:bg-bg-surface/80 transition-all duration-300 group"
                 >
-                  {social.name}
-                  <ArrowUpRight className="h-3 w-3 text-text-subtle transition-transform duration-300" />
+                  {social.icon && (
+                    <Image
+                      src={social.icon}
+                      alt={social.name}
+                      width={14}
+                      height={14}
+                      className="h-3.5 w-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                    />
+                  )}
+                  <span>{social.name}</span>
+                  <ArrowUpRight className="h-3 w-3 text-text-subtle transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
               ))}
             </div>
@@ -82,7 +89,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col gap-4 text-xs font-mono uppercase tracking-wider text-text-subtle md:flex-row md:items-center md:justify-between">
-          <p>&copy; {currentYear} Locallify Digital Services &bull; All rights reserved.</p>
+          <p>&copy; {currentYear} Locallify Agency &bull; All rights reserved.</p>
           <p className="text-accent-primary font-bold">Design &bull; Build &bull; Rank.</p>
         </div>
       </div>

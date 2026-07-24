@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import { Zap, Heart, Target, ArrowRight, Globe, Users, ZapIcon } from "lucide-react";
 import Link from "next/link";
@@ -192,9 +193,9 @@ export default function AboutPageClient() {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start gap-12">
             <div className="max-w-sm">
-              <div className="font-sans font-black text-2xl tracking-tighter uppercase text-text-primary mb-6">
-                Locallify<span className="text-accent-primary">.</span>
-              </div>
+              <Link href="/" className="inline-block mb-6">
+                <Image src="/locallify_dark.svg" alt="Locallify Logo" width={160} height={45} className="h-8 w-auto" />
+              </Link>
               <p className="text-text-secondary text-sm leading-relaxed mb-8">
                 The street is going digital. Don&apos;t get left behind. We empower local legends with elite digital presence.
               </p>
@@ -216,8 +217,9 @@ export default function AboutPageClient() {
               <div>
                 <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-primary mb-6">Connect</h4>
                 <ul className="space-y-4">
-                  <li><a href="https://instagram.com/locallify.in" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">Instagram</a></li>
-                  <li><a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">WhatsApp</a></li>
+                  <li><a href="https://instagram.com/locallify.in" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2"><Image src="/social-icons/instagram.png" alt="Instagram" width={14} height={14} className="h-3.5 w-3.5 object-contain opacity-70" /> Instagram</a></li>
+                  <li><a href="https://www.facebook.com/profile.php?id=61592029269964" target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2"><Image src="/social-icons/facebook.png" alt="Facebook" width={14} height={14} className="h-3.5 w-3.5 object-contain opacity-70" /> Facebook</a></li>
+                  <li><a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2"><Image src="/social-icons/whatsapp.png" alt="WhatsApp" width={14} height={14} className="h-3.5 w-3.5 object-contain opacity-70" /> WhatsApp</a></li>
                 </ul>
               </div>
             </div>

@@ -40,20 +40,15 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
         <div className="container mx-auto flex justify-between items-center">
           
           {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-4 group relative z-[110]">
-            <div className="relative w-12 h-12 bg-bg-surface border border-border-subtle rounded-full flex items-center justify-center transition-transform group-hover:scale-105 shadow-glow-subtle overflow-hidden">
-              <Image 
-                src="/logo2.png" 
-                alt="Locallify Logo" 
-                fill
-                sizes="48px"
-                className="object-cover"
-                priority
-              />
-            </div>
-            <span className="font-sans font-black text-2xl tracking-tighter uppercase text-text-primary">
-              Locallify<span className="text-accent-primary">.</span>
-            </span>
+          <Link href="/" className="flex items-center group relative z-[110]">
+            <Image 
+              src="/locallify_dark.svg" 
+              alt="Locallify Logo" 
+              width={180}
+              height={51}
+              className="h-9 w-auto transition-transform group-hover:scale-105"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

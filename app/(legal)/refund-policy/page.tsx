@@ -26,7 +26,7 @@ export default function RefundPolicy() {
       "name": "Locallify",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://locallifyagency.com/logo.png"
+        "url": "https://locallifyagency.com/locallify_dark.svg"
       }
     }
   };
