@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from 'motion/react';
@@ -15,7 +17,7 @@ export default function CTA({
   title = <>JOIN THE <br /> <span className="text-accent-primary italic font-display">REVOLUTION.</span></>,
   subtitle = "We don't just build pages. We build digital legacies. Join the elite businesses across India who are already winning the digital game.",
   primaryBtnText = "START A PROJECT →",
-  primaryBtnHref = "https://wa.me",
+  primaryBtnHref = "/contact",
   secondaryBtnText = "WHATSAPP US",
   secondaryBtnHref = "https://wa.me"
 }: CTAProps) {
@@ -40,9 +42,7 @@ export default function CTA({
            </p>
             <div className="flex flex-col sm:flex-row gap-6 md:gap-8 justify-center items-center">
              <Link 
-               href={primaryBtnHref.startsWith('https://wa.me') 
-                 ? `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'm ready to claim my digital spotlight.")}`
-                 : primaryBtnHref} 
+               href={primaryBtnHref} 
                className="w-full sm:w-auto bg-accent-primary text-bg-primary px-10 py-5 rounded-2xl text-base font-sans font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl text-center"
              >
                {primaryBtnText}

@@ -19,7 +19,7 @@ export default function FinalCTA() {
             with the best next step: fixed package, discovery sprint, or custom quote.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href={whatsappHref} className="btn-primary gap-2">
+            <Link href="/contact" className="btn-primary gap-2">
               Start a project
               <ArrowRight className="h-4 w-4" />
             </Link>

@@ -9,10 +9,11 @@ export default function Footer() {
 
   const footerLinks = {
     studio: [
-      { name: "Work", href: "/portfolio" },
+      { name: "Portfolio", href: "/portfolio" },
       { name: "Services", href: "/services" },
       { name: "Pricing", href: "/pricing" },
       { name: "About", href: "/about" },
+      { name: "Articles & GEO Insights", href: "/blog" },
     ],
     contact: [
       { name: "WhatsApp", href: whatsappHref },

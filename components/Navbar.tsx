@@ -3,7 +3,7 @@
 import React, { useState, useEffect, type ComponentProps } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Briefcase, Layers, Tag, Info, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to start a software project.")}`;
@@ -21,10 +21,11 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
   }, []);
 
   const navItems = [
-    { name: 'Work', href: '/portfolio' },
-    { name: 'Services', href: '/services' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'About', href: '/about' },
+    { name: 'Work', href: '/portfolio', icon: Briefcase },
+    { name: 'Services', href: '/services', icon: Layers },
+    { name: 'Pricing', href: '/pricing', icon: Tag },
+    { name: 'About', href: '/about', icon: Info },
+    { name: 'Blog', href: '/blog', icon: BookOpen },
   ];
 
   return (
@@ -53,25 +54,29 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-10">
-            <div className="flex gap-8 text-sm font-medium text-text-secondary">
-              {navItems.map((item) => (
-                <Link 
-                  key={item.name} 
-                  href={item.href}
-                  className="hover:text-text-primary transition-colors relative group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-2 left-0 h-px w-0 bg-accent-primary transition-all group-hover:w-full" />
-                </Link>
-              ))}
+            <div className="flex gap-7 text-sm font-medium text-text-secondary">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link 
+                    key={item.name} 
+                    href={item.href}
+                    className="inline-flex items-center gap-2 hover:text-text-primary transition-colors relative group py-1"
+                  >
+                    <Icon className="w-3.5 h-3.5 text-accent-primary group-hover:scale-110 transition-transform" />
+                    <span>{item.name}</span>
+                    <span className="absolute -bottom-2 left-0 h-px w-0 bg-accent-primary transition-all group-hover:w-full" />
+                  </Link>
+                );
+              })}
             </div>
             
             <Link 
               href="/contact"
-              className="btn-primary gap-2"
+              className="inline-flex items-center gap-2 rounded-full bg-text-primary px-4 py-2 text-xs font-sans font-bold uppercase tracking-wider text-text-inverse transition-all hover:bg-accent-primary hover:text-bg-primary hover:scale-[1.03] active:scale-95 shadow-sm"
             >
               Start a project
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -106,16 +111,20 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
         </button>
 
         <div className="flex flex-col gap-8">
-          {navItems.map((item) => (
-            <Link 
-              key={item.name} 
-              href={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="font-display italic text-5xl text-text-primary hover:text-accent-primary transition-colors"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link 
+                key={item.name} 
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="inline-flex items-center justify-center gap-3 font-display italic text-4xl sm:text-5xl text-text-primary hover:text-accent-primary transition-colors"
+              >
+                <Icon className="w-7 h-7 text-accent-primary" />
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
           <div className="pt-8 flex flex-col gap-4">
             <Link 
               href="/contact"

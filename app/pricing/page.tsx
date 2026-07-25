@@ -156,7 +156,7 @@ export default function PricingPage() {
               <span className="text-accent-primary not-italic">something serious?</span>
             </h2>
             <Link 
-              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I saw your pricing packages and I'd like to discuss a software project.")}`}
+              href="/contact"
               className="inline-flex h-16 px-12 items-center justify-center bg-accent-primary text-bg-primary font-sans font-bold uppercase tracking-widest text-xs rounded-full hover:bg-accent-hover transition-all scale-110 mb-12"
             >
               Start a project

@@ -60,7 +60,7 @@ export default function HeroSection() {
           </motion.h1>
 
           <motion.div variants={itemVariants} className="mt-12 flex flex-row items-center justify-center gap-4">
-            <Link href={whatsappHref} className="btn-primary gap-2">
+            <Link href="/contact" className="btn-primary gap-2">
               Start a project
               <ArrowRight className="h-4 w-4" />
             </Link>

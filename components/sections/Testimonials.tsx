@@ -8,45 +8,21 @@ interface TestimonialsProps {
   reviews?: Review[];
 }
 
-const fallbackReviews = [
-  {
-    id: 'founder',
-    name: 'SaaS founder',
-    role: 'Illustrative Feedback (United States)',
-    is_verified: false,
-    review: 'Locallify understood the product, not just the page. The build came with the technical SEO pieces we usually have to chase later.',
-    rating: 5,
-  },
-  {
-    id: 'operator',
-    name: 'Operations lead',
-    role: 'Illustrative Feedback (United Kingdom)',
-    is_verified: false,
-    review: 'They turned a messy manual workflow into a clean internal tool and gave our team a launch plan we could actually follow.',
-    rating: 5,
-  },
-  {
-    id: 'clinic',
-    name: 'Clinic owner',
-    role: 'Illustrative Feedback (Gulf region)',
-    is_verified: false,
-    review: 'The AI intake flow gave us faster responses without losing the human handoff. Clear thinking, clean product, calm process.',
-    rating: 5,
-  },
-];
-
 export default function Testimonials({ reviews = [] }: TestimonialsProps) {
   const reduceMotion = useReducedMotion();
-  const visibleReviews = reviews.length > 0
-    ? reviews.slice(0, 3).map((review) => ({
-        id: review.$id,
-        name: review.name,
-        role: review.role || 'Client Partner',
-        is_verified: review.is_verified ?? true,
-        review: review.review,
-        rating: review.rating,
-      }))
-    : fallbackReviews;
+
+  if (!reviews || reviews.length === 0) {
+    return null;
+  }
+
+  const visibleReviews = reviews.slice(0, 3).map((review) => ({
+    id: review.$id,
+    name: review.name,
+    role: review.role || 'Client Partner',
+    is_verified: review.is_verified ?? true,
+    review: review.review,
+    rating: review.rating,
+  }));
 
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: reduceMotion ? 0 : 18 },

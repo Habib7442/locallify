@@ -29,7 +29,6 @@ export const viewport: Viewport = {
   themeColor: "#0A0A0E",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
 };
 
 export const metadata = constructMetadata();

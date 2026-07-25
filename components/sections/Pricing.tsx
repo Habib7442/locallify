@@ -134,7 +134,7 @@ export default function Pricing({ showHeader = true }: PricingProps) {
 
         <p className="mt-8 max-w-3xl text-left text-sm leading-6 text-text-muted">
           Typical milestone split: 50% start, 40% on delivery, 10% at launch.
-          Out-of-scope work is quoted separately, usually around $25/hr.
+          Out-of-scope work is quoted per milestone before any of it starts.
         </p>
       </div>
     </section>

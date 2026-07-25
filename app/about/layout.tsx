@@ -1,10 +1,10 @@
 import { constructMetadata } from "@/lib/seo";
 
 export const metadata = constructMetadata({
-  title: "About Us | Locallify",
-  description: "Modernizing the street. Discover the mission behind Locallify and how we're bringing elite digital presence to every corner of India.",
+  title: "Our Mission",
+  description: "Modernizing the street. Discover the mission behind Locallify and how we're bringing elite digital presence to local businesses.",
   alternates: {
-    canonical: "https://locallify.in/about",
+    canonical: "https://locallifyagency.com/about",
   }
 });
 
