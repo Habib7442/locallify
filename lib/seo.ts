@@ -18,8 +18,8 @@ export function constructMetadata({
   image = "/og_image.jpg",
   icons = {
     icon: [
-      { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicons/favicon-16.png",    sizes: "16x16", type: "image/png" },
+      { url: "/favicons/favicon-32.png",    sizes: "32x32", type: "image/png" },
       { url: "/favicons/favicon-48.png",    sizes: "48x48", type: "image/png" },
       { url: "/favicons/icon-192.png",      sizes: "192x192", type: "image/png" },
       { url: "/favicons/icon-512.png",      sizes: "512x512", type: "image/png" },
@@ -27,7 +27,7 @@ export function constructMetadata({
     apple: [
       { url: "/favicons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/favicons/favicon-32x32.png",
+    shortcut: "/favicons/favicon-32.png",
   } satisfies Metadata["icons"],
   noIndex = false,
   keywords = [

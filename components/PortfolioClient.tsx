@@ -121,8 +121,8 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
       </section>
 
       {/* ─── GALLERY ──────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 relative min-h-[60vh] px-6">
-        <div className="container mx-auto relative z-10">
+      <section className="py-16 md:py-24 relative min-h-[60vh] px-4 sm:px-6 w-full max-w-full overflow-hidden box-border">
+        <div className="container mx-auto relative z-10 w-full max-w-full overflow-hidden box-border">
           <AnimatePresence mode="popLayout">
             {filteredItems.length > 0 ? (
               <motion.div 
@@ -131,16 +131,16 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full max-w-full min-w-0 overflow-hidden"
               >
                 {filteredItems.map((item) => (
                   <motion.div 
                     key={item.slug}
                     variants={itemVariants}
                     layout
-                    className="group"
+                    className="group w-full max-w-full min-w-0 overflow-hidden"
                   >
-                    <div className="relative bg-bg-surface/50 backdrop-blur-md border border-border-default p-4.5 rounded-2xl h-full flex flex-col transition-all duration-500 hover:border-accent-primary/50 hover:bg-bg-surface/80 hover:shadow-[0_0_35px_rgba(208,255,20,0.1)]">
+                    <div className="relative bg-bg-surface/50 backdrop-blur-md border border-border-default p-3.5 sm:p-4.5 rounded-2xl h-full flex flex-col transition-all duration-500 hover:border-accent-primary/50 hover:bg-bg-surface/80 hover:shadow-[0_0_35px_rgba(208,255,20,0.1)] min-w-0 overflow-hidden w-full max-w-full box-border">
                       {/* Image Container */}
                       <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-bg-elevated mb-5">
                         <Link href={`/portfolio/${item.slug}`} className="w-full h-full relative block">
@@ -182,10 +182,10 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                       </div>
                       
                       {/* Content */}
-                      <div className="flex-grow flex flex-col justify-between p-1">
-                        <div>
+                      <div className="flex-grow flex flex-col justify-between p-1 min-w-0 overflow-hidden">
+                        <div className="min-w-0">
                           {/* Category Tag */}
-                          <div className="mb-1.5 text-xs font-mono uppercase tracking-wider text-accent-primary font-medium">
+                          <div className="mb-1.5 text-xs font-mono uppercase tracking-wider text-accent-primary font-medium truncate min-w-0">
                             {item.category || item.industry || 'Custom Build'}
                           </div>
 

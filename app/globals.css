@@ -42,6 +42,11 @@
     @apply border-border-default outline-accent-primary/20;
   }
   
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
   body {
     @apply bg-bg-primary text-text-primary antialiased selection:bg-accent-primary selection:text-text-inverse;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";

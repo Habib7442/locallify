@@ -42,11 +42,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${instrumentSerif.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-x-hidden max-w-full`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
-        <main className="flex-grow">
+      <body className="min-h-full flex flex-col font-sans overflow-x-hidden max-w-full relative" suppressHydrationWarning>
+        <main className="flex-grow overflow-x-hidden max-w-full">
           {children}
         </main>
         <Footer />

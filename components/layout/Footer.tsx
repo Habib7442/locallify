@@ -85,7 +85,7 @@ export default function Footer() {
         </div>
 
         {/* Large screen-spanning brand signature */}
-        <div className="select-none text-center font-display italic text-[12vw] font-light leading-[0.8] tracking-tight text-border-default/40 py-8 border-y border-border-default/50 selection:bg-transparent">
+        <div className="select-none text-center font-display italic text-[12vw] font-light leading-[0.8] tracking-tight text-border-default/40 py-8 border-y border-border-default/50 selection:bg-transparent overflow-hidden max-w-full">
           Locallify.
         </div>
 
