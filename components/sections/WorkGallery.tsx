@@ -4,7 +4,7 @@ import { projectService } from '@/lib/cms';
 import { Project } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'motion/react';
 
 interface WorkGalleryProps {
@@ -78,33 +78,60 @@ export default function WorkGallery({ initialProjects = [] }: WorkGalleryProps) 
             transition={{ staggerChildren: reduceMotion ? 0 : 0.1 }}
             className="grid gap-8 md:grid-cols-2"
           >
-            {initialProjects.slice(0, 4).map((project) => (
-              <motion.div key={project.$id} variants={itemVariants}>
-                <Link
-                  href={`/portfolio/${project.slug}`}
-                  className="group block"
-                >
-                  <div className="bg-bg-surface/50 backdrop-blur-sm border border-border-default rounded-2xl overflow-hidden p-3 transition-all duration-300 group-hover:border-accent-primary/45 group-hover:shadow-[0_0_25px_rgba(208,255,20,0.06)] group-hover:bg-bg-surface/75">
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-bg-elevated">
-                      <Image
-                        src={projectService.getThumbnailUrl(project.heroBannerImage || project.thumbnail)}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </div>
-                    <div className="flex items-end justify-between gap-4 p-5">
-                      <div>
-                        <h3 className="text-xl font-sans font-semibold text-text-primary tracking-tight">{project.title}</h3>
-                        <p className="mt-2 text-xs font-mono uppercase tracking-wider text-text-muted">{project.tags?.join(' / ') || 'Software project'}</p>
+            {initialProjects.slice(0, 4).map((project) => {
+              const categoryTag = project.category || project.industry || 'Custom Build';
+              return (
+                <motion.div key={project.$id} variants={itemVariants}>
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    className="group block"
+                  >
+                    <div className="bg-bg-surface/40 backdrop-blur-sm border border-border-default rounded-2xl overflow-hidden p-4 transition-all duration-500 group-hover:border-accent-primary/50 group-hover:shadow-[0_0_35px_rgba(208,255,20,0.1)] group-hover:bg-bg-surface/80">
+                      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-bg-elevated">
+                        {/* Floating Action Arrow */}
+                        <div className="absolute top-3.5 right-3.5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-bg-primary/85 backdrop-blur-md text-text-primary shadow-md transition-all duration-300 group-hover:border-accent-primary group-hover:bg-accent-primary group-hover:text-text-inverse group-hover:scale-110">
+                          <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </div>
+
+                        <Image
+                          src={projectService.getThumbnailUrl(project.heroBannerImage || project.thumbnail)}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+
+                        {/* Subtle Dark Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 via-transparent to-transparent pointer-events-none" />
                       </div>
-                      <ArrowUpRight className="h-5 w-5 text-accent-primary transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+
+                      <div className="pt-5 pb-2 px-1">
+                        <div className="mb-2 flex items-center justify-between gap-2 text-xs font-mono uppercase tracking-wider text-accent-primary">
+                          <span className="truncate">{categoryTag}</span>
+                          {project.duration && (
+                            <span className="text-[11px] text-text-subtle font-normal shrink-0">{project.duration}</span>
+                          )}
+                        </div>
+                        
+                        <h3 className="text-xl font-sans font-bold text-text-primary tracking-tight group-hover:text-accent-primary transition-colors duration-300 line-clamp-1">
+                          {project.title}
+                        </h3>
+
+                        {(project.tags?.length || project.technologies?.length) ? (
+                          <div className="mt-3.5 flex flex-wrap gap-2">
+                            {(project.tags?.slice(0, 3) || project.technologies?.slice(0, 3) || []).map((t) => (
+                              <span key={t} className="rounded-full border border-border-subtle bg-bg-primary/60 px-3 py-1 text-[11px] font-mono text-text-muted group-hover:text-text-secondary transition-colors">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </motion.div>
         ) : (
           <motion.div
@@ -142,6 +169,20 @@ export default function WorkGallery({ initialProjects = [] }: WorkGalleryProps) 
             ))}
           </motion.div>
         )}
+
+        {/* View All Projects CTA Button */}
+        <div className="mt-14 flex flex-col items-center justify-center text-center">
+          <Link
+            href="/portfolio"
+            className="group inline-flex items-center gap-3 rounded-full border border-border-default bg-bg-surface px-8 py-4 text-sm font-semibold text-text-primary shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-accent-primary hover:bg-accent-primary hover:text-text-inverse hover:shadow-[0_0_30px_rgba(208,255,20,0.25)]"
+          >
+            <span>View All Projects & Case Studies</span>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+          <p className="mt-3 text-xs font-mono uppercase tracking-wider text-text-subtle">
+            Explore complete portfolio & technical breakdowns
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Globe, ArrowUpRight } from "lucide-react";
+import { Search, Globe, ArrowUpRight, ArrowRight } from "lucide-react";
 import { Project } from "@/lib/types";
 import { projectService } from "@/lib/cms";
 import { cn } from "@/lib/utils";
@@ -108,7 +108,7 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                   className={cn(
                     "px-6 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest transition-all",
                     statusFilter === status.value
-                      ? "bg-accent-primary text-bg-primary font-bold"
+                      ? "bg-accent-primary text-bg-primary font-bold shadow-sm"
                       : "text-text-muted hover:text-text-primary"
                   )}
                 >
@@ -133,94 +133,93 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                 exit="exit"
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               >
-                {filteredItems.map((item, index) => (
+                {filteredItems.map((item) => (
                   <motion.div 
                     key={item.slug}
                     variants={itemVariants}
                     layout
                     className="group"
                   >
-                    <div className={cn(
-                      "relative bg-bg-surface/30 backdrop-blur-md border border-border-subtle p-8 rounded-none h-full flex flex-col transition-all duration-500 hover:bg-bg-elevated/30",
-                      index % 2 === 0 
-                        ? "hover:border-accent-primary/30 hover:shadow-[0_0_30px_rgba(0,102,255,0.06)]" 
-                        : "hover:border-accent-secondary/30 hover:shadow-[0_0_30px_rgba(255,92,40,0.04)]"
-                    )}>
-                      {/* Brand accent Top Border Highlight on Hover */}
-                      <div className={cn(
-                        "absolute top-0 left-0 right-0 h-[2px] opacity-0 transition-all duration-300 group-hover:opacity-100",
-                        index % 2 === 0 
-                          ? "bg-accent-primary shadow-[0_0_12px_rgba(0,102,255,0.8)]" 
-                          : "bg-accent-secondary shadow-[0_0_12px_rgba(255,92,40,0.8)]"
-                      )} />
-
+                    <div className="relative bg-bg-surface/50 backdrop-blur-md border border-border-default p-4.5 rounded-2xl h-full flex flex-col transition-all duration-500 hover:border-accent-primary/50 hover:bg-bg-surface/80 hover:shadow-[0_0_35px_rgba(208,255,20,0.1)]">
                       {/* Image Container */}
-                      <div className="relative aspect-video overflow-hidden rounded-none bg-[#0C0C10] mb-8 border border-border-subtle flex items-center justify-center p-2">
+                      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-bg-elevated mb-5">
                         <Link href={`/portfolio/${item.slug}`} className="w-full h-full relative block">
                           <Image
                             src={projectService.getThumbnailUrl(item.heroBannerImage || item.thumbnail)}
                             alt={item.title}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            className="object-contain p-1 transition-transform duration-700 group-hover:scale-[1.02]"
+                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                           />
+                          {/* Gradient Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 via-transparent to-transparent pointer-events-none" />
                         </Link>
-                        <div className="absolute top-4 right-4 z-10">
+                        
+                        {/* Status Badge */}
+                        <div className="absolute top-3.5 left-3.5 z-10">
                           <span className={cn(
-                            "px-3 py-1 rounded-none text-[8px] font-mono font-bold uppercase tracking-[0.2em] border shadow-sm backdrop-blur-md",
+                            "px-3 py-1 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider border shadow-md backdrop-blur-md",
                             item.status === 'completed' 
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
-                            : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                            ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
+                            : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
                           )}>
                             {item.status}
                           </span>
                         </div>
+
+                        {/* Live URL Link Icon */}
+                        {item.live_url && (
+                          <a 
+                            href={item.live_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="absolute top-3.5 right-3.5 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-bg-primary/85 text-text-primary shadow-md backdrop-blur-md transition-all duration-300 hover:border-accent-primary hover:bg-accent-primary hover:text-text-inverse hover:scale-110"
+                            title="Visit Live Website"
+                          >
+                            <ArrowUpRight size={15} />
+                          </a>
+                        )}
                       </div>
                       
                       {/* Content */}
-                      <div className="flex-grow flex flex-col justify-between">
+                      <div className="flex-grow flex flex-col justify-between p-1">
                         <div>
-                          <div className="flex justify-between items-start mb-4">
-                             <h3 className="text-2xl font-sans font-bold text-text-primary group-hover:text-accent-primary transition-colors leading-tight">
-                                <Link href={`/portfolio/${item.slug}`}>
-                                  {item.title}
-                                </Link>
-                             </h3>
-                             {item.live_url && (
-                               <a 
-                                 href={item.live_url} 
-                                 target="_blank" 
-                                 rel="noopener noreferrer"
-                                 className="p-2 rounded-none border border-border-subtle text-text-muted hover:text-accent-primary hover:border-accent-primary transition-all"
-                               >
-                                 <ArrowUpRight size={18} />
-                               </a>
-                             )}
+                          {/* Category Tag */}
+                          <div className="mb-1.5 text-xs font-mono uppercase tracking-wider text-accent-primary font-medium">
+                            {item.category || item.industry || 'Custom Build'}
                           </div>
+
+                          <h3 className="text-xl font-sans font-bold text-text-primary group-hover:text-accent-primary transition-colors tracking-tight line-clamp-1 mb-3">
+                            <Link href={`/portfolio/${item.slug}`}>
+                              {item.title}
+                            </Link>
+                          </h3>
                           
-                          <p className="text-sm text-text-secondary leading-relaxed line-clamp-3 h-[4.75rem] overflow-hidden mb-4">
+                          <p className="text-sm text-text-secondary leading-relaxed line-clamp-2 mb-5 font-light">
                             {item.description}
                           </p>
-
-                          <div className="min-h-[28px] mb-6 flex items-center">
-                            <Link
-                              href={`/portfolio/${item.slug}`}
-                              className={cn(
-                                "text-[10px] font-mono uppercase tracking-widest flex items-center gap-1 transition-colors cursor-pointer border-b border-transparent hover:border-current pb-0.5",
-                                index % 2 === 0 ? "text-accent-primary" : "text-accent-secondary"
-                              )}
-                            >
-                              View Case Study & Outcomes →
-                            </Link>
-                          </div>
                         </div>
                         
-                        <div className="flex flex-wrap gap-2 mt-auto">
-                          {item.tags?.map((tag, i) => (
-                            <span key={i} className="text-[9px] font-mono uppercase tracking-widest text-text-muted border border-border-subtle px-3 py-1 rounded-none group-hover:border-accent-primary/20 transition-colors">
-                              {tag}
-                            </span>
-                          ))}
+                        <div>
+                          {/* Prominent Clickable Case Study CTA Button */}
+                          <Link
+                            href={`/portfolio/${item.slug}`}
+                            className="group/btn flex items-center justify-between w-full px-4 py-3 rounded-xl border border-border-default bg-bg-elevated/70 text-xs font-mono uppercase tracking-wider text-text-primary hover:border-accent-primary hover:bg-accent-primary hover:text-text-inverse transition-all duration-300 shadow-sm"
+                          >
+                            <span className="font-semibold">View Case Study & Outcomes</span>
+                            <ArrowRight className="h-4 w-4 text-accent-primary group-hover/btn:text-text-inverse transition-transform duration-300 group-hover/btn:translate-x-1" />
+                          </Link>
+
+                          {/* Tech Tags */}
+                          {(item.tags?.length || item.technologies?.length) ? (
+                            <div className="flex flex-wrap gap-2 mt-4">
+                              {(item.tags?.slice(0, 3) || item.technologies?.slice(0, 3) || []).map((tag, i) => (
+                                <span key={i} className="text-[11px] font-mono text-text-muted border border-border-subtle bg-bg-primary/50 px-3 py-1 rounded-full group-hover:border-accent-primary/20 transition-colors">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                     </div>
