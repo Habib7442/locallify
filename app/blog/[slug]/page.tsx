@@ -53,7 +53,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         image: `${SITE_URL}/og_image.jpg`,
         datePublished: article.publishedAt,
         dateModified: article.publishedAt,
-        author: { "@id": `${SITE_URL}/#organization` },
+        author: { "@type": "Person", name: article.author.name },
         publisher: { "@id": `${SITE_URL}/#organization` },
         mainEntityOfPage: {
           "@type": "WebPage",

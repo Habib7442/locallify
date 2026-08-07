@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${business.business_name} | Locallify Profile`,
     description: business.bio,
-    alternates: { canonical: `${SITE_URL}/${slug}` },
+    alternates: { canonical: `${SITE_URL}/${business.slug ?? slug}` },
     openGraph: {
       title: business.business_name,
       description: business.bio,

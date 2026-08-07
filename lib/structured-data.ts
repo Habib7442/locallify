@@ -41,18 +41,25 @@ interface LocalBusinessOptions {
   includeAggregateRating: boolean;
 }
 
-/** LocalBusiness node with full Silchar NAP. Pair AggregateRating only with visible reviews. */
+/**
+ * LocalBusiness node with full Silchar NAP. Pair AggregateRating only with
+ * visible reviews.
+ *
+ * TODO(owner): `image`, `priceRange`, and `openingHoursSpecification` are
+ * intentionally omitted — none of these have a verified value in the brief's
+ * reference data. Provide the real business photo, price range, and hours
+ * (matching the Google Business Profile) and add them back rather than
+ * guessing.
+ */
 export function localBusinessJsonLd({ includeAggregateRating }: LocalBusinessOptions) {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#localbusiness`,
     name: SITE_NAME,
-    image: `${SITE_URL}/og_image.jpg`,
     url: SITE_URL,
     telephone: CONTACT.phone,
     email: CONTACT.email,
-    priceRange: "$$",
     address: {
       "@type": "PostalAddress",
       streetAddress: NAP.streetAddress,
@@ -65,12 +72,6 @@ export function localBusinessJsonLd({ includeAggregateRating }: LocalBusinessOpt
       "@type": "GeoCoordinates",
       latitude: NAP.geo.latitude,
       longitude: NAP.geo.longitude,
-    },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "10:00",
-      closes: "18:00",
     },
     areaServed: [
       { "@type": "City", name: "Silchar" },

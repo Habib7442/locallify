@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { Star, Send, CheckCircle, MessageSquare, Quote } from "lucide-react";
 import { reviewService } from "@/lib/cms";
 import { toast } from "sonner";
@@ -17,6 +17,7 @@ interface ReviewPageClientProps {
 import { motion, type Variants } from 'motion/react';
 
 export default function ReviewPageClient({ testimonials }: ReviewPageClientProps) {
+  const uid = useId();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -104,9 +105,16 @@ export default function ReviewPageClient({ testimonials }: ReviewPageClientProps
                 className="mt-8 inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
               >
                 <GoogleIcon className="h-4 w-4" />
-                <span className="flex items-center gap-0.5">
+                <span className="flex items-center gap-0.5" aria-hidden="true">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-accent-primary text-accent-primary" />
+                    <Star
+                      key={i}
+                      className={
+                        i < Math.round(GOOGLE_RATING.value)
+                          ? "h-3.5 w-3.5 fill-accent-primary text-accent-primary"
+                          : "h-3.5 w-3.5 text-border-strong"
+                      }
+                    />
                   ))}
                 </span>
                 <span>
@@ -156,8 +164,9 @@ export default function ReviewPageClient({ testimonials }: ReviewPageClientProps
 
                   <div className="space-y-6">
                     <div>
-                      <label className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3 block">Your Full Name</label>
+                      <label htmlFor={`${uid}-name`} className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3 block">Your Full Name</label>
                       <input
+                        id={`${uid}-name`}
                         type="text"
                         required
                         className="w-full bg-bg-primary border border-border-subtle p-4 text-sm text-text-primary rounded-xl focus:outline-none focus:border-accent-primary/50 transition-all"
@@ -168,13 +177,15 @@ export default function ReviewPageClient({ testimonials }: ReviewPageClientProps
                     </div>
 
                     <div>
-                      <label className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3 block">Rating</label>
-                      <div className="flex gap-2">
+                      <span id={`${uid}-rating-label`} className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3 block">Rating</span>
+                      <div role="group" aria-labelledby={`${uid}-rating-label`} className="flex gap-2">
                         {[1, 2, 3, 4, 5].map((num) => (
                           <button
                             key={num}
                             type="button"
                             onClick={() => setFormData({ ...formData, rating: num })}
+                            aria-label={`${num} star${num > 1 ? "s" : ""}`}
+                            aria-pressed={formData.rating === num}
                             className="transition-transform active:scale-90"
                           >
                             <Star
@@ -186,8 +197,9 @@ export default function ReviewPageClient({ testimonials }: ReviewPageClientProps
                     </div>
 
                     <div>
-                      <label className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3 block">Your Feedback</label>
+                      <label htmlFor={`${uid}-feedback`} className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3 block">Your Feedback</label>
                       <textarea
+                        id={`${uid}-feedback`}
                         required
                         rows={5}
                         className="w-full bg-bg-primary border border-border-subtle p-4 text-sm text-text-primary rounded-xl focus:outline-none focus:border-accent-primary/50 transition-all resize-none"

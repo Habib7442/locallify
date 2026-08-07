@@ -1,4 +1,12 @@
 import { Project, Review } from "./types";
+import { fallbackProjects } from "./data/case-studies";
+import { fallbackReviews } from "./data/reviews";
+
+// Fixed IDs baked into the static fallback files — used to tell "genuine
+// CMS-sourced" testimonials apart from statically-shipped placeholder
+// content, so structured data never claims a rating backed by fallback copy.
+const FALLBACK_PROJECT_IDS = new Set(fallbackProjects.map((p) => p.$id));
+const FALLBACK_REVIEW_IDS = new Set(fallbackReviews.map((r) => r.$id));
 
 export interface TestimonialItem {
   id: string;
@@ -8,6 +16,8 @@ export interface TestimonialItem {
   quote: string;
   rating: number;
   verified: boolean;
+  /** 'sanity' = live CMS content; 'fallback' = static placeholder shipped with the site. */
+  source: "sanity" | "fallback";
 }
 
 /** Real client testimonials pulled from finished case studies — name, logo/photo, and quote all come from the project record. */
@@ -22,6 +32,7 @@ export function testimonialsFromProjects(projects: Project[]): TestimonialItem[]
       quote: p.testimonial!.testimonial,
       rating: p.testimonial!.rating || 5,
       verified: true,
+      source: p.$id && FALLBACK_PROJECT_IDS.has(p.$id) ? "fallback" : "sanity",
     }));
 }
 
@@ -34,13 +45,23 @@ export function testimonialsFromReviews(reviews: Review[]): TestimonialItem[] {
     quote: r.review,
     rating: r.rating,
     verified: r.is_verified ?? true,
+    source: r.$id && FALLBACK_REVIEW_IDS.has(r.$id) ? "fallback" : "sanity",
   }));
 }
 
-/** Case-study testimonials first (richer — name, company, photo), then standalone reviews, de-duped by author name. */
+/** Case-study testimonials first (richer — name, company, photo), then standalone reviews, de-duped by author name across the whole combined list. */
 export function mergeTestimonials(projects: Project[], reviews: Review[]): TestimonialItem[] {
-  const fromProjects = testimonialsFromProjects(projects);
-  const seenNames = new Set(fromProjects.map((t) => t.name.toLowerCase()));
-  const fromReviews = testimonialsFromReviews(reviews).filter((t) => !seenNames.has(t.name.toLowerCase()));
-  return [...fromProjects, ...fromReviews];
+  const seenNames = new Set<string>();
+
+  return [...testimonialsFromProjects(projects), ...testimonialsFromReviews(reviews)].filter((testimonial) => {
+    const name = testimonial.name.trim().toLowerCase();
+    if (seenNames.has(name)) return false;
+    seenNames.add(name);
+    return true;
+  });
+}
+
+/** True when at least one testimonial is genuinely CMS-sourced — the only case AggregateRating markup is valid (see brief §3b). */
+export function hasVerifiedTestimonials(testimonials: TestimonialItem[]): boolean {
+  return testimonials.some((t) => t.source !== "fallback");
 }

@@ -25,25 +25,33 @@ export default function ReviewsMarquee({ testimonials, speed = 14 }: ReviewsMarq
   }
 
   return (
-    <div className="relative flex overflow-x-hidden group">
+    <div
+      className="relative flex overflow-x-hidden group"
+      tabIndex={0}
+      role="region"
+      aria-label="Client testimonials, auto-scrolling. Press Tab to focus and pause."
+    >
       <div className="absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-bg-primary to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-bg-primary to-transparent z-10 pointer-events-none" />
 
       <div
-        className="flex gap-6 whitespace-nowrap py-4 animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none"
+        className="flex gap-6 whitespace-nowrap py-4 animate-marquee group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
         style={{ animationDuration: `${durationSeconds}s` }}
       >
         {loop.map((item, idx) => (
-          <TestimonialCard key={`${item.id}-${idx}`} item={item} />
+          <TestimonialCard key={`${item.id}-${idx}`} item={item} duplicate={idx >= testimonials.length} />
         ))}
       </div>
     </div>
   );
 }
 
-function TestimonialCard({ item }: { item: TestimonialItem }) {
+function TestimonialCard({ item, duplicate = false }: { item: TestimonialItem; duplicate?: boolean }) {
   return (
-    <div className="inline-block w-[340px] sm:w-[400px] p-7 sm:p-8 bg-bg-surface border border-border-subtle rounded-2xl shadow-xl shadow-accent-primary/[0.03] relative overflow-hidden group/card shrink-0 whitespace-normal transition-all hover:border-accent-primary/20">
+    <div
+      aria-hidden={duplicate || undefined}
+      className="inline-block w-[340px] sm:w-[400px] p-7 sm:p-8 bg-bg-surface border border-border-subtle rounded-2xl shadow-xl shadow-accent-primary/[0.03] relative overflow-hidden group/card shrink-0 whitespace-normal transition-all hover:border-accent-primary/20"
+    >
       <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover/card:opacity-[0.08] transition-opacity">
         <Quote size={56} className="text-text-primary" />
       </div>

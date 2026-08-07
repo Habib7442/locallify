@@ -12,7 +12,7 @@ import { Project, Review } from "@/lib/types";
 import { constructMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-config";
 import { faqPageJsonLd, localBusinessJsonLd } from "@/lib/structured-data";
-import { mergeTestimonials } from "@/lib/testimonials";
+import { hasVerifiedTestimonials, mergeTestimonials } from "@/lib/testimonials";
 
 export const metadata = constructMetadata({
   alternates: { canonical: "/" },
@@ -25,25 +25,9 @@ const homeFaqs = [
 ];
 
 export default async function HomePage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "@id": `${SITE_URL}/#software-development`,
-        "name": "Custom software, web app, and mobile app development",
-        "provider": { "@id": `${SITE_URL}/#organization` },
-        "areaServed": ["Silchar", "India", "Worldwide"],
-        "serviceType": "Software development with SEO and Generative Engine Optimization"
-      },
-      localBusinessJsonLd({ includeAggregateRating: true }),
-      faqPageJsonLd(homeFaqs),
-    ]
-  };
-
   let projects: Project[] = [];
   let reviews: Review[] = [];
-  
+
   try {
     // Fetch data with a Promise.all but handle individual failures gracefully
     const [projectsData, reviewsData] = await Promise.allSettled([
@@ -60,6 +44,25 @@ export default async function HomePage() {
   }
 
   const testimonials = mergeTestimonials(projects, reviews);
+
+  // AggregateRating is only valid when at least one testimonial is
+  // genuinely CMS-sourced (not static fallback copy) — see brief §3b and
+  // Google's guidance against self-serving ratings with no real reviews.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${SITE_URL}/#software-development`,
+        "name": "Custom software, web app, and mobile app development",
+        "provider": { "@id": `${SITE_URL}/#organization` },
+        "areaServed": ["Silchar", "India", "Worldwide"],
+        "serviceType": "Software development with SEO and Generative Engine Optimization"
+      },
+      localBusinessJsonLd({ includeAggregateRating: hasVerifiedTestimonials(testimonials) }),
+      faqPageJsonLd(homeFaqs),
+    ]
+  };
 
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary">

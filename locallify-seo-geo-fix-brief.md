@@ -34,7 +34,7 @@
 | Facebook | https://www.facebook.com/profile.php?id=61592029269964 |
 | Instagram | https://www.instagram.com/locallify.in/ |
 | Twitter/X handle | @locallify |
-| Secondary domain | `locallify.in` (must 301 → `locallifyagency.com`) |
+| Secondary domain | `locallify.in` (must 301 → `https://www.locallifyagency.com`) |
 | Theme color | `#0A0A0E` |
 | Stack (from build notes) | Next.js 15 (App Router), Tailwind, some Sanity CMS on client builds |
 
@@ -68,8 +68,9 @@ You sell schema to clients — the audit couldn't verify it's fully live on your
 - [ ] `WebSite`: name, url, `publisher` (ref to Organization). Add `potentialAction` → `SearchAction` only if an on-site search exists; otherwise skip.
 
 **3b. `LocalBusiness` (subtype `ProfessionalService` or `Organization`+`address`) — with AggregateRating:**
-- [ ] Full `PostalAddress` (Section 1 NAP), `geo` (lat/lng ~ 24.7564, 92.7985 — verify against the real GBP pin), `telephone`, `openingHours`, `priceRange`, `url`, `image`.
-- [ ] `aggregateRating`: `ratingValue: "5.0"`, `reviewCount: "27"`.
+- [x] Full `PostalAddress` (Section 1 NAP), `geo` (lat/lng ~ 24.7564, 92.7985 — TODO(owner): still needs verifying against the real GBP pin), `telephone`, `url` — implemented in `lib/structured-data.ts`.
+  - `TODO(owner):` `openingHours`, `priceRange`, and `image` are intentionally **not** emitted — none have a verified value in the reference data above, and rule 5 (§0) says not to guess. Provide the real hours, price range, and a genuine business photo, then add them.
+- [x] `aggregateRating`: `ratingValue: "5.0"`, `reviewCount: "27"` — emitted, but only on pages gated by `hasVerifiedTestimonials()` so it never renders without genuinely CMS-sourced reviews backing it.
 
   ⚠️ **Google guideline:** self-serving `aggregateRating` on your own Organization can be ignored or flagged **unless the reviews are actually visible on the page that carries the markup.** So pair this with Task 5 (show real reviews on `/reviews` and a homepage strip). Put the `AggregateRating` markup on the page where the reviews are visibly rendered. Do not mark up a rating that isn't shown to users.
 
@@ -160,17 +161,17 @@ You sell schema to clients — the audit couldn't verify it's fully live on your
 
 ---
 
-## 9. Domain consolidation (`locallify.in` → `locallifyagency.com`)
+## 9. Domain consolidation (`locallify.in` → `https://www.locallifyagency.com`)
 
-**Status:** `locallify.in` already 301-redirects to `locallifyagency.com` (verified). Finish the job so Google fully consolidates.
+**Status:** `locallify.in` already 301-redirects to `https://www.locallifyagency.com` (verified). Finish the job so Google fully consolidates.
 
 **Do (code side):**
-- [ ] Confirm the redirect is a **301 (permanent)**, path-preserving, for **every** `.in` route (not just the homepage). Implement in `next.config` `redirects()` or at the host/CDN if `.in` is served from the same app.
-- [ ] Confirm `www` vs non-`www` is also normalized to a single host (pick `www.locallifyagency.com` and 301 the bare domain to it, or vice versa — just be consistent with the canonical tags).
-- [ ] Ensure every internal link, canonical, OG URL, and sitemap entry uses the single canonical host. (Some crawled pages mixed `locallifyagency.com` and `www.locallifyagency.com` — pick one.)
+- [x] Confirm the redirect is a **301 (permanent)**, path-preserving, for **every** `.in` route (not just the homepage). Implement in `next.config` `redirects()` or at the host/CDN if `.in` is served from the same app. — Done: host-based redirects in `next.config.ts` cover `locallify.in`, `www.locallify.in`, and bare `locallifyagency.com`, all path-preserving.
+- [x] Confirm `www` vs non-`www` is also normalized to a single host — **resolved: `www.locallifyagency.com` is canonical**, bare domain 301s to it.
+- [x] Ensure every internal link, canonical, OG URL, and sitemap entry uses the single canonical host (`https://www.locallifyagency.com`) — done via `lib/site-config.ts`'s `SITE_URL` constant, used across metadata, JSON-LD, sitemap, and robots.
 
 **Do (manual — leave as `TODO(owner)`):**
-- [ ] Google Search Console: submit a **Change of Address** from `locallify.in` to `locallifyagency.com`.
+- [ ] Google Search Console: submit a **Change of Address** from `locallify.in` to `https://www.locallifyagency.com`.
 - [ ] Update any external citations/social links still pointing at `.in`.
 
 **Acceptance:** every `.in` URL 301s to the matching `.com` path; one canonical host is used everywhere (links, canonicals, OG, sitemap); no mixed www/non-www.

@@ -58,6 +58,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi Locallify, I saw the ${project.title} case study and I'd love to discuss a similar project.`)}`;
 
   const canonicalUrl = `${SITE_URL}/portfolio/${slug}`;
+  const rawImage = project.heroBannerImage || project.thumbnail;
+  const absoluteImage = rawImage?.startsWith('http') ? rawImage : rawImage ? `${SITE_URL}${rawImage}` : undefined;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -66,7 +68,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
         '@type': 'Article',
         headline: project.heroTitle || project.title,
         description: project.metaDescription || project.description,
-        image: project.heroBannerImage || project.thumbnail,
+        image: absoluteImage,
         author: { '@id': `${SITE_URL}/#organization` },
         publisher: { '@id': `${SITE_URL}/#organization` },
         datePublished: project.completionDate,

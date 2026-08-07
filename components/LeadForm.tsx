@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { SITE_URL } from '@/lib/site-config';
 
 interface LeadFormProps {
   businessName: string;
@@ -34,7 +35,7 @@ export default function LeadForm({ businessName, whatsappNumber, slug }: LeadFor
          // Fallback if it's already 12 digits but not 91, we assume it's wrong and keep as is or alert
       }
 
-      const waMessage = `🚀 *NEW ENQUIRY — ${businessName.toUpperCase()}*\n━━━━━━━━━━━━━━━━\n👤 *Customer:* ${formData.name}\n📞 *Phone:* ${formData.phone}\n💬 *Message:* ${formData.message}\n\n🔗 *Via Your Page:* locallifyagency.com/${slug}\n🕐 *Received:* ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}\n━━━━━━━━━━━━━━━━\n_Powered by Locallify_`;
+      const waMessage = `🚀 *NEW ENQUIRY — ${businessName.toUpperCase()}*\n━━━━━━━━━━━━━━━━\n👤 *Customer:* ${formData.name}\n📞 *Phone:* ${formData.phone}\n💬 *Message:* ${formData.message}\n\n🔗 *Via Your Page:* ${SITE_URL}/${slug}\n🕐 *Received:* ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })}\n━━━━━━━━━━━━━━━━\n_Powered by Locallify_`;
 
       const waLink = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(waMessage)}`;
       

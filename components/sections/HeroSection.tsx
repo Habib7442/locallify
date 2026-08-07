@@ -81,9 +81,16 @@ export default function HeroSection() {
             className="mt-6 inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
           >
             <GoogleIcon className="h-4 w-4" />
-            <span className="flex items-center gap-0.5">
+            <span className="flex items-center gap-0.5" aria-hidden="true">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-accent-primary text-accent-primary" />
+                <Star
+                  key={i}
+                  className={
+                    i < Math.round(GOOGLE_RATING.value)
+                      ? "h-3.5 w-3.5 fill-accent-primary text-accent-primary"
+                      : "h-3.5 w-3.5 text-border-strong"
+                  }
+                />
               ))}
             </span>
             <span>
