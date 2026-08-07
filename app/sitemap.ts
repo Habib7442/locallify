@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
 import { profileService, projectService } from "@/lib/cms";
 import { articles } from "@/lib/data/articles";
+import { SITE_URL } from "@/lib/site-config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://locallifyagency.com";
+  const baseUrl = SITE_URL;
 
   // Core Marketing Routes
   const coreRoutes = [
@@ -15,21 +16,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/reviews",
     "/contact",
     "/blog",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split("T")[0],
-    changeFrequency: "weekly" as const,
-    priority: route === "" ? 1.0 : route === "/contact" ? 0.9 : 0.8,
-  }));
-
-  // Target Cities Routes for Local SEO
-  const cities = ["silchar", "guwahati", "imphal", "shillong"];
-  const cityRoutes = cities.map((city) => ({
-    url: `${baseUrl}/cities/${city}`,
-    lastModified: new Date().toISOString().split("T")[0],
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
+    "/web-development-company-silchar",
+    "/privacy-policy",
+    "/terms",
+    "/refund-policy",
+    "/shipping-policy",
+  ].map((route) => {
+    const isLegal = ["/privacy-policy", "/terms", "/refund-policy", "/shipping-policy"].includes(route);
+    return {
+      url: `${baseUrl}${route}`,
+      lastModified: new Date().toISOString().split("T")[0],
+      changeFrequency: isLegal ? ("yearly" as const) : ("weekly" as const),
+      priority: route === "" ? 1.0 : route === "/contact" ? 0.9 : isLegal ? 0.3 : 0.8,
+    };
+  });
 
   // Verified Business storefront profiles dynamically loaded from DB
   let profileRoutes: MetadataRoute.Sitemap = [];
@@ -68,5 +68,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...coreRoutes, ...articleRoutes, ...cityRoutes, ...profileRoutes, ...projectRoutes];
+  return [...coreRoutes, ...articleRoutes, ...profileRoutes, ...projectRoutes];
 }

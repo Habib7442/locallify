@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Loader2, AlertCircle, Calendar, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { CONTACT, SITE_URL } from "@/lib/site-config";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -148,13 +149,8 @@ export default function ContactPage() {
             "@context": "https://schema.org",
             "@type": "ContactPage",
             name: "Start a Project with Locallify",
-            url: "https://locallifyagency.com/contact",
-            mainEntity: {
-              "@type": "Organization",
-              name: "Locallify",
-              email: "hello@locallifyagency.com",
-              url: "https://locallifyagency.com",
-            },
+            url: `${SITE_URL}/contact`,
+            mainEntity: { "@id": `${SITE_URL}/#organization` },
           }).replace(/</g, '\\u003c'),
         }}
       />

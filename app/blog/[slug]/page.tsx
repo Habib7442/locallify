@@ -4,6 +4,8 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { articles } from "@/lib/data/articles";
 import { constructMetadata } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site-config";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { ArrowLeft, Clock, Calendar, User } from "lucide-react";
 import CTA from "@/components/CTA";
 
@@ -26,7 +28,7 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     title: article.title,
     description: article.seoDescription,
     alternates: {
-      canonical: `https://locallifyagency.com/blog/${article.slug}`,
+      canonical: `/blog/${article.slug}`,
     },
   });
 }
@@ -39,29 +41,31 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
+  const canonicalUrl = `${SITE_URL}/blog/${article.slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: article.title,
-    description: article.seoDescription,
-    datePublished: article.publishedAt,
-    author: {
-      "@type": "Organization",
-      name: "Locallify",
-      url: "https://locallifyagency.com",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Locallify",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://locallifyagency.com/locallify_dark.svg",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: article.title,
+        description: article.seoDescription,
+        image: `${SITE_URL}/og_image.jpg`,
+        datePublished: article.publishedAt,
+        dateModified: article.publishedAt,
+        author: { "@id": `${SITE_URL}/#organization` },
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": canonicalUrl,
+        },
       },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://locallifyagency.com/blog/${article.slug}`,
-    },
+      breadcrumbJsonLd([
+        { name: "Home", path: "" },
+        { name: "Blog", path: "/blog" },
+        { name: article.title, path: `/blog/${article.slug}` },
+      ]),
+    ],
   };
 
   return (

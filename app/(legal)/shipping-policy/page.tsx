@@ -1,5 +1,12 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
+import { constructMetadata } from "@/lib/seo";
+
+export const metadata = constructMetadata({
+  title: "Delivery Policy | Locallify",
+  description: "How Locallify delivers digital work: source code, staging deployments, and project handover for custom software, web, and mobile builds.",
+  alternates: { canonical: "/shipping-policy" },
+});
 
 export default function ShippingPolicy() {
   const lastUpdated = "July 2026";

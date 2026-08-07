@@ -10,42 +10,34 @@ import FinalCTA from "@/components/sections/FinalCTA";
 import { projectService, reviewService } from "@/lib/cms";
 import { Project, Review } from "@/lib/types";
 import { constructMetadata } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site-config";
+import { faqPageJsonLd, localBusinessJsonLd } from "@/lib/structured-data";
+import { mergeTestimonials } from "@/lib/testimonials";
 
-export const metadata = constructMetadata();
+export const metadata = constructMetadata({
+  alternates: { canonical: "/" },
+});
 export const revalidate = 3600; // Revalidate the home page every hour
+
+const homeFaqs = [
+  { question: "Who owns the code and IP?", answer: "You do. We can maintain it, but the product belongs to your company." },
+  { question: "How long does a project take?", answer: "Landing pages can move in days. Web apps and mobile apps usually run in milestone-based sprints." },
+];
 
 export default async function HomePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
-        "@id": "https://locallifyagency.com/#organization",
-        "name": "Locallify",
-        "url": "https://locallifyagency.com",
-        "logo": "https://locallifyagency.com/locallify_dark.svg",
-        "description": "Locallify is a global software studio building custom software, web apps, mobile apps, AI features, and SEO + GEO systems.",
-        "sameAs": [
-          "https://instagram.com/locallify.in",
-          "https://www.facebook.com/profile.php?id=61592029269964",
-          "https://www.linkedin.com/company/locallifyagency/"
-        ]
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://locallifyagency.com/#website",
-        "url": "https://locallifyagency.com",
-        "name": "Locallify",
-        "publisher": { "@id": "https://locallifyagency.com/#organization" }
-      },
-      {
         "@type": "Service",
-        "@id": "https://locallifyagency.com/#software-development",
+        "@id": `${SITE_URL}/#software-development`,
         "name": "Custom software, web app, and mobile app development",
-        "provider": { "@id": "https://locallifyagency.com/#organization" },
-        "areaServed": "Worldwide",
+        "provider": { "@id": `${SITE_URL}/#organization` },
+        "areaServed": ["Silchar", "India", "Worldwide"],
         "serviceType": "Software development with SEO and Generative Engine Optimization"
-      }
+      },
+      localBusinessJsonLd({ includeAggregateRating: true }),
+      faqPageJsonLd(homeFaqs),
     ]
   };
 
@@ -56,7 +48,7 @@ export default async function HomePage() {
     // Fetch data with a Promise.all but handle individual failures gracefully
     const [projectsData, reviewsData] = await Promise.allSettled([
       projectService.getPublicProjects('completed'),
-      reviewService.getPublishedReviews(6)
+      reviewService.getPublishedReviews()
     ]);
 
     if (projectsData.status === 'fulfilled') projects = projectsData.value;
@@ -66,6 +58,8 @@ export default async function HomePage() {
     projects = [];
     reviews = [];
   }
+
+  const testimonials = mergeTestimonials(projects, reviews);
 
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary">
@@ -89,7 +83,7 @@ export default async function HomePage() {
         <SeoGeoEdge />
         <Process />
         <Pricing />
-        <Testimonials reviews={reviews} />
+        <Testimonials testimonials={testimonials} />
         <FinalCTA />
       </main>
     </div>

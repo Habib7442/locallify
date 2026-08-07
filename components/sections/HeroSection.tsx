@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Globe } from 'lucide-react';
+import { ArrowRight, Globe, Star } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'motion/react';
+import { GOOGLE_RATING } from '@/lib/site-config';
+import { GoogleIcon } from '@/components/icons/GoogleIcon';
 
 const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to start a software project.")}`;
 
@@ -33,6 +35,8 @@ export default function HeroSection() {
           alt=""
           fill
           priority
+          sizes="100vw"
+          quality={70}
           className="object-cover object-bottom opacity-45"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-primary/45 to-bg-primary" />
@@ -49,7 +53,7 @@ export default function HeroSection() {
             className="mb-5 inline-flex items-center gap-2 rounded-pill border border-border-subtle bg-bg-surface px-4 py-2 text-xs font-semibold text-text-secondary shadow-sm"
           >
             <Globe className="h-4 w-4 text-accent-primary" />
-            Global software studio with SEO + GEO built in
+            Software studio based in Silchar, Assam &middot; serving clients worldwide
           </motion.div>
 
           <motion.h1
@@ -68,6 +72,24 @@ export default function HeroSection() {
               See our work
             </Link>
           </motion.div>
+
+          <motion.a
+            variants={itemVariants}
+            href={GOOGLE_RATING.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+          >
+            <GoogleIcon className="h-4 w-4" />
+            <span className="flex items-center gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-accent-primary text-accent-primary" />
+              ))}
+            </span>
+            <span>
+              {GOOGLE_RATING.value.toFixed(1)} &middot; {GOOGLE_RATING.count} Google reviews
+            </span>
+          </motion.a>
 
           <motion.div
             variants={itemVariants}

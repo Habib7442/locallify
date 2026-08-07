@@ -126,13 +126,22 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
             );
           })}
           <div className="pt-8 flex flex-col gap-4">
-            <Link 
+            <Link
               href="/contact"
               className="btn-primary w-full"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Start a project
             </Link>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost w-full"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Chat on WhatsApp
+            </a>
           </div>
         </div>
       </div>

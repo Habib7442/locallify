@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { CONTACT, SOCIALS } from "@/lib/site-config";
 
 const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to talk about a software project.")}`;
 
@@ -17,8 +18,9 @@ export default function Footer() {
     ],
     contact: [
       { name: "WhatsApp", href: whatsappHref },
-      { name: "Email", href: "mailto:hello@locallifyagency.com" },
+      { name: "Email", href: `mailto:${CONTACT.email}` },
       { name: "Reviews", href: "/reviews" },
+      { name: "Web Dev in Silchar", href: "/web-development-company-silchar" },
     ],
     legal: [
       { name: "Privacy Policy", href: "/privacy-policy" },
@@ -30,10 +32,10 @@ export default function Footer() {
 
   const socials = [
     { name: "WhatsApp", href: whatsappHref, icon: "/social-icons/whatsapp.png" },
-    { name: "LinkedIn", href: "https://www.linkedin.com/company/locallifyagency/", icon: "/social-icons/linkedin.png" },
-    { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61592029269964", icon: "/social-icons/facebook.png" },
-    { name: "Instagram", href: "https://www.instagram.com/locallify.in/", icon: "/social-icons/instagram.png" },
-    { name: "Email", href: "mailto:hello@locallifyagency.com", icon: null },
+    { name: "LinkedIn", href: SOCIALS.linkedin, icon: "/social-icons/linkedin.png" },
+    { name: "Facebook", href: SOCIALS.facebook, icon: "/social-icons/facebook.png" },
+    { name: "Instagram", href: SOCIALS.instagram, icon: "/social-icons/instagram.png" },
+    { name: "Email", href: `mailto:${CONTACT.email}`, icon: null },
   ];
 
   return (
@@ -49,7 +51,7 @@ export default function Footer() {
               AI features, and SEO + GEO systems built to be found.
             </p>
             <p className="mt-4 text-xs font-mono uppercase tracking-wider text-text-subtle">
-              Founded in India &middot; Serving companies globally.
+              Software studio based in Silchar, Assam &middot; serving India &amp; clients worldwide.
             </p>
             
             {/* Pill-shaped modern social buttons */}

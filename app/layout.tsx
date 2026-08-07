@@ -3,6 +3,7 @@ import { Instrument_Serif, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import { constructMetadata } from "@/lib/seo";
+import { organizationWebsiteJsonLd } from "@/lib/structured-data";
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -45,6 +46,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden max-w-full relative" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationWebsiteJsonLd()) }}
+        />
         <main className="flex-grow overflow-x-hidden max-w-full">
           {children}
         </main>

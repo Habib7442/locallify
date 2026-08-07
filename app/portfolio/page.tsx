@@ -4,11 +4,14 @@ import { projectService } from "@/lib/cms";
 import PortfolioClient from "@/components/PortfolioClient";
 import { Project } from "@/lib/types";
 import { constructMetadata } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site-config";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import Link from "next/link";
 
 export const metadata = constructMetadata({
-  title: "Portfolio | Locallify",
-  description: "A showcase of India's most ambitious local businesses, powered by high-performance digital storefronts.",
+  title: "Portfolio | Custom Software & Web Projects | Locallify",
+  description: "Case studies from Locallify: custom software, web apps, and mobile products built for clients in Silchar and worldwide, with real outcomes and performance data.",
+  alternates: { canonical: "/portfolio" },
 });
 
 export const revalidate = 60; // Revalidate every minute
@@ -23,14 +26,22 @@ export default async function PortfolioPage() {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Locallify Portfolio",
-    "description": "A showcase of high-performance digital storefronts for local businesses in India.",
-    "url": "https://locallify.in/portfolio",
-    "mainEntity": {
-      "@type": "CreativeWorkSeries",
-      "name": "Locallify Digital Storefronts"
-    }
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "Locallify Portfolio",
+        "description": "Case studies from Locallify: custom software, web apps, and mobile products built for real clients.",
+        "url": `${SITE_URL}/portfolio`,
+        "mainEntity": {
+          "@type": "CreativeWorkSeries",
+          "name": "Locallify Case Studies",
+        },
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "" },
+        { name: "Portfolio", path: "/portfolio" },
+      ]),
+    ],
   };
 
   return (
@@ -57,11 +68,11 @@ export default async function PortfolioPage() {
               Showreel 2026
             </span>
             <h1 className="font-display italic text-5xl md:text-8xl leading-[0.9] tracking-tight text-text-primary mb-8">
-              Local <br /> 
-              <span className="text-text-muted not-italic">masterpieces.</span>
+              Case studies <br />
+              <span className="text-text-muted not-italic">with real outcomes.</span>
             </h1>
             <p className="font-sans text-xl text-text-secondary max-w-2xl leading-relaxed font-light">
-              A curated collection of India&apos;s most ambitious businesses, powered by <span className="text-text-primary font-medium">Locallify Pages.</span>
+              Custom software, web apps, and mobile products, built for real clients in Silchar and beyond &mdash; with <span className="text-text-primary font-medium">performance data to prove it.</span>
             </p>
           </div>
         </div>

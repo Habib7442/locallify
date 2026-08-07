@@ -62,7 +62,7 @@ export const fallbackProjects: Project[] = [
     // Tab 4
     metaTitle: 'The ENT Clinic Silchar Case Study | Locallify Portfolio',
     metaDescription: 'Read the case study of how Locallify built and optimized Dr. Abhishek Ray\'s bilingual website for The ENT Clinic in Silchar, Barak Valley.',
-    canonicalUrl: 'https://locallify.com/portfolio/the-ent-clinic-silchar',
+    canonicalUrl: 'https://www.locallifyagency.com/portfolio/the-ent-clinic-silchar',
     metaKeywords: ['next.js case study', 'medical website seo', 'bilingual website case study', 'pagespeed optimization Barak Valley'],
     robotsRule: 'index, follow',
     enableLocalSeo: true,
@@ -182,7 +182,7 @@ export const fallbackProjects: Project[] = [
     // Tab 4
     metaTitle: 'Hotel Luxuria Grand Silchar Case Study | Locallify Portfolio',
     metaDescription: 'Read the case study of how Locallify built a premium, high-speed, direct-booking web application for Hotel Luxuria Grand in Silchar, Cachar.',
-    canonicalUrl: 'https://locallify.com/portfolio/hotel-luxuria-grand',
+    canonicalUrl: 'https://www.locallifyagency.com/portfolio/hotel-luxuria-grand',
     metaKeywords: ['hotel website case study', 'next.js booking site', 'pagespeed optimization silchar', 'hotel local seo'],
     robotsRule: 'index, follow',
     enableLocalSeo: true,
@@ -301,7 +301,7 @@ export const fallbackProjects: Project[] = [
     // Tab 4
     metaTitle: 'Oral & Dental Care Clinic Silchar Case Study | Locallify Portfolio',
     metaDescription: 'Read the case study of how Locallify built a luxury web application and audited local SEO for Dr. Devarati Ray\'s Oral & Dental Care Clinic in Silchar, Assam.',
-    canonicalUrl: 'https://locallify.com/portfolio/oral-dental-care-clinic-silchar',
+    canonicalUrl: 'https://www.locallifyagency.com/portfolio/oral-dental-care-clinic-silchar',
     metaKeywords: ['dentist silchar case study', 'dental clinic website', 'next.js medical seo', 'page speed optimization Barak Valley', 'GSC audit'],
     robotsRule: 'index, follow',
     enableLocalSeo: true,

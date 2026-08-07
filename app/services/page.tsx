@@ -6,6 +6,7 @@ import { Search, MessageSquare, Monitor, ShieldCheck, ArrowRight, Zap, Trophy, B
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from 'motion/react';
+import { servicesFaqs } from "@/lib/data/services-faqs";
 
 // ─── Service Graphic Components ───────────────────────────────────────────────
 
@@ -330,24 +331,7 @@ export default function ServicesPage() {
 
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "name": "Locallify Custom Software & SEO Services",
-            "provider": {
-              "@type": "Organization",
-              "name": "Locallify",
-              "url": "https://locallifyagency.com"
-            },
-            "serviceType": ["Custom Software Development", "Web Application Development", "Mobile App Development", "SEO & GEO Optimization", "n8n Workflow Automation"],
-            "areaServed": "Worldwide"
-          }).replace(/</g, '\\u003c')
-        }}
-      />
-      <a 
+      <a
         href="#main-content" 
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none"
       >
@@ -376,7 +360,7 @@ export default function ServicesPage() {
                     <span className="text-text-muted not-italic">Global footprint.</span>
                   </motion.h1>
                   <motion.p variants={itemVariants} className="font-sans text-xl text-text-secondary max-w-2xl leading-relaxed font-light">
-                    We build premium custom software, web applications, and mobile products engineered with SEO + GEO systems so they get found on Google and in AI searches.
+                    We&apos;re a software studio based in Silchar, Assam, building premium custom software, web applications, and mobile products for clients across the Barak Valley, India, and worldwide &mdash; engineered with SEO + GEO so they get found on Google and in AI searches.
                   </motion.p>
                 </div>
                 
@@ -497,6 +481,26 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* ─── FAQ ───────────────────────────────────────────────────── */}
+        <section className="py-24 px-6 bg-bg-surface border-y border-border-default">
+          <div className="container mx-auto max-w-4xl">
+            <div className="text-center mb-16">
+              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-accent-primary mb-4 block">
+                Questions
+              </span>
+              <h2 className="font-display italic text-4xl md:text-6xl text-text-primary">Common questions.</h2>
+            </div>
+            <div className="space-y-6">
+              {servicesFaqs.map((faq) => (
+                <div key={faq.question} className="p-8 bg-bg-primary/40 border border-border-default rounded-2xl">
+                  <h3 className="font-sans font-bold text-lg text-text-primary mb-4">{faq.question}</h3>
+                  <p className="text-text-secondary leading-relaxed text-sm font-light text-justify">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ─── FINAL CTA ───────────────────────────────────────────── */}
         <section className="py-24 bg-bg-primary text-center px-6">
           <div className="container mx-auto">
@@ -506,6 +510,8 @@ export default function ServicesPage() {
               <Link href="/pricing" className="text-accent-primary hover:underline font-medium">See Pricing</Link>
               <span className="text-text-muted">·</span>
               <Link href="/about" className="text-accent-primary hover:underline font-medium">About Locallify</Link>
+              <span className="text-text-muted">·</span>
+              <Link href="/web-development-company-silchar" className="text-accent-primary hover:underline font-medium">Web Development in Silchar</Link>
             </div>
             <motion.h2 
               initial={{ opacity: 0, y: reduceMotion ? 0 : 15 }}

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { SITE_URL } from "./site-config";
 
 interface MetadataProps {
   title?: string;
@@ -14,7 +15,7 @@ interface MetadataProps {
 
 export function constructMetadata({
   title = "Locallify | Custom Software, Web & Mobile Apps",
-  description = "Global software studio for custom software, web apps, mobile apps, AI features, and SEO + GEO. Built to launch fast and get found.",
+  description = "Software studio based in Silchar, Assam, building custom software, web apps, mobile apps, AI features, and SEO + GEO for clients across India and worldwide.",
   image = "/og_image.jpg",
   icons = {
     icon: [
@@ -42,12 +43,23 @@ export function constructMetadata({
     "Global Web Development Agency",
     "Custom App Development",
     "Technical SEO Development",
+    // Local-entity terms — keep in sync with the Silchar anchor positioning
+    // (see brief §2 / lib/site-config.ts) so meta keywords, JSON-LD, and
+    // on-page copy all agree on where Locallify is based.
+    "Web Development Company Silchar",
+    "Software Company Silchar Assam",
+    "Custom Software Development India",
+    "App Development Silchar",
   ],
   alternates = {},
 }: MetadataProps = {}): Metadata {
   return {
     title: {
-      default: title,
+      // `absolute` so a page's fully-composed title (most already end in
+      // "| Locallify") isn't run through the template a second time —
+      // every route calls constructMetadata() independently, so a plain
+      // default+template here would double the suffix on every page.
+      absolute: title,
       template: `%s | Locallify`,
     },
     description,
@@ -76,7 +88,7 @@ export function constructMetadata({
       creator: "@locallify",
     },
     icons,
-    metadataBase: new URL("https://locallifyagency.com"),
+    metadataBase: new URL(SITE_URL),
     ...(noIndex && {
       robots: {
         index: false,

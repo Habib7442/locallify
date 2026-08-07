@@ -3,6 +3,7 @@ import Link from "next/link";
 import { constructMetadata } from "@/lib/seo";
 import Navbar from "@/components/Navbar";
 import { articles } from "@/lib/data/articles";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { ArrowRight, BookOpen, Clock } from "lucide-react";
 import CTA from "@/components/CTA";
 
@@ -10,13 +11,22 @@ export const metadata = constructMetadata({
   title: "Engineering & GEO Insights",
   description: "Technical teardowns, Generative Engine Optimization (GEO) playbooks, structured schema guides, and software case studies by Locallify.",
   alternates: {
-    canonical: "https://locallifyagency.com/blog",
+    canonical: "/blog",
   }
 });
 
 export default function BlogIndexPage() {
+  const jsonLd = breadcrumbJsonLd([
+    { name: "Home", path: "" },
+    { name: "Blog", path: "/blog" },
+  ]);
+
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       <main className="pt-36 pb-24 px-4 sm:px-6">

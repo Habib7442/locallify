@@ -502,6 +502,8 @@ export const reviewService = {
       console.error("Failed fetching reviews from Sanity, using fallback data:", error);
       return fallbackReviews.slice(0, limit);
     }
-    return [];
+    // No published reviews in Sanity yet — fall back to verified client testimonials
+    // so trust signals (and AggregateRating schema) never render against an empty page.
+    return fallbackReviews.slice(0, limit);
   }
 };

@@ -2,14 +2,16 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { SITE_URL } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Refund Policy | Locallify - Custom Software, Web & Mobile Apps",
+  title: { absolute: "Refund Policy | Locallify - Custom Software, Web & Mobile Apps" },
   description: "Review Locallify's Refund Policy. Understand our project milestone terms, retainer cancellations, and service conditions.",
+  alternates: { canonical: "/refund-policy" },
   openGraph: {
     title: "Refund Policy | Locallify",
     description: "Review Locallify's Refund Policy. Understand our project milestone terms, retainer cancellations, and service conditions.",
-    url: "https://locallifyagency.com/refund-policy",
+    url: "https://www.locallifyagency.com/refund-policy",
   },
 };
 
@@ -26,7 +28,7 @@ export default function RefundPolicy() {
       "name": "Locallify",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://locallifyagency.com/locallify_dark.svg"
+        "url": `${SITE_URL}/locallify_dark.svg`
       }
     }
   };

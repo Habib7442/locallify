@@ -3,75 +3,59 @@ import Navbar from "@/components/Navbar";
 import Pricing from "@/components/sections/Pricing";
 import { HelpCircle, Zap, Shield, Clock } from "lucide-react";
 import { constructMetadata } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site-config";
+import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/structured-data";
 import Link from "next/link";
 
 export const metadata = constructMetadata({
   title: "Pricing & Plans | Locallify",
   description: "Simple, transparent pricing for custom software, web apps, and mobile app builds. Choose a flat-rate package or request a custom milestone-based quote.",
+  alternates: { canonical: "/pricing" },
 });
 
+const pricingFaqs = [
+  { question: "How long does a standard build take?", answer: "Marketing landing pages launch in 1 to 2 weeks. Custom web portals, database-driven MVPs, and mobile applications take between 4 to 8 weeks depending on features." },
+  { question: "Are there setup fees or hidden costs?", answer: "No. We quote fixed package prices or custom milestone-based quotes for larger custom systems. What we agree upon in the project brief is exactly what you pay." },
+  { question: "Do we get full ownership of the source code?", answer: "Yes. Once the final milestone payment is completed, 100% intellectual property (IP) and source code ownership is transferred to you." },
+  { question: "Can we support the software after launch?", answer: "Yes. We offer monthly Care, Growth, and Scale retainers starting at $99/mo to handle security updates, content updates, hosting monitoring, and continuous SEO/GEO tuning." },
+  { question: "Do you design and write everything custom?", answer: "Yes. Every storefront, application, and interface is custom designed in Figma and coded natively in Next.js/React. We do not use generic templates or page builders." },
+];
+
 export default function PricingPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Locallify Custom Software Development",
+        "description": "High-performance custom software, web app, mobile app, and SEO + GEO development packages.",
+        "provider": { "@id": `${SITE_URL}/#organization` },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Development Packages",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Landing / Marketing Website" }, "price": "600", "priceCurrency": "USD" },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business Website (Multi-page)" }, "price": "1800", "priceCurrency": "USD" },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web App / MVP" }, "price": "6000", "priceCurrency": "USD" },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App (iOS + Android)" }, "price": "9000", "priceCurrency": "USD" }
+          ]
+        }
+      },
+      faqPageJsonLd(pricingFaqs),
+      breadcrumbJsonLd([
+        { name: "Home", path: "" },
+        { name: "Pricing", path: "/pricing" },
+      ]),
+    ],
+  };
+
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "name": "Locallify Custom Software Development",
-            "description": "High-performance custom software, web app, mobile app, and SEO + GEO development packages.",
-            "provider": {
-              "@type": "Organization",
-              "name": "Locallify",
-              "url": "https://locallifyagency.com"
-            },
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Development Packages",
-              "itemListElement": [
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Landing / Marketing Website"
-                  },
-                  "price": "600",
-                  "priceCurrency": "USD"
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Business Website (Multi-page)"
-                  },
-                  "price": "1800",
-                  "priceCurrency": "USD"
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Web App / MVP"
-                  },
-                  "price": "6000",
-                  "priceCurrency": "USD"
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Mobile App (iOS + Android)"
-                  },
-                  "price": "9000",
-                  "priceCurrency": "USD"
-                }
-              ]
-            }
-          }).replace(/</g, '\\u003c')
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
-      <a 
+      <a
         href="#main-content" 
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2"
       >
@@ -130,16 +114,10 @@ export default function PricingPage() {
           </div>
           
           <div className="space-y-6">
-            {[
-              { q: "How long does a standard build take?", a: "Marketing landing pages launch in 1 to 2 weeks. Custom web portals, database-driven MVPs, and mobile applications take between 4 to 8 weeks depending on features." },
-              { q: "Are there setup fees or hidden costs?", a: "No. We quote fixed package prices or custom milestone-based quotes for larger custom systems. What we agree upon in the project brief is exactly what you pay." },
-              { q: "Do we get full ownership of the source code?", a: "Yes. Once the final milestone payment is completed, 100% intellectual property (IP) and source code ownership is transferred to you." },
-              { q: "Can we support the software after launch?", a: "Yes. We offer monthly Care, Growth, and Scale retainers starting at $99/mo to handle security updates, content updates, hosting monitoring, and continuous SEO/GEO tuning." },
-              { q: "Do you design and write everything custom?", a: "Yes. Every storefront, application, and interface is custom designed in Figma and coded natively in Next.js/React. We do not use generic templates or page builders." }
-            ].map((faq, i) => (
-              <div key={i} className="p-8 bg-bg-surface/50 border border-border-default rounded-2xl">
-                <h4 className="font-sans font-bold text-lg text-text-primary mb-4">{faq.q}</h4>
-                <p className="text-text-secondary leading-relaxed text-sm font-light text-justify">{faq.a}</p>
+            {pricingFaqs.map((faq) => (
+              <div key={faq.question} className="p-8 bg-bg-surface/50 border border-border-default rounded-2xl">
+                <h4 className="font-sans font-bold text-lg text-text-primary mb-4">{faq.question}</h4>
+                <p className="text-text-secondary leading-relaxed text-sm font-light text-justify">{faq.answer}</p>
               </div>
             ))}
           </div>

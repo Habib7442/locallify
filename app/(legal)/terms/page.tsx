@@ -4,8 +4,9 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Locallify - Custom Software, Web & Mobile Apps",
+  title: { absolute: "Terms of Service | Locallify - Custom Software, Web & Mobile Apps" },
   description: "Review Locallify's Terms of Service. Understand project engagement milestones, support retainers, and compliance conditions for our custom software solutions.",
+  alternates: { canonical: "/terms" },
   openGraph: {
     title: "Terms of Service | Locallify",
     description: "Review Locallify's Terms of Service. Understand project engagement milestones, support retainers, and compliance conditions.",

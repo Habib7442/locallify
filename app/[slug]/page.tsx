@@ -20,6 +20,7 @@ import { profileService } from '@/lib/cms';
 import LeadForm from '@/components/LeadForm';
 import { Toaster } from 'sonner';
 import { getBusinessStatus } from '@/lib/business-utils';
+import { SITE_URL } from '@/lib/site-config';
 
 interface PageProps {
   params: Promise<{
@@ -39,6 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${business.business_name} | Locallify Profile`,
     description: business.bio,
+    alternates: { canonical: `${SITE_URL}/${slug}` },
     openGraph: {
       title: business.business_name,
       description: business.bio,
@@ -63,8 +65,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BusinessProfilePage({ params }: PageProps) {
   const { slug } = await params;
-  console.log('DEBUG: BusinessProfilePage slug:', slug);
-  
+
   if (!slug) {
     notFound();
   }
@@ -87,8 +88,8 @@ export default async function BusinessProfilePage({ params }: PageProps) {
           {business.business_name}
         </h1>
         <p className="text-zinc-400 max-w-md text-lg mb-8 leading-relaxed">
-          {!business.is_active 
-            ? "This business is currently inactive. Contact them directly or visit locallify.in"
+          {!business.is_active
+            ? "This business is currently inactive. Contact them directly or visit locallifyagency.com"
             : "This business profile is currently undergoing verification by the Locallify team."}
         </p>
         <Link href="/">
@@ -97,7 +98,7 @@ export default async function BusinessProfilePage({ params }: PageProps) {
           </Button>
         </Link>
         <div className="mt-16 pt-8 border-t border-zinc-900 w-full max-w-xs text-xs text-zinc-600">
-          POWERED BY LOCALLIFY.IN
+          POWERED BY LOCALLIFY
         </div>
       </div>
     );

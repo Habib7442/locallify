@@ -1,5 +1,12 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
+import { constructMetadata } from "@/lib/seo";
+
+export const metadata = constructMetadata({
+  title: "Privacy Policy | Locallify",
+  description: "How Locallify collects, uses, and protects business and customer data across our software, web, and marketing services.",
+  alternates: { canonical: "/privacy-policy" },
+});
 
 export default function PrivacyPolicy() {
   const lastUpdated = "May 2026";

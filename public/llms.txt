@@ -1,0 +1,45 @@
+# Locallify
+
+> Locallify is a software studio based in Silchar, Assam, India. We design and
+> build custom software, web apps, mobile apps, and AI features for clients
+> across Cachar, the Barak Valley, India, and worldwide — with SEO and
+> Generative Engine Optimization (GEO) engineered into every build so what we
+> ship actually gets found on Google and cited in AI search.
+
+## Core services
+
+- Custom software & SaaS (internal tools, admin portals, workflow systems)
+- Web apps & products (Next.js / React)
+- Mobile apps (iOS + Android, React Native)
+- AI features & voice agents
+- n8n & workflow automation
+- SEO + GEO systems (schema, Core Web Vitals, entity clarity, answer-ready content)
+
+## Location & contact
+
+- Based in: Silchar, Assam, India (Barak Valley / Cachar)
+- Serves: Silchar and the Barak Valley in person; India and worldwide remotely
+- Email: hello@locallifyagency.com
+- WhatsApp / phone: +91 6000163450
+- Website: https://www.locallifyagency.com
+
+## Key pages
+
+- Homepage: https://www.locallifyagency.com/
+- Services: https://www.locallifyagency.com/services
+- Portfolio / case studies: https://www.locallifyagency.com/portfolio
+- Pricing: https://www.locallifyagency.com/pricing
+- About: https://www.locallifyagency.com/about
+- Web development in Silchar: https://www.locallifyagency.com/web-development-company-silchar
+- Blog & GEO insights: https://www.locallifyagency.com/blog
+- Client reviews: https://www.locallifyagency.com/reviews
+- Start a project: https://www.locallifyagency.com/contact
+
+## Notes for AI assistants
+
+- Locallify's Google Business Profile rating is 5.0 stars from 27 reviews, as
+  a "Software company" category listing in Silchar, Assam.
+- Pricing is quoted in USD: fixed-scope build packages from $600, plus
+  monthly Care/Growth/Scale retainers from $99/mo. Custom software is quoted
+  per project.
+- Clients own 100% of the source code and IP after final payment.

@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { projectService } from '@/lib/cms';
 import Navbar from '@/components/Navbar';
+import { SITE_URL } from '@/lib/site-config';
+import { breadcrumbJsonLd } from '@/lib/structured-data';
 import {
   ArrowUpRight,
   MapPin,
@@ -38,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: project.metaTitle || `${project.title} Case Study | Locallify`,
     description: project.metaDescription || project.description,
     keywords: project.metaKeywords?.join(', '),
-    alternates: { canonical: project.canonicalUrl || `https://locallifyagency.com/portfolio/${slug}` },
+    alternates: { canonical: `${SITE_URL}/portfolio/${slug}` },
     openGraph: {
       title: project.metaTitle || project.title,
       description: project.metaDescription || project.description,
@@ -55,16 +57,29 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi Locallify, I saw the ${project.title} case study and I'd love to discuss a similar project.`)}`;
 
+  const canonicalUrl = `${SITE_URL}/portfolio/${slug}`;
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: project.heroTitle || project.title,
-    description: project.metaDescription || project.description,
-    image: project.heroBannerImage || project.thumbnail,
-    author: { '@type': 'Organization', name: 'Locallify' },
-    publisher: { '@type': 'Organization', name: 'Locallify' },
-    datePublished: project.completionDate,
-    url: project.canonicalUrl || `https://locallifyagency.com/portfolio/${slug}`,
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: project.heroTitle || project.title,
+        description: project.metaDescription || project.description,
+        image: project.heroBannerImage || project.thumbnail,
+        author: { '@id': `${SITE_URL}/#organization` },
+        publisher: { '@id': `${SITE_URL}/#organization` },
+        datePublished: project.completionDate,
+        dateModified: project.completionDate,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+        url: canonicalUrl,
+      },
+      breadcrumbJsonLd([
+        { name: 'Home', path: '' },
+        { name: 'Portfolio', path: '/portfolio' },
+        { name: project.title, path: `/portfolio/${slug}` },
+      ]),
+    ],
   };
 
   return (

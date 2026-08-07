@@ -70,7 +70,7 @@ export default function AboutPageClient() {
               <span className="text-accent-primary not-italic font-sans font-bold">discoverability.</span>
             </motion.h1>
             <motion.p variants={itemVariants} className="font-sans text-xl md:text-2xl text-text-secondary max-w-3xl leading-relaxed font-light">
-              Locallify is a modern software studio. We design and build custom web applications, mobile apps, and business portals engineered for speed, clean architecture, and instant discoverability across Google Search and AI answer engines.
+              Locallify is a modern software studio based in Silchar, Assam. We design and build custom web applications, mobile apps, and business portals for clients across the Barak Valley, India, and worldwide &mdash; engineered for speed, clean architecture, and instant discoverability across Google Search and AI answer engines.
             </motion.p>
           </motion.div>
           

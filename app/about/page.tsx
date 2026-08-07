@@ -1,25 +1,31 @@
 import React from "react";
 import { constructMetadata } from "@/lib/seo";
 import AboutPageClient from "@/components/AboutPageClient";
+import { SITE_URL } from "@/lib/site-config";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const metadata = constructMetadata({
-  title: "Our Mission",
-  description: "Modernizing the street. We empower India's local legends with elite digital presence and high-performance storefronts.",
+  title: "About Locallify | Software Studio in Silchar, Assam",
+  description: "Locallify is a software studio based in Silchar, Assam, building custom software, web apps, and mobile apps for clients across India and worldwide.",
+  alternates: { canonical: "/about" },
 });
 
 export default function AboutPage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "name": "About Locallify",
-    "description": "Learn about Locallify's mission to modernize Indian local businesses through elite digital presence.",
-    "url": "https://locallifyagency.com/about",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "Locallify",
-      "slogan": "Modernizing the street.",
-      "url": "https://locallifyagency.com"
-    }
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "name": "About Locallify",
+        "description": "Locallify is a software studio based in Silchar, Assam, building custom software, web apps, and mobile apps for clients across India and worldwide.",
+        "url": `${SITE_URL}/about`,
+        "mainEntity": { "@id": `${SITE_URL}/#organization` },
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "" },
+        { name: "About", path: "/about" },
+      ]),
+    ],
   };
 
   return (
