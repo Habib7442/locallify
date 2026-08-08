@@ -78,6 +78,7 @@ export default function HeroSection() {
             href={GOOGLE_RATING.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Rated ${GOOGLE_RATING.value.toFixed(1)} out of 5 from ${GOOGLE_RATING.count} Google reviews`}
             className="mt-6 inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
           >
             <GoogleIcon className="h-4 w-4" />
@@ -93,9 +94,7 @@ export default function HeroSection() {
                 />
               ))}
             </span>
-            <span>
-              {GOOGLE_RATING.value.toFixed(1)} &middot; {GOOGLE_RATING.count} Google reviews
-            </span>
+            <span aria-hidden="true" className="font-bold text-text-primary leading-none">{GOOGLE_RATING.value.toFixed(1)}</span>
           </motion.a>
 
           <motion.div

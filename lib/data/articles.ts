@@ -1,31 +1,22 @@
-export interface Article {
-  slug: string;
-  title: string;
-  excerpt: string;
-  publishedAt: string;
-  readTime: string;
-  category: string;
-  author: {
-    name: string;
-    role: string;
-  };
-  content: string;
-  seoDescription: string;
-}
+import { BlogPost } from '../types';
 
-export const articles: Article[] = [
+// Fallback content shown when Sanity has no published `blog` documents yet
+// (or is unreachable) — same shape as the Sanity `blog` schema so blogService
+// can serve either source interchangeably.
+export const fallbackPosts: BlogPost[] = [
   {
+    $id: 'b1',
     slug: 'what-geo-actually-is-and-how-it-differs-from-seo',
     title: 'What Generative Engine Optimization (GEO) Actually Is — And How It Differs From SEO',
     excerpt: 'Traditional SEO optimizes for keyword rank lists. GEO structures data, semantic entity vectors, and JSON-LD schema so AI answer engines like ChatGPT and Google AI Overviews cite your business directly.',
     publishedAt: '2026-07-20',
-    readTime: '6 min read',
+    readingTime: 6,
     category: 'GEO & AI Search',
-    author: {
-      name: 'Locallify Engineering',
-      role: 'Software & Search Architecture'
-    },
-    seoDescription: 'A technical breakdown of Generative Engine Optimization (GEO) vs traditional SEO, with real before-and-after citations across ChatGPT, Perplexity, and Google AI Overviews.',
+    author: 'Locallify Engineering',
+    tags: ['GEO', 'AI Search', 'Schema'],
+    status: 'published',
+    featured: true,
+    metaDescription: 'A technical breakdown of Generative Engine Optimization (GEO) vs traditional SEO, with real before-and-after citations across ChatGPT, Perplexity, and Google AI Overviews.',
     content: `
 ## The Shift From Link Ranks to Generative Answers
 
@@ -60,17 +51,17 @@ Before optimizing for GEO, a local medical clinic had strong local organic ranks
     `
   },
   {
+    $id: 'b2',
     slug: 'metro-city-diagnostics-technical-teardown',
     title: 'Full Technical Teardown: Metro-City Diagnostics Build',
     excerpt: 'How we engineered a sub-second Next.js 15 diagnostic booking portal featuring dynamic test search, automated WhatsApp intake, and 100/100 Core Web Vitals.',
     publishedAt: '2026-07-14',
-    readTime: '8 min read',
+    readingTime: 8,
     category: 'Engineering & Case Study',
-    author: {
-      name: 'Locallify Engineering',
-      role: 'Lead Architect'
-    },
-    seoDescription: 'Deep-dive technical teardown of Metro-City Diagnostics: Next.js App Router, dynamic JSON-LD medical schema, custom booking engine, and performance benchmarks.',
+    author: 'Locallify Engineering',
+    tags: ['Case Study', 'Performance', 'Next.js'],
+    status: 'published',
+    metaDescription: 'Deep-dive technical teardown of Metro-City Diagnostics: Next.js App Router, dynamic JSON-LD medical schema, custom booking engine, and performance benchmarks.',
     content: `
 ## The Problem Statement
 
@@ -116,17 +107,17 @@ Metro-City Diagnostics needed a modern digital storefront capable of handling 50
     `
   },
   {
+    $id: 'b3',
     slug: 'local-seo-for-clinics-tier-2-city',
     title: 'Local SEO for Clinics in Tier-2 Indian Cities: What Actually Moves the Needle',
     excerpt: 'A practical playbook on ranking medical clinics in Tier-2/3 cities using local entity graphing, Google Business Profile synchronization, and schema markup.',
     publishedAt: '2026-07-08',
-    readTime: '7 min read',
+    readingTime: 7,
     category: 'Local Search Strategy',
-    author: {
-      name: 'Locallify Search Team',
-      role: 'GEO & Local SEO Specialist'
-    },
-    seoDescription: 'Field-tested playbook for ranking doctors and clinics in Tier-2/3 Indian cities on Google Maps, Local Packs, and AI search tools.',
+    author: 'Locallify Search Team',
+    tags: ['Local SEO', 'Healthcare'],
+    status: 'published',
+    metaDescription: 'Field-tested playbook for ranking doctors and clinics in Tier-2/3 Indian cities on Google Maps, Local Packs, and AI search tools.',
     content: `
 ## Why Standard SEO Tactics Fail for Local Clinics
 
@@ -141,17 +132,17 @@ Most digital agencies sell generic blog posts and spammy backlinks to medical cl
     `
   },
   {
+    $id: 'b4',
     slug: 'how-we-get-clients-into-chatgpt-google-ai-overviews',
     title: 'How We Get a Client’s Business into ChatGPT and Google AI Overview Answers',
     excerpt: 'The exact engineering checklist we use to index client products, services, and brand entity graphs directly into LLM retrieval models.',
     publishedAt: '2026-07-02',
-    readTime: '5 min read',
+    readingTime: 5,
     category: 'AI & GEO',
-    author: {
-      name: 'Locallify Engineering',
-      role: 'AI Search Architect'
-    },
-    seoDescription: 'Step-by-step technical process for getting your business cited inside ChatGPT Search, Perplexity AI, and Google AI Overviews.',
+    author: 'Locallify Engineering',
+    tags: ['GEO', 'AI Search'],
+    status: 'published',
+    metaDescription: 'Step-by-step technical process for getting your business cited inside ChatGPT Search, Perplexity AI, and Google AI Overviews.',
     content: `
 ## How LLM Search Indexers Retrieve Answers
 
@@ -166,17 +157,17 @@ When a user prompts ChatGPT or Perplexity, the LLM executes a Real-Time Search (
     `
   },
   {
+    $id: 'b5',
     slug: 'schema-markup-checklist-every-build',
     title: 'The Structured Schema Markup Checklist We Ship on Every Build',
     excerpt: 'A complete inventory of JSON-LD schemas we embed on every client site — from Organization and WebSite to LocalBusiness, Service, and BreadcrumbList.',
     publishedAt: '2026-06-25',
-    readTime: '5 min read',
+    readingTime: 5,
     category: 'Technical Standards',
-    author: {
-      name: 'Locallify Engineering',
-      role: 'Frontend Lead'
-    },
-    seoDescription: 'The full JSON-LD schema checklist for modern web apps and marketing sites to ensure 100% search engine and AI index compliance.',
+    author: 'Locallify Engineering',
+    tags: ['Schema', 'Technical SEO'],
+    status: 'published',
+    metaDescription: 'The full JSON-LD schema checklist for modern web apps and marketing sites to ensure 100% search engine and AI index compliance.',
     content: `
 ## Why Schema is Non-Negotiable in 2026
 
@@ -192,17 +183,17 @@ Without Schema.org JSON-LD, search engines and AI models have to guess what your
     `
   },
   {
+    $id: 'b6',
     slug: 'direct-booking-vs-ota-luxuria-grand-case-study',
     title: 'Direct Booking vs OTA for Small Hotels: What The Luxuria Grand Build Changed',
     excerpt: 'How building a custom direct-booking Web App saved a luxury boutique hotel up to 22% in OTA commission fees while driving automated WhatsApp concierge bookings.',
     publishedAt: '2026-06-18',
-    readTime: '6 min read',
+    readingTime: 6,
     category: 'Case Study & Hospitality',
-    author: {
-      name: 'Locallify Engineering',
-      role: 'Product Lead'
-    },
-    seoDescription: 'Case study breakdown of how The Luxuria Grand reduced OTA reliance and boosted direct commission-free bookings by 22% with a custom Next.js portal.',
+    author: 'Locallify Engineering',
+    tags: ['Case Study', 'Hospitality'],
+    status: 'published',
+    metaDescription: 'Case study breakdown of how The Luxuria Grand reduced OTA reliance and boosted direct commission-free bookings by 22% with a custom Next.js portal.',
     content: `
 ## The High Cost of OTA Commissions
 

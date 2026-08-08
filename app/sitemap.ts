@@ -1,6 +1,5 @@
 import { MetadataRoute } from "next";
-import { profileService, projectService } from "@/lib/cms";
-import { articles } from "@/lib/data/articles";
+import { blogService, profileService, projectService } from "@/lib/cms";
 import { SITE_URL } from "@/lib/site-config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -61,12 +60,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Error generating dynamic project sitemap entries:", error);
   }
 
-  const articleRoutes = articles.map((article) => ({
-    url: `${baseUrl}/blog/${article.slug}`,
-    lastModified: article.publishedAt,
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  // Published blog posts dynamically loaded from Sanity (falls back to shipped articles)
+  let articleRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const posts = await blogService.getPublishedPosts();
+    articleRoutes = posts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: post.publishedAt || new Date().toISOString().split("T")[0],
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }));
+  } catch (error) {
+    console.error("Error generating dynamic blog sitemap entries:", error);
+  }
 
   return [...coreRoutes, ...articleRoutes, ...profileRoutes, ...projectRoutes];
 }

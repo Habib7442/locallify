@@ -1,8 +1,11 @@
 import React from "react";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import Navbar from "@/components/Navbar";
-import { articles } from "@/lib/data/articles";
+import { blogService } from "@/lib/cms";
 import { constructMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-config";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
@@ -14,46 +17,53 @@ interface ArticlePageProps {
 }
 
 export async function generateStaticParams() {
-  return articles.map((article) => ({
-    slug: article.slug,
+  const posts = await blogService.getPublishedPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = articles.find((a) => a.slug === slug);
-  if (!article) return { title: "Article Not Found" };
+  const post = await blogService.getPostBySlug(slug);
+  if (!post) return { title: "Article Not Found" };
 
   return constructMetadata({
-    title: article.title,
-    description: article.seoDescription,
+    title: post.metaTitle || post.title,
+    description: post.metaDescription || post.excerpt,
+    image: post.ogImage || post.coverImage,
+    keywords: post.metaKeywords?.length ? post.metaKeywords : undefined,
     alternates: {
-      canonical: `/blog/${article.slug}`,
+      canonical: post.canonicalUrl || `/blog/${post.slug}`,
     },
+    noIndex: post.robotsRule ? post.robotsRule.includes("noindex") : false,
   });
 }
 
+export const revalidate = 300;
+
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = articles.find((a) => a.slug === slug);
+  const post = await blogService.getPostBySlug(slug);
 
-  if (!article) {
+  if (!post) {
     notFound();
   }
 
-  const canonicalUrl = `${SITE_URL}/blog/${article.slug}`;
+  const canonicalUrl = post.canonicalUrl || `${SITE_URL}/blog/${post.slug}`;
+  const image = post.ogImage || post.coverImage;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "BlogPosting",
-        headline: article.title,
-        description: article.seoDescription,
-        image: `${SITE_URL}/og_image.jpg`,
-        datePublished: article.publishedAt,
-        dateModified: article.publishedAt,
-        author: { "@type": "Person", name: article.author.name },
+        headline: post.title,
+        description: post.metaDescription || post.excerpt,
+        ...(image && { image }),
+        datePublished: post.publishedAt,
+        dateModified: post.publishedAt,
+        author: { "@type": "Person", name: post.author },
         publisher: { "@id": `${SITE_URL}/#organization` },
         mainEntityOfPage: {
           "@type": "WebPage",
@@ -63,7 +73,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       breadcrumbJsonLd([
         { name: "Home", path: "" },
         { name: "Blog", path: "/blog" },
-        { name: article.title, path: `/blog/${article.slug}` },
+        { name: post.title, path: `/blog/${post.slug}` },
       ]),
     ],
   };
@@ -88,58 +98,72 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             Back to Articles & Teardowns
           </Link>
 
+          {/* Cover image */}
+          {post.coverImage && (
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl mb-10 bg-bg-surface">
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 896px"
+                className="object-cover"
+              />
+            </div>
+          )}
+
           {/* Article Header */}
           <header className="mb-12 border-b border-border-default pb-10">
-            <span className="text-xs font-mono uppercase tracking-wider text-accent-primary font-medium mb-4 block">
-              {article.category}
-            </span>
+            {post.category && (
+              <span className="text-xs font-mono uppercase tracking-wider text-accent-primary font-medium mb-4 block">
+                {post.category}
+              </span>
+            )}
 
             <h1 className="font-sans font-bold text-3xl sm:text-5xl tracking-tight text-text-primary leading-[1.1] mb-6">
-              {article.title}
+              {post.title}
             </h1>
 
             <p className="text-text-secondary text-lg sm:text-xl font-light leading-relaxed mb-8">
-              {article.excerpt}
+              {post.excerpt}
             </p>
 
             <div className="flex flex-wrap items-center gap-6 text-xs font-mono text-text-muted">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4 text-accent-primary" />
-                <span>{article.author.name}</span>
+                <span>{post.author}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-accent-primary" />
-                <span>{article.publishedAt}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-accent-primary" />
-                <span>{article.readTime}</span>
-              </div>
+              {post.publishedAt && (
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-accent-primary" />
+                  <span>{new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
+                </div>
+              )}
+              {post.readingTime && (
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-accent-primary" />
+                  <span>{post.readingTime} min read</span>
+                </div>
+              )}
             </div>
           </header>
 
           {/* Article Body */}
-          <div className="prose prose-invert max-w-none prose-headings:font-sans prose-headings:font-bold prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:text-text-primary prose-h2:mt-10 prose-h2:mb-4 prose-p:text-text-secondary prose-p:leading-relaxed prose-p:font-light prose-p:text-base sm:prose-p:text-lg prose-li:text-text-secondary prose-strong:text-text-primary prose-table:border-border-default prose-th:bg-bg-surface prose-th:p-3 prose-td:p-3 prose-td:border-t prose-td:border-border-subtle prose-code:bg-bg-surface prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-accent-primary font-sans">
-            {article.content.split('\n\n').map((paragraph, index) => {
-              if (paragraph.startsWith('## ')) {
-                return <h2 key={index}>{paragraph.replace('## ', '')}</h2>;
-              }
-              if (paragraph.startsWith('### ')) {
-                return <h3 key={index} className="text-xl font-sans font-bold text-text-primary mt-8 mb-3">{paragraph.replace('### ', '')}</h3>;
-              }
-              if (paragraph.startsWith('1. ') || paragraph.startsWith('- ')) {
-                const items = paragraph.split('\n');
-                return (
-                  <ul key={index} className="space-y-2 my-4 list-disc list-inside text-text-secondary">
-                    {items.map((item, i) => (
-                      <li key={i}>{item.replace(/^(?:\d+\.|\-)\s*/, '')}</li>
-                    ))}
-                  </ul>
-                );
-              }
-              return <p key={index}>{paragraph}</p>;
-            })}
+          <div className="prose prose-invert max-w-none prose-headings:font-sans prose-headings:font-bold prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:text-text-primary prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-xl prose-h3:text-text-primary prose-h3:mt-8 prose-h3:mb-3 prose-p:text-text-secondary prose-p:leading-relaxed prose-p:font-light prose-p:text-base sm:prose-p:text-lg prose-a:text-accent-primary prose-a:no-underline hover:prose-a:underline prose-li:text-text-secondary prose-strong:text-text-primary prose-blockquote:border-accent-primary prose-blockquote:text-text-secondary prose-table:border-border-default prose-th:bg-bg-surface prose-th:p-3 prose-td:p-3 prose-td:border-t prose-td:border-border-subtle prose-code:bg-bg-surface prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-accent-primary prose-code:before:content-none prose-code:after:content-none prose-pre:bg-bg-surface prose-pre:border prose-pre:border-border-subtle font-sans">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
           </div>
+
+          {/* Tags */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-border-subtle flex flex-wrap items-center gap-3">
+              <span className="font-mono text-[9px] uppercase tracking-widest text-text-subtle">Tags:</span>
+              {post.tags.map((tag) => (
+                <span key={tag} className="font-mono text-[10px] px-3 py-1 bg-bg-surface border border-border-subtle text-text-muted rounded-full">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
         </article>
       </main>
 

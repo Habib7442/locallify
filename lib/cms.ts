@@ -1,8 +1,9 @@
 import { sanityClient, sanityWriteClient } from './sanity';
-import { Project, BusinessProfile, Review } from './types';
+import { Project, BusinessProfile, Review, BlogPost } from './types';
 import { fallbackProfiles } from './data/profiles';
 import { fallbackReviews } from './data/reviews';
 import { fallbackProjects } from './data/case-studies';
+import { fallbackPosts } from './data/articles';
 
 // Helper to parse Sanity Image references into direct CDN URLs without heavy dependencies
 export function getSanityImageUrl(source: any): string {
@@ -506,4 +507,84 @@ export const reviewService = {
     // so trust signals (and AggregateRating schema) never render against an empty page.
     return fallbackReviews.slice(0, limit);
   }
+};
+
+// ─── BLOG SERVICE ──────────────────────────────────────────────
+export const blogService = {
+  // Get all published blog posts, most recent first
+  async getPublishedPosts(): Promise<BlogPost[]> {
+    try {
+      const query = `*[_type == "blog" && status == "published"] | order(publishedAt desc)`;
+      const sanityData = await sanityClient.fetch(query);
+      if (sanityData && sanityData.length > 0) {
+        return sanityData.map((doc: any) => ({
+          $id: doc._id,
+          $createdAt: doc._createdAt,
+          title: doc.title,
+          slug: (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
+          excerpt: doc.excerpt,
+          author: doc.author,
+          authorImage: getSanityImageUrl(doc.authorImage),
+          category: doc.category,
+          tags: doc.tags || [],
+          status: doc.status,
+          featured: doc.featured,
+          publishedAt: doc.publishedAt,
+          coverImage: getSanityImageUrl(doc.coverImage),
+          content: doc.content,
+          readingTime: doc.readingTime,
+          metaTitle: doc.metaTitle,
+          metaDescription: doc.metaDescription,
+          metaKeywords: doc.metaKeywords || [],
+          canonicalUrl: doc.canonicalUrl,
+          robotsRule: doc.robotsRule,
+          ogImage: getSanityImageUrl(doc.ogImage),
+        }));
+      }
+    } catch (error) {
+      console.error("Failed fetching blog posts from Sanity, using fallback data:", error);
+      return fallbackPosts;
+    }
+    // No published posts in Sanity yet — fall back to the shipped articles
+    // so /blog never renders empty.
+    return fallbackPosts;
+  },
+
+  // Get single published post by slug
+  async getPostBySlug(slug: string): Promise<BlogPost | null> {
+    try {
+      const query = `*[_type == "blog" && status == "published" && (slug.current == $slug || slug == $slug)][0]`;
+      const doc = await sanityClient.fetch(query, { slug });
+      if (doc) {
+        return {
+          $id: doc._id,
+          $createdAt: doc._createdAt,
+          title: doc.title,
+          slug: (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
+          excerpt: doc.excerpt,
+          author: doc.author,
+          authorImage: getSanityImageUrl(doc.authorImage),
+          category: doc.category,
+          tags: doc.tags || [],
+          status: doc.status,
+          featured: doc.featured,
+          publishedAt: doc.publishedAt,
+          coverImage: getSanityImageUrl(doc.coverImage),
+          content: doc.content,
+          readingTime: doc.readingTime,
+          metaTitle: doc.metaTitle,
+          metaDescription: doc.metaDescription,
+          metaKeywords: doc.metaKeywords || [],
+          canonicalUrl: doc.canonicalUrl,
+          robotsRule: doc.robotsRule,
+          ogImage: getSanityImageUrl(doc.ogImage),
+        };
+      }
+    } catch (error) {
+      console.error(`Failed fetching blog post ${slug} from Sanity, using fallback lookup:`, error);
+    }
+
+    const fallback = fallbackPosts.find((p) => p.slug === slug);
+    return fallback || null;
+  },
 };

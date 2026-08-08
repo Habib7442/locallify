@@ -148,3 +148,29 @@ export interface Review {
   is_verified?: boolean;
   is_published: boolean;
 }
+
+export interface BlogPost {
+  $id?: string;
+  $createdAt?: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  author: string;
+  authorImage?: string;
+  category?: string;
+  tags?: string[];
+  status: 'draft' | 'published';
+  featured?: boolean;
+  publishedAt?: string;
+
+  coverImage?: string;
+  content: string;
+  readingTime?: number;
+
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string[];
+  canonicalUrl?: string;
+  robotsRule?: string;
+  ogImage?: string;
+}
