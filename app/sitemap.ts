@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { blogService, profileService, projectService } from "@/lib/cms";
 import { SITE_URL } from "@/lib/site-config";
+import { services } from "@/lib/data/services";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_URL;
@@ -29,6 +30,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: route === "" ? 1.0 : route === "/contact" ? 0.9 : isLegal ? 0.3 : 0.8,
     };
   });
+
+  // Individual service capability pages (/services/[slug])
+  const serviceRoutes: MetadataRoute.Sitemap = services.map((service) => ({
+    url: `${baseUrl}/services/${service.slug}`,
+    lastModified: new Date().toISOString().split("T")[0],
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
 
   // Verified Business storefront profiles dynamically loaded from DB
   let profileRoutes: MetadataRoute.Sitemap = [];
@@ -74,5 +83,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Error generating dynamic blog sitemap entries:", error);
   }
 
-  return [...coreRoutes, ...articleRoutes, ...profileRoutes, ...projectRoutes];
+  return [...coreRoutes, ...serviceRoutes, ...articleRoutes, ...profileRoutes, ...projectRoutes];
 }

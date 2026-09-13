@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { TestimonialItem } from '@/lib/testimonials';
 import ReviewsMarquee from '@/components/ReviewsMarquee';
 
@@ -19,6 +21,13 @@ export default function Testimonials({ testimonials = [] }: TestimonialsProps) {
         <h2 className="text-4xl font-sans font-bold leading-[1.1] text-text-primary md:text-6xl tracking-tight max-w-3xl">
           Serious clients need a <span className="font-display italic font-light text-accent-primary">serious build partner</span>.
         </h2>
+        <Link
+          href="/reviews"
+          className="group mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent-primary hover:underline"
+        >
+          Read all verified client reviews
+          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+        </Link>
       </div>
 
       <ReviewsMarquee testimonials={testimonials} />

@@ -7,8 +7,6 @@ import { motion, useReducedMotion, type Variants } from 'motion/react';
 import { GOOGLE_RATING } from '@/lib/site-config';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 
-const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to start a software project.")}`;
-
 const capabilities = ['Custom software', 'Web apps', 'Mobile apps', 'SEO + GEO'];
 
 export default function HeroSection() {
@@ -48,12 +46,14 @@ export default function HeroSection() {
           transition={{ staggerChildren: reduceMotion ? 0 : 0.08 }}
           className="mx-auto flex max-w-6xl flex-col items-center text-center"
         >
-          <motion.div
-            variants={itemVariants}
-            className="mb-5 inline-flex items-center gap-2 rounded-pill border border-border-subtle bg-bg-surface px-4 py-2 text-xs font-semibold text-text-secondary shadow-sm"
-          >
-            <Globe className="h-4 w-4 text-accent-primary" />
-            Software studio based in Silchar, Assam &middot; serving clients worldwide
+          <motion.div variants={itemVariants} className="mb-5">
+            <Link
+              href="/web-development-company-silchar"
+              className="inline-flex items-center gap-2 rounded-pill border border-border-subtle bg-bg-surface px-4 py-2 text-xs font-semibold text-text-secondary shadow-sm transition-colors hover:border-accent-primary/40 hover:text-text-primary"
+            >
+              <Globe className="h-4 w-4 text-accent-primary" />
+              Software studio based in Silchar, Assam &middot; serving clients worldwide
+            </Link>
           </motion.div>
 
           <motion.h1
