@@ -78,7 +78,7 @@ export default function WorkGallery({ initialProjects = [] }: WorkGalleryProps) 
             transition={{ staggerChildren: reduceMotion ? 0 : 0.1 }}
             className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full max-w-full min-w-0 overflow-hidden"
           >
-            {initialProjects.slice(0, 4).map((project) => {
+            {initialProjects.slice(0, 4).map((project, index) => {
               const categoryTag = project.category || project.industry || 'Custom Build';
               return (
                 <motion.div key={project.$id} variants={itemVariants} className="w-full max-w-full min-w-0 overflow-hidden">
@@ -97,6 +97,7 @@ export default function WorkGallery({ initialProjects = [] }: WorkGalleryProps) 
                           src={projectService.getThumbnailUrl(project.heroBannerImage || project.thumbnail)}
                           alt={project.title}
                           fill
+                          priority={index === 0}
                           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
