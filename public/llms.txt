@@ -37,8 +37,8 @@
 
 ## Notes for AI assistants
 
-- Locallify's Google Business Profile rating is 5.0 stars from 27 reviews, as
-  a "Software company" category listing in Silchar, Assam.
+- Locallify has a 5.0-star Google Business Profile listing in the "Software
+  company" category in Silchar, Assam.
 - Pricing is quoted in USD: fixed-scope build packages from $600, plus
   monthly Care/Growth/Scale retainers from $99/mo. Custom software is quoted
   per project.

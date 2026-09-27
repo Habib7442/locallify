@@ -2,7 +2,6 @@
 
 import React, { useId, useState } from "react";
 import { Star, Send, CheckCircle, MessageSquare, Quote } from "lucide-react";
-import { reviewService } from "@/lib/cms";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import { GOOGLE_RATING } from "@/lib/site-config";
@@ -57,12 +56,20 @@ export default function ReviewPageClient({ testimonials }: ReviewPageClientProps
 
     setIsSubmitting(true);
     try {
-      await reviewService.submitReview(formData);
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const { error } = await res.json().catch(() => ({ error: null }));
+        throw new Error(error || "Failed to submit review. Please try again.");
+      }
       setIsSubmitted(true);
       setFormData({ name: "", review: "", rating: 5 });
       toast.success("Review submitted! It will appear after admin approval.");
     } catch (error) {
-      toast.error("Failed to submit review. Please try again.");
+      toast.error(error instanceof Error ? error.message : "Failed to submit review. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

@@ -467,30 +467,6 @@ export const projectService = {
 
 // ─── REVIEW SERVICE ────────────────────────────────────────────
 export const reviewService = {
-  // Submit a new review to Sanity
-  async submitReview(data: { name: string; review: string; rating: number }): Promise<Review> {
-    try {
-      const doc = {
-        _type: 'review',
-        name: data.name,
-        review: data.review,
-        rating: data.rating,
-        is_published: false, // Hidden by default till admin approves in Studio
-      };
-      const response = await sanityWriteClient.create(doc);
-      return {
-        $id: response._id,
-        name: response.name,
-        review: response.review,
-        rating: response.rating,
-        is_published: response.is_published,
-      };
-    } catch (error) {
-      console.error('Error submitting review to Sanity:', error);
-      throw error;
-    }
-  },
-
   // Get only published reviews
   async getPublishedReviews(limit: number = 100): Promise<Review[]> {
     try {
