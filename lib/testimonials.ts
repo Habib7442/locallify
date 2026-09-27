@@ -55,17 +55,55 @@ export function testimonialsFromReviews(reviews: Review[]): TestimonialItem[] {
 
 const normalize = (text: string) => text.trim().toLowerCase().replace(/\s+/g, " ");
 
-/** Case-study testimonials first (richer — name, company, photo), then standalone reviews, de-duped by author name and by quote text across the whole combined list. */
+/**
+ * Case-study testimonials first (richer — name, company, photo), then
+ * standalone reviews, de-duped by author name and by quote text. A duplicate
+ * never costs us a public source link:
+ * - same quote: keep the earlier entry and take the later one's sourceUrl
+ *   (the source backs that exact text);
+ * - same author, different quote: if only the later entry is sourced, it
+ *   replaces the earlier one (borrowing its photo/role), since a source URL
+ *   must never be attached to words it doesn't contain.
+ */
 export function mergeTestimonials(projects: Project[], reviews: Review[]): TestimonialItem[] {
-  const seenNames = new Set<string>();
-  const seenQuotes = new Set<string>();
+  const merged: TestimonialItem[] = [];
+  const indexByName = new Map<string, number>();
+  const indexByQuote = new Map<string, number>();
 
-  return [...testimonialsFromProjects(projects), ...testimonialsFromReviews(reviews)].filter((testimonial) => {
-    const name = normalize(testimonial.name);
-    const quote = normalize(testimonial.quote);
-    if (seenNames.has(name) || seenQuotes.has(quote)) return false;
-    seenNames.add(name);
-    seenQuotes.add(quote);
-    return true;
-  });
+  const remember = (item: TestimonialItem, index: number) => {
+    indexByName.set(normalize(item.name), index);
+    indexByQuote.set(normalize(item.quote), index);
+  };
+
+  for (const item of [...testimonialsFromProjects(projects), ...testimonialsFromReviews(reviews)]) {
+    const quoteIndex = indexByQuote.get(normalize(item.quote));
+    const nameIndex = indexByName.get(normalize(item.name));
+
+    if (quoteIndex !== undefined) {
+      const existing = merged[quoteIndex];
+      if (!existing.sourceUrl && item.sourceUrl) {
+        merged[quoteIndex] = { ...existing, sourceUrl: item.sourceUrl, verified: true };
+      }
+      continue;
+    }
+
+    if (nameIndex !== undefined) {
+      const existing = merged[nameIndex];
+      if (!existing.sourceUrl && item.sourceUrl) {
+        merged[nameIndex] = {
+          ...item,
+          name: existing.name,
+          photo: item.photo || existing.photo,
+          role: item.role || existing.role,
+        };
+        remember(merged[nameIndex], nameIndex);
+      }
+      continue;
+    }
+
+    merged.push(item);
+    remember(item, merged.length - 1);
+  }
+
+  return merged;
 }
