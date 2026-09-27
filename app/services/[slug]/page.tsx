@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { INDUSTRIES_LIVE, industryPages } from "@/content/industries";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { projectService } from "@/lib/cms";
@@ -65,6 +66,8 @@ export default async function ServiceDetailPage({
   } catch (error) {
     console.error(`Failed to fetch related projects for ${slug}:`, error);
   }
+
+  const builtFor = industryPages.filter((page) => page.relatedServices.includes(service.slug));
 
   const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   const Graphic = service.graphic;
@@ -291,6 +294,20 @@ export default async function ServiceDetailPage({
             </div>
           </div>
         </section>
+
+        {/* BUILT FOR (industry pages, once launched) */}
+        {INDUSTRIES_LIVE && builtFor.length > 0 && (
+          <section className="py-10 px-6 border-t border-border-subtle">
+            <div className="container mx-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+              <span className="text-text-muted">Built for:</span>
+              {builtFor.map((page) => (
+                <Link key={page.slug} href={`/industries/${page.slug}`} className="text-text-primary underline underline-offset-4 hover:text-accent-primary">
+                  {page.niche}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* OTHER CAPABILITIES */}
         <section className="py-20 px-6 border-t border-border-subtle">

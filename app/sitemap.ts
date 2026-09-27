@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { blogService, profileService, projectService } from "@/lib/cms";
 import { SITE_URL } from "@/lib/site-config";
 import { services } from "@/lib/data/services";
+import { INDUSTRIES_LIVE, industryPages } from "@/content/industries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_URL;
@@ -85,5 +86,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Error generating dynamic blog sitemap entries:", error);
   }
 
-  return [...coreRoutes, ...serviceRoutes, ...articleRoutes, ...profileRoutes, ...projectRoutes];
+  // Industry landing pages — only once launched (they're noindex until then).
+  const industryRoutes: MetadataRoute.Sitemap = INDUSTRIES_LIVE
+    ? [
+        {
+          url: `${baseUrl}/industries`,
+          lastModified: industryPages.map((p) => p.updatedAt).sort().at(-1),
+          changeFrequency: "monthly" as const,
+          priority: 0.8,
+        },
+        ...industryPages.map((page) => ({
+          url: `${baseUrl}/industries/${page.slug}`,
+          lastModified: page.updatedAt,
+          changeFrequency: "monthly" as const,
+          priority: 0.8,
+        })),
+      ]
+    : [];
+
+  return [...coreRoutes, ...industryRoutes, ...serviceRoutes, ...articleRoutes, ...profileRoutes, ...projectRoutes];
 }

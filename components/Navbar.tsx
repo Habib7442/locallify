@@ -3,8 +3,9 @@
 import React, { useState, useEffect, type ComponentProps } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, ArrowRight, Briefcase, Layers, Tag, Info, BookOpen } from 'lucide-react';
+import { Menu, X, ArrowRight, Briefcase, Layers, Tag, Info, BookOpen, Building2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { INDUSTRIES_LIVE } from '@/content/industries/flags';
 
 const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to start a software project.")}`;
 
@@ -22,6 +23,7 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
 
   const navItems = [
     { name: 'Work', href: '/portfolio', icon: Briefcase },
+    ...(INDUSTRIES_LIVE ? [{ name: 'Industries', href: '/industries', icon: Building2 }] : []),
     { name: 'Services', href: '/services', icon: Layers },
     { name: 'Pricing', href: '/pricing', icon: Tag },
     { name: 'About', href: '/about', icon: Info },

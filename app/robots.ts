@@ -6,7 +6,15 @@ export default function robots(): MetadataRoute.Robots {
 
   // GEO (Generative Engine Optimization) depends on AI crawlers being able to
   // read the site, so they're explicitly allowed alongside the general rule.
-  const aiCrawlers = ["GPTBot", "PerplexityBot", "Google-Extended", "ClaudeBot", "CCBot"];
+  // Search/answer bots (fetch pages to cite them in answers) plus training
+  // crawlers. TODO(owner): confirm allowing AI *training* crawlers
+  // (GPTBot, Google-Extended, ClaudeBot, CCBot) is intended.
+  const aiCrawlers = [
+    "GPTBot", "OAI-SearchBot", "ChatGPT-User",
+    "ClaudeBot", "Claude-SearchBot", "Claude-User",
+    "PerplexityBot", "Perplexity-User",
+    "Google-Extended", "Bingbot", "CCBot",
+  ];
 
   return {
     rules: [

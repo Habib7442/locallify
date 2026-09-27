@@ -27,6 +27,10 @@
   --color-border-default: var(--border-default);
   --color-border-strong: var(--border-strong);
 
+  --color-semantic-good: var(--semantic-good);
+  --color-semantic-warn: var(--semantic-warn);
+  --color-semantic-bad: var(--semantic-bad);
+
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);

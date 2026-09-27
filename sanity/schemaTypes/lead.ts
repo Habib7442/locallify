@@ -34,6 +34,7 @@ export const lead = defineType({
           { title: "SEO & GEO Systems", value: "seo-geo" },
           { title: "Automations / n8n", value: "automation" },
           { title: "Other", value: "other" },
+          { title: "Industry page audit", value: "industry-audit" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -60,6 +61,19 @@ export const lead = defineType({
       type: "text",
     }),
     defineField({
+      name: "source",
+      title: "Source",
+      type: "string",
+      description: 'e.g. "industry:dental-website-design" for leads from an industry page',
+    }),
+    defineField({
+      name: "extra",
+      title: "Extra details",
+      type: "text",
+      description: "Pain tags, calculator result and UTM parameters",
+    }),
+    defineField({
+      // Legacy: no longer written. The contact route uses the IP only for rate limiting.
       name: "ipAddress",
       title: "IP Address",
       type: "string",

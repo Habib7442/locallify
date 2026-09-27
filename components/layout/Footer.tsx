@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { CONTACT, SOCIALS } from "@/lib/site-config";
 import NapDetails from "@/components/NapDetails";
+import { INDUSTRIES_LIVE } from "@/content/industries/flags";
 
 const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to talk about a software project.")}`;
 
@@ -12,6 +13,7 @@ export default function Footer() {
   const footerLinks = {
     studio: [
       { name: "Portfolio", href: "/portfolio" },
+      ...(INDUSTRIES_LIVE ? [{ name: "Industries", href: "/industries" }] : []),
       { name: "Services", href: "/services" },
       { name: "Pricing", href: "/pricing" },
       { name: "About", href: "/about" },
@@ -51,7 +53,7 @@ export default function Footer() {
               A global software studio for custom software, web apps, mobile apps,
               AI features, and SEO + GEO systems built to be found.
             </p>
-            <p className="mt-4 text-xs font-mono uppercase tracking-wider text-text-subtle">
+            <p className="mt-4 text-xs font-mono uppercase tracking-wider text-text-muted">
               Software studio based in Silchar, Assam &middot; serving India &amp; clients worldwide.
             </p>
 
@@ -91,13 +93,17 @@ export default function Footer() {
         </div>
 
         {/* Large screen-spanning brand signature */}
-        <div className="select-none text-center font-display italic text-[12vw] font-light leading-[0.8] tracking-tight text-border-default/40 py-8 border-y border-border-default/50 selection:bg-transparent overflow-hidden max-w-full">
-          Locallify.
-        </div>
+        {/* Decorative wordmark, drawn as generated content so it isn't read as
+            (deliberately low-contrast) page text by assistive tech or checkers. */}
+        <div
+          aria-hidden="true"
+          data-wordmark="Locallify."
+          className="select-none text-center font-display italic text-[12vw] font-light leading-[0.8] tracking-tight text-border-default/40 py-8 border-y border-border-default/50 overflow-hidden max-w-full before:content-[attr(data-wordmark)]"
+        />
 
-        <div className="mt-8 flex flex-col gap-4 text-xs font-mono uppercase tracking-wider text-text-subtle md:flex-row md:items-center md:justify-between">
+        <div className="mt-8 flex flex-col gap-4 text-xs font-mono uppercase tracking-wider text-text-muted md:flex-row md:items-center md:justify-between">
           <p>&copy; {currentYear} Locallify Agency &bull; All rights reserved.</p>
-          <p className="text-accent-primary font-bold">Design &bull; Build &bull; Rank.</p>
+          <p className="text-text-primary font-bold">Design &bull; Build &bull; Rank.</p>
         </div>
       </div>
     </footer>
