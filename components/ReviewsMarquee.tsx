@@ -49,8 +49,9 @@ export default function ReviewsMarquee({ testimonials, speed = 14 }: ReviewsMarq
 function TestimonialCard({ item, duplicate = false }: { item: TestimonialItem; duplicate?: boolean }) {
   return (
     <div
+      // The duplicate set only exists so the loop has no seam: hidden from
+      // assistive tech, but not inert, so its visible links still take clicks.
       aria-hidden={duplicate || undefined}
-      inert={duplicate || undefined}
       className="inline-block w-[340px] sm:w-[400px] p-7 sm:p-8 bg-bg-surface border border-border-subtle rounded-2xl shadow-xl shadow-accent-primary/[0.03] relative overflow-hidden group/card shrink-0 whitespace-normal transition-all hover:border-accent-primary/20"
     >
       <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover/card:opacity-[0.08] transition-opacity">
@@ -84,23 +85,19 @@ function TestimonialCard({ item, duplicate = false }: { item: TestimonialItem; d
             <p className="text-[10px] font-mono text-text-muted uppercase tracking-wider truncate">{item.role}</p>
           )}
         </div>
-        {item.verified && item.sourceUrl && (duplicate ? (
-          // The duplicate set is inert and decorative: keep the badge so the
-          // loop has no visible seam, but not as a link nobody can activate.
-          <span className="ml-auto shrink-0 text-[9px] bg-accent-primary/10 border border-accent-primary/20 rounded-full px-2 py-0.5 text-accent-primary font-mono font-medium">
-            Verified
-          </span>
-        ) : (
+        {item.verified && item.sourceUrl && (
           <a
             href={item.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
+            // Keyboard users reach each source once, via the original card.
+            tabIndex={duplicate ? -1 : undefined}
             aria-label={`Verified: view ${item.name}'s original review`}
             className="ml-auto shrink-0 text-[9px] bg-accent-primary/10 border border-accent-primary/20 rounded-full px-2 py-0.5 text-accent-primary font-mono font-medium hover:bg-accent-primary/20 transition-colors"
           >
             Verified
           </a>
-        ))}
+        )}
       </div>
     </div>
   );
