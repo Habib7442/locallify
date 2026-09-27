@@ -1,6 +1,6 @@
 # Industry pages — SEO checklist results
 
-Built 27 Sep 2026 from `project_docs/Locallify niche pages spec.md`, then re-scoped to what Locallify delivers: the website and its SEO, GEO and AEO. No ads, legal or compliance work, telephony, CRM integrations or follow-up automation; the framework's fourth step is "Measured" rather than "Followed-up". Measured on a local production build (`next build` + `next start`, Lighthouse 12, mobile). The pages are currently **hidden** (`INDUSTRIES_LIVE = false`), so they're `noindex` and Lighthouse SEO reads 69 for that reason alone. It becomes 100 when launched.
+Built 27 Sep 2026 from `project_docs/Locallify niche pages spec.md`, then re-scoped to what Locallify delivers: the website and its SEO, GEO and AEO. No ads, legal or compliance work, telephony, CRM integrations or follow-up automation; the framework's fourth step is "Measured" rather than "Followed-up". Measured on a local production build (`next build` + `next start`, Lighthouse 12, mobile). **Launched 27 Sep 2026** (`INDUSTRIES_LIVE = true`): indexable, in the sitemap, nav, footer and service-page "Built for" rows. (Lighthouse SEO read 69 during the hidden phase only because of `noindex`.)
 
 | Page | Title (chars) | Meta description (chars) | H1 | Words (visible, incl. FAQ) | JSON-LD @types | Proof |
 |---|---|---|---|---|---|---|
@@ -31,7 +31,7 @@ Re-run on production after launch; local numbers are noisy.
 - [ ] Validate each page in Google's Rich Results Test and the Schema.org validator after deploy.
 - [ ] Hub OG image is the generic site image (niche pages have their own).
 - [ ] Submit to Google Search Console and Bing Webmaster Tools. IndexNow isn't implemented yet.
-- [ ] Add the industry pages to `public/llms.txt` at launch.
+- [x] Added the industry pages to `public/llms.txt`.
 - [ ] Link the homepage to the niches (the nav covers it once live).
 - [ ] 8 supporting blog posts (§7.6): not drafted yet.
 - [ ] Analytics: events are wired (`calculator_used`, `cta_click`, `form_submit`) but no analytics tool is installed.

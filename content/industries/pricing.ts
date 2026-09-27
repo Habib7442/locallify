@@ -2,9 +2,9 @@
  * All industry-page prices live here so they can be changed in one place.
  * Values come from the niche spec's drafts.
  *
- * TODO(owner): 🔒 confirm every name and USD price before INDUSTRIES_LIVE is
- * switched on (content/industries/index.ts). These are shown on the page and
- * repeated in the Service/Offer JSON-LD, so both always match.
+ * Confirmed by the owner on 27 Sep 2026. These are shown on the page and
+ * repeated in the Service/Offer JSON-LD, so both always match — change them
+ * only here.
  */
 export const INDUSTRY_PRICES = {
   dental: { launch: 1800, growth: 3500, multi: 6000 },

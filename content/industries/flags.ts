@@ -8,9 +8,8 @@
  * but they're `noindex`, left out of the sitemap, the main nav, the footer
  * and the service-page cross-links.
  *
- * TODO(owner): set to true once package prices are confirmed (pricing.ts).
- * Confirmed 27 Sep 2026: calls 7–10am US Eastern; free audit is a ~10-minute
- * video delivered within 48 hours. Scope is website + its SEO/GEO/AEO only: no ads, legal
+ * Launched 27 Sep 2026 after the owner confirmed prices (pricing.ts), calls
+ * 7–10am US Eastern, and a ~10-minute video audit delivered within 48 hours. Scope is website + its SEO/GEO/AEO only: no ads, legal
  * or compliance work, telephony, CRM or follow-up automation.
  */
-export const INDUSTRIES_LIVE = false;
+export const INDUSTRIES_LIVE = true;
