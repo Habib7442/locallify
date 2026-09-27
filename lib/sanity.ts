@@ -7,10 +7,11 @@ if (!projectId || !dataset) {
   throw new Error('Missing Sanity project configuration');
 }
 
-// Read client. The dataset holds private documents (leads, admin accounts),
-// so it must be private in Sanity, which means reads need a token. The token
-// is a server-only env var: it's undefined in the browser, and nothing in the
-// browser queries Sanity. `perspective: 'published'` matters — an
+// Read client. The dataset is public (the free Sanity plan has no private
+// datasets); private records — leads, admin accounts — use dotted IDs
+// ("leads.<uuid>"), which Sanity only serves to authenticated requests. The
+// token is a server-only env var: it's undefined in the browser, and nothing
+// in the browser queries Sanity. `perspective: 'published'` matters — an
 // authenticated client would otherwise also return unpublished drafts.
 // Falls back to the write token so no new env var is strictly required.
 export const sanityClient = createClient({

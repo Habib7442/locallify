@@ -59,9 +59,13 @@ export async function POST(req: NextRequest) {
 
   const data = parsed.data;
 
-  // ── Write lead to Sanity (private dataset; listed in the admin panel) ──────
+  // ── Write lead to Sanity (private document ID; listed in the admin panel) ─
   try {
     await sanityWriteClient.create({
+      // The dataset is public (private datasets need a paid Sanity plan), but
+      // documents whose ID contains a "." are only readable with a token.
+      // Leads must always be created under "leads." to stay private.
+      _id: `leads.${crypto.randomUUID()}`,
       _type: "lead",
       name: data.name,
       email: data.email,
