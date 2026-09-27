@@ -84,7 +84,13 @@ function TestimonialCard({ item, duplicate = false }: { item: TestimonialItem; d
             <p className="text-[10px] font-mono text-text-muted uppercase tracking-wider truncate">{item.role}</p>
           )}
         </div>
-        {item.verified && item.sourceUrl && (
+        {item.verified && item.sourceUrl && (duplicate ? (
+          // The duplicate set is inert and decorative: keep the badge so the
+          // loop has no visible seam, but not as a link nobody can activate.
+          <span className="ml-auto shrink-0 text-[9px] bg-accent-primary/10 border border-accent-primary/20 rounded-full px-2 py-0.5 text-accent-primary font-mono font-medium">
+            Verified
+          </span>
+        ) : (
           <a
             href={item.sourceUrl}
             target="_blank"
@@ -94,7 +100,7 @@ function TestimonialCard({ item, duplicate = false }: { item: TestimonialItem; d
           >
             Verified
           </a>
-        )}
+        ))}
       </div>
     </div>
   );
