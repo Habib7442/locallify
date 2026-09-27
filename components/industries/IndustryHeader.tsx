@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import HideWhileAuditVisible from "./HideWhileAuditVisible";
 
 /**
  * Minimal header for industry landing pages: logo, a quiet link back to the
@@ -17,9 +18,12 @@ export default function IndustryHeader({ slug }: { slug: string }) {
             ← locallifyagency.com
           </Link>
         </div>
-        <a href="#audit" data-cta="header" data-niche={slug} className="btn-primary px-4 py-2 text-xs sm:text-sm">
-          Get my free audit
-        </a>
+        {/* Phones use the sticky bottom bar instead, so this shows from md up. */}
+        <HideWhileAuditVisible className="hidden md:block">
+          <a href="#audit" data-cta="header" data-niche={slug} className="btn-primary px-4 py-2 text-sm">
+            Get my free audit
+          </a>
+        </HideWhileAuditVisible>
       </div>
     </header>
   );
