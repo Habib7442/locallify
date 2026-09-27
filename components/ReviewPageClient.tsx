@@ -70,13 +70,6 @@ export default function ReviewPageClient({ testimonials }: ReviewPageClientProps
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2"
-      >
-        Skip to content
-      </a>
-
       <Navbar />
 
       <main id="main-content">
@@ -119,6 +112,7 @@ export default function ReviewPageClient({ testimonials }: ReviewPageClientProps
                   ))}
                 </span>
                 <span aria-hidden="true" className="font-bold text-text-primary leading-none">{GOOGLE_RATING.value.toFixed(1)}</span>
+                <span aria-hidden="true" className="leading-none">· {GOOGLE_RATING.count} Google reviews</span>
               </motion.a>
             </motion.div>
           </div>

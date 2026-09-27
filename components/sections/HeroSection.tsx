@@ -29,10 +29,11 @@ export default function HeroSection() {
       {/* Starry night & mountain background */}
       <div className="absolute inset-0 -z-10 overflow-hidden bg-bg-primary">
         <Image
-          src="/hero_bg.png"
+          src="/hero_bg.webp"
           alt=""
           fill
-          priority
+          // Mobile LCP element (Lighthouse, Sep 2026) — the only preload on the home page.
+          preload
           sizes="100vw"
           quality={70}
           className="object-cover object-bottom opacity-45"
@@ -95,6 +96,7 @@ export default function HeroSection() {
               ))}
             </span>
             <span aria-hidden="true" className="font-bold text-text-primary leading-none">{GOOGLE_RATING.value.toFixed(1)}</span>
+            <span aria-hidden="true" className="leading-none">· {GOOGLE_RATING.count} Google reviews</span>
           </motion.a>
 
           <motion.div

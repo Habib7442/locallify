@@ -29,13 +29,19 @@ export const review = defineType({
       name: 'role',
       title: 'Role / Designation / Location',
       type: 'string',
-      initialValue: 'Verified client',
     }),
     defineField({
       name: 'is_verified',
       title: 'Is Verified Review',
       type: 'boolean',
-      initialValue: true,
+      description: 'Internal flag only. The public "Verified" badge is driven by Source URL, never by this field.',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'sourceUrl',
+      title: 'Source URL',
+      type: 'url',
+      description: 'Link to the original public review (e.g. the Google review). The "Verified" badge shows only when this is set.',
     }),
     defineField({
       name: 'is_published',

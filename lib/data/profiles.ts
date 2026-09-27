@@ -51,7 +51,7 @@ export const fallbackProfiles: BusinessProfile[] = [
     email_address: 'hello@locallifyagency.com',
     full_address: 'Ghungoor Kuarpar Road, Near Saint Capitanio School, Silchar, Assam 788015',
     business_hours: '24 Hours Open',
-    bio: 'Silchar\'s elite luxury hotel, offering refined boutique accommodations, Café Cove dining, and Avaani wedding banquet halls for premium travel and event hosting.',
+    bio: 'A luxury hotel in Silchar, offering refined boutique accommodations, Café Cove dining, and Avaani wedding banquet halls for premium travel and event hosting.',
     logo: '/assets/logo.webp',
     cover: '/assets/hero.webp',
     instagram_handle: 'hotelluxuriagrand',

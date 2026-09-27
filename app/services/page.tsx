@@ -36,13 +36,6 @@ export default function ServicesPage() {
 
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none"
-      >
-        Skip to content
-      </a>
-
       <Navbar />
 
       <main id="main-content">
@@ -61,11 +54,11 @@ export default function ServicesPage() {
                     Capabilities
                   </motion.span>
                   <motion.h1 variants={itemVariants} className="font-display italic text-5xl md:text-8xl leading-[0.9] tracking-tight text-text-primary mb-8">
-                    Digital Domination. <br />
-                    <span className="text-text-muted not-italic">Global footprint.</span>
+                    Software, web &amp; mobile apps &mdash; <br />
+                    <span className="text-text-muted not-italic">built to be found.</span>
                   </motion.h1>
                   <motion.p variants={itemVariants} className="font-sans text-xl text-text-secondary max-w-2xl leading-relaxed font-light">
-                    We&apos;re a software studio based in Silchar, Assam, building premium custom software, web applications, and mobile products for clients across the Barak Valley, India, and worldwide &mdash; engineered with SEO + GEO so they get found on Google and in AI searches.
+                    We&apos;re a software studio based in Silchar, Assam, building custom software, web applications, and mobile products for clients across the Barak Valley, India, and worldwide &mdash; engineered with SEO + GEO so they get found on Google and in AI searches.
                   </motion.p>
                 </div>
 
@@ -78,7 +71,7 @@ export default function ServicesPage() {
                     src="/services_illustration.png"
                     alt="Locallify tech capabilities illustration"
                     fill
-                    priority
+                    preload
                     sizes="(max-width: 768px) 100vw, 448px"
                     className="object-cover rounded-2xl opacity-90"
                   />
@@ -220,8 +213,8 @@ export default function ServicesPage() {
               viewport={{ once: true }}
               className="font-display italic text-5xl md:text-8xl text-text-primary mb-12 leading-[0.9]"
             >
-              Don&apos;t just exist. <br />
-              <span className="text-accent-primary not-italic">Be the leader.</span>
+              Tell us what <br />
+              <span className="text-accent-primary not-italic">you&apos;re building.</span>
             </motion.h2>
             <motion.div
               initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.95 }}
@@ -230,10 +223,10 @@ export default function ServicesPage() {
               viewport={{ once: true }}
             >
               <Link
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I saw your tech capabilities and I'd like to discuss a software project.")}`}
+                href="/contact"
                 className="inline-flex h-16 px-12 items-center justify-center bg-accent-primary text-bg-primary font-sans font-bold uppercase tracking-widest text-xs rounded-full hover:bg-accent-hover transition-all group mb-8"
               >
-                Claim your digital empire
+                Start a project
                 <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
@@ -246,7 +239,7 @@ export default function ServicesPage() {
                 Our Pricing Plans
               </Link>
               <Link href="/about" className="font-mono text-[10px] uppercase tracking-widest text-text-muted hover:text-accent-primary transition-colors">
-                Learn About Our Mission
+                About the Studio
               </Link>
             </div>
           </div>

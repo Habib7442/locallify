@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { projectService } from '@/lib/cms';
 import Navbar from '@/components/Navbar';
 import { SITE_URL } from '@/lib/site-config';
+import { constructMetadata } from '@/lib/seo';
 import { breadcrumbJsonLd } from '@/lib/structured-data';
 import {
   ArrowUpRight,
@@ -35,18 +36,22 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const project = await projectService.getProjectBySlug(slug);
-  if (!project) return { title: 'Case Study Not Found | Locallify' };
-  return {
-    title: project.metaTitle || `${project.title} Case Study | Locallify`,
+  if (!project) return { title: { absolute: 'Case Study Not Found | Locallify' } };
+  // CMS metaTitles already carry a brand suffix ("… | Locallify Portfolio");
+  // strip it so every case study ends in exactly one "| Locallify".
+  const baseTitle = (project.metaTitle || `${project.title} Case Study`).replace(/\s*\|\s*Locallify.*$/i, '');
+  // Same source for OG and Twitter (constructMetadata sets both).
+  return constructMetadata({
+    title: `${baseTitle} | Locallify`,
     description: project.metaDescription || project.description,
-    keywords: project.metaKeywords?.join(', '),
-    alternates: { canonical: `${SITE_URL}/portfolio/${slug}` },
-    openGraph: {
-      title: project.metaTitle || project.title,
-      description: project.metaDescription || project.description,
-      images: project.heroBannerImage ? [{ url: project.heroBannerImage, width: 1200, height: 630 }] : [],
+    image: project.heroBannerImage || project.thumbnail || undefined,
+    keywords: project.metaKeywords?.length ? project.metaKeywords : undefined,
+    alternates: { canonical: `/portfolio/${slug}` },
+    article: {
+      publishedTime: project.completionDate,
+      modifiedTime: project.$updatedAt || project.completionDate,
     },
-  };
+  });
 }
 
 export default async function CaseStudyPage({ params }: PageProps) {
@@ -72,7 +77,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
         author: { '@id': `${SITE_URL}/#organization` },
         publisher: { '@id': `${SITE_URL}/#organization` },
         datePublished: project.completionDate,
-        dateModified: project.completionDate,
+        dateModified: project.$updatedAt || project.completionDate,
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
         url: canonicalUrl,
       },
@@ -88,11 +93,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
     <div className="min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
 
-      {/* Skip to content */}
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full">
-        Skip to content
-      </a>
-
       <Navbar />
 
       <main id="main-content">
@@ -107,7 +107,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 alt={project.title}
                 fill
                 className="object-cover opacity-8 blur-[3px] scale-105 transition-opacity duration-1000"
-                priority
+                preload
                 sizes="100vw"
               />
               {/* Fade overlays */}

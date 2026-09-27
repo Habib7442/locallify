@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import { GSTIN, LEGAL_NAME, NAP } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Terms of Service | Locallify - Custom Software, Web & Mobile Apps" },
@@ -40,13 +41,6 @@ export default function TermsOfService() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2"
-      >
-        Skip to content
-      </a>
-
       <Navbar />
       
       <main id="main-content" className="pt-40 pb-24 px-6">
@@ -103,6 +97,10 @@ export default function TermsOfService() {
               <h2 className="font-display italic text-4xl text-text-primary">Legal Jurisdiction</h2>
               <p className="text-text-secondary leading-relaxed text-lg max-w-xl">
                 These terms are governed by the laws of India. Any disputes arising out of our development agreements or digital services will be subject to the exclusive jurisdiction of the competent courts in Assam, India.
+              </p>
+              <p className="text-text-secondary leading-relaxed text-lg max-w-xl mt-6">
+                Services are provided by {LEGAL_NAME}, {NAP.full}.
+                {GSTIN && <> GSTIN: <span className="font-mono text-text-primary">{GSTIN}</span>.</>}
               </p>
               <p className="text-text-secondary leading-relaxed text-lg max-w-xl mt-6">
                 For more information, review our <Link href="/privacy-policy" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">Privacy Policy</Link> or <Link href="/contact" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary transition-colors">contact us</Link> with questions.

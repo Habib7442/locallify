@@ -21,6 +21,8 @@
 - [x] Services capability cards overlay: Overwrote blank mock card placeholders with detailed inline SVGs representing Database schemas, metric charts, device frames, Search performance graphs, and workflow triggers.
 - [x] Hybrid Contact Flow: Created `/contact` and `/api/contact` using client/server honeypot validation, rate limiting, and an inline `@calcom/embed-react` booking widget.
 
+- [x] Site audit fixes (27 Sep 2026) — see `project_docs/Locallify audit tasks.md` for per-item status, the Sanity edits to make by hand, and the open `TODO(owner)` list.
+
 ## Next Up
 - [ ] Unit 01: Global Theme & Font Implementation (Verification).
 - [ ] Unit 04: Performance Audit on Mobile Devices.

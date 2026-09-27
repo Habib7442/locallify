@@ -138,11 +138,11 @@ export const fallbackProjects: Project[] = [
     technologies: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'GSAP', 'Lenis', 'Lucide Icons', 'Sanity CMS'],
     tags: ['next.js', 'performance', 'accessibility', 'local-seo', 'core-web-vitals', 'hospitality', 'Barak Valley'],
     live_url: 'https://www.hotelluxuriagrand.com',
-    description: 'A premium, direct-booking marketing application for Silchar\'s elite luxury hotel, optimized to achieve 100/100 Lighthouse accessibility, a sub-1.0s Largest Contentful Paint (LCP), and high-contrast accessibility compliance.',
+    description: 'A premium, direct-booking marketing application for a luxury hotel in Silchar, optimized to achieve 100/100 Lighthouse accessibility, a sub-1.0s Largest Contentful Paint (LCP), and high-contrast accessibility compliance.',
     
     // Tab 2
     heroTitle: 'Developing a High-Performance Digital Showroom for Silchar\'s Premier Hotel',
-    heroSubtitle: 'How we built an elite direct-booking portal, optimizing Core Web Vitals to bypass JS render delays, lazy-load maps, and eliminate OTA commission drag.',
+    heroSubtitle: 'How we built a direct-booking website, optimizing Core Web Vitals to bypass JS render delays, lazy-load maps, and eliminate OTA commission drag.',
     overview: 'Hotel Luxuria Grand is an upscale luxury hotel in Silchar, Assam, offering refined accommodations across seven categories. In order to establish regional brand authority before incoming competitors enter the Barak Valley market, we designed and built the hotel\'s first-ever digital home from scratch. Previously, the hotel had no website of its own and relied entirely on third-party listings and manual bookings. We built a premium direct-booking marketing site featuring a high-end WhatsApp concierge system and refined page speeds.',
     problemSummary: 'Prior to this project, the hotel had zero dedicated web presence—operating only with a basic Google Business Profile listing. This forced the property to rely entirely on manual reservation calls or high-commission OTAs (MakeMyTrip, Booking.com), which absorbed 15-22% of booking margins. The primary challenge was building their digital storefront completely from scratch while ensuring it loads instantly on mobile viewports, achieves 100/100 accessibility standards, and maintains strict visual discipline under the hotel\'s Onyx & Gold brand guidelines.',
     goals: [
@@ -153,7 +153,7 @@ export const fallbackProjects: Project[] = [
       'Resolve all accessibility violations, including contrast ratios, frames titles, and heading structure rules.',
       'Maintain strict design discipline adhering to the hotel\'s bespoke Onyx & Gold visual branding.'
     ],
-    solution: 'We engineered and launched the hotel\'s first-ever premium web application from scratch using Next.js 16, React 19, and Tailwind CSS v4. To deliver elite performance from day one, we replaced client-side javascript animations on the main hero header with pre-compiled CSS transitions that compile during initial paint. We replaced heavy map frames with a lazy-loading Intersection Observer mount and switched YouTube preview images to compressed WebP. Lastly, we corrected heading hierarchies (H2 to H3), boosted text contrast to 6.5:1, and cleaned up duplicate link destinations.',
+    solution: 'We engineered and launched the hotel\'s first-ever premium web application from scratch using Next.js 16, React 19, and Tailwind CSS v4. To make it fast from day one, we replaced client-side javascript animations on the main hero header with pre-compiled CSS transitions that compile during initial paint. We replaced heavy map frames with a lazy-loading Intersection Observer mount and switched YouTube preview images to compressed WebP. Lastly, we corrected heading hierarchies (H2 to H3), boosted text contrast to 6.5:1, and cleaned up duplicate link destinations.',
     keyFeatures: [
       { title: 'CSS-Based LCP Hero Animations', description: 'Hardware-accelerated CSS keyframe animations that render instantly on first paint without waiting for client-side JavaScript hydration.' },
       { title: 'Viewport Map Deferral', description: 'Intersection Observer container that lazily mounts the Google Maps iframe only when the contact section is scrolled near the viewport.' },
@@ -222,6 +222,8 @@ export const fallbackProjects: Project[] = [
     displayOrder: 1,
     testimonial: {
       rating: 5,
+      // TODO(owner): Sanity attributes this same quote to "Hotel Luxuria Grand CMO".
+      // Confirm who actually said it and fix both places to match.
       clientName: 'Said Anowar Barbhuiya',
       company: 'Hotel Luxuria Grand, Silchar',
       designation: 'Managing Representative',

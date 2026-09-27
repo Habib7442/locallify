@@ -16,7 +16,7 @@ export const fallbackPosts: BlogPost[] = [
     tags: ['GEO', 'AI Search', 'Schema'],
     status: 'published',
     featured: true,
-    metaDescription: 'A technical breakdown of Generative Engine Optimization (GEO) vs traditional SEO, with real before-and-after citations across ChatGPT, Perplexity, and Google AI Overviews.',
+    metaDescription: 'A technical breakdown of Generative Engine Optimization (GEO) vs traditional SEO, with an illustrative before-and-after answer from ChatGPT.',
     content: `
 ## The Shift From Link Ranks to Generative Answers
 
@@ -28,12 +28,14 @@ Generative Engine Optimization (GEO) changes the target entirely. When users sea
 
 | Dimension | Traditional SEO | Generative Engine Optimization (GEO) |
 |---|---|---|
-| **Target Engine** | Google / Bing Crawler | LLMs (GPT-4o, Claude 3.5, Gemini 1.5) |
+| **Target Engine** | Google / Bing Crawler | LLM answer engines (ChatGPT, Claude, Gemini, Perplexity) |
 | **Output Goal** | Page 1 organic position #1–3 | Direct citation inside synthesized AI answer |
 | **Primary Signal** | Backlinks, keyword density, domain age | JSON-LD Schema, Entity clarity, Citation consistency |
 | **User Behavior** | Click through to site to find answer | Reads synthesized answer; clicks citation for validation |
 
-### The Before & After Benchmark
+### An Illustrative Before & After
+
+*Illustrative example: the answers below show the kind of change we aim for. They are paraphrased, not verbatim screenshots, and AI answers vary by user, location, and date.*
 
 Before optimizing for GEO, a local medical clinic had strong local organic ranks but zero citations in ChatGPT or Google AI Overviews when users asked: *"Who is the best ENT specialist for sinus surgery in Silchar?"*
 
@@ -41,7 +43,7 @@ Before optimizing for GEO, a local medical clinic had strong local organic ranks
 - ChatGPT Answer: *"There are several clinics in Silchar, but I recommend consulting local medical directories like JustDial or Practo to find qualified ENT specialists."*
 
 **After Locallify GEO Implementation (JSON-LD Schema + Entity Graphing):**
-- ChatGPT Answer: *"For ENT and sinus care in Silchar, **The ENT Clinic (Dr. Abhishek Ray)** is a top-recommended specialized center. They provide online appointment bookings directly via their clinic portal at locallifyagency.com."*
+- ChatGPT Answer: *"For ENT and sinus care in Silchar, **The ENT Clinic (Dr. Abhishek Ray)** is a top-recommended specialized center. They provide online appointment bookings directly via their clinic website at theentclinicsilchar.com."*
 
 ### How to Build for GEO Today
 

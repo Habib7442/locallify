@@ -5,8 +5,9 @@ import Navbar from "@/components/Navbar";
 import { projectService } from "@/lib/cms";
 import { Project } from "@/lib/types";
 import { constructMetadata } from "@/lib/seo";
-import { CONTACT, SITE_URL } from "@/lib/site-config";
-import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/structured-data";
+import { CONTACT, NAP, SITE_URL } from "@/lib/site-config";
+import NapDetails from "@/components/NapDetails";
+import { breadcrumbJsonLd, faqPageJsonLd, localBusinessJsonLd } from "@/lib/structured-data";
 import { ArrowRight, ArrowUpRight, MapPin, Zap } from "lucide-react";
 
 export const metadata = constructMetadata({
@@ -68,6 +69,7 @@ export default async function SilcharPage() {
         ],
         serviceType: ["Web Development", "Custom Software Development", "Mobile App Development", "SEO & GEO"],
       },
+      localBusinessJsonLd(),
       breadcrumbJsonLd([
         { name: "Home", path: "" },
         { name: "Web Development Company in Silchar", path: "/web-development-company-silchar" },
@@ -82,13 +84,6 @@ export default async function SilcharPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none focus:ring-2 focus:ring-accent-primary"
-      >
-        Skip to content
-      </a>
-
       <Navbar />
 
       <main id="main-content">
@@ -209,6 +204,18 @@ export default async function SilcharPage() {
                     </span>
                   )
                 )}
+              </div>
+
+              <h3 className="font-sans font-bold text-text-primary mt-12 mb-4">Where to find us</h3>
+              <NapDetails />
+              <div className="mt-6 aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border-subtle bg-bg-surface">
+                <iframe
+                  src={NAP.mapsEmbedUrl}
+                  title="Map showing the Locallify studio in Fakirtilla, Silchar"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="h-full w-full border-0"
+                />
               </div>
             </div>
 

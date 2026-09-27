@@ -50,6 +50,8 @@ export interface Testimonial {
   designation: string;
   photo?: string;
   testimonial: string;
+  /** Link to the original public review (e.g. Google). The "Verified" badge renders only when this exists. */
+  sourceUrl?: string;
 }
 
 export interface ProjectCTA {
@@ -146,12 +148,16 @@ export interface Review {
   rating: number;
   role?: string;
   is_verified?: boolean;
+  /** Link to the original public review (e.g. Google). The "Verified" badge renders only when this exists. */
+  sourceUrl?: string;
   is_published: boolean;
 }
 
 export interface BlogPost {
   $id?: string;
   $createdAt?: string;
+  /** Sanity `_updatedAt` — drives sitemap lastmod and article:modified_time. */
+  updatedAt?: string;
   title: string;
   slug: string;
   excerpt: string;

@@ -52,6 +52,11 @@ export function getSanityImageUrl(source: any): string {
 }
 
 
+/** CMS durations are typed by hand ("4 Weeks", "2 weeks") — render units in lowercase so every card reads the same. */
+function normalizeDuration(duration: string): string {
+  return (duration || '').replace(/\b(Days?|Weeks?|Months?)\b/g, (unit) => unit.toLowerCase());
+}
+
 // ─── PROFILE SERVICE ───────────────────────────────────────────
 export const profileService = {
   // Get all public profiles
@@ -243,6 +248,7 @@ export const projectService = {
       if (sanityData && sanityData.length > 0) {
         return sanityData.map((doc: any) => ({
           $id: doc._id || (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
+          $updatedAt: doc._updatedAt,
           title: doc.title,
           slug: (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
           clientName: doc.clientName,
@@ -251,7 +257,7 @@ export const projectService = {
           industry: doc.industry,
           category: doc.category,
           status: doc.status,
-          duration: doc.duration,
+          duration: normalizeDuration(doc.duration),
           completionDate: doc.completionDate,
           myRole: doc.myRole,
           teamSize: doc.teamSize,
@@ -323,7 +329,8 @@ export const projectService = {
             company: doc.testimonial.company,
             designation: doc.testimonial.designation,
             photo: getSanityImageUrl(doc.testimonial.photo),
-            testimonial: doc.testimonial.testimonial
+            testimonial: doc.testimonial.testimonial,
+            sourceUrl: doc.testimonial.sourceUrl,
           } : undefined,
           cta: doc.cta,
           faq: doc.faq || []
@@ -346,6 +353,7 @@ export const projectService = {
       if (doc) {
         return {
           $id: doc._id || (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
+          $updatedAt: doc._updatedAt,
           title: doc.title,
           slug: (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
           clientName: doc.clientName,
@@ -354,7 +362,7 @@ export const projectService = {
           industry: doc.industry,
           category: doc.category,
           status: doc.status,
-          duration: doc.duration,
+          duration: normalizeDuration(doc.duration),
           completionDate: doc.completionDate,
           myRole: doc.myRole,
           teamSize: doc.teamSize,
@@ -426,7 +434,8 @@ export const projectService = {
             company: doc.testimonial.company,
             designation: doc.testimonial.designation,
             photo: getSanityImageUrl(doc.testimonial.photo),
-            testimonial: doc.testimonial.testimonial
+            testimonial: doc.testimonial.testimonial,
+            sourceUrl: doc.testimonial.sourceUrl,
           } : undefined,
           cta: doc.cta,
           faq: doc.faq || []
@@ -494,8 +503,9 @@ export const reviewService = {
           name: doc.name,
           review: doc.review,
           rating: doc.rating,
-          role: doc.role || 'Verified client',
-          is_verified: doc.is_verified ?? true,
+          role: doc.role,
+          is_verified: doc.is_verified ?? false,
+          sourceUrl: doc.sourceUrl,
           is_published: doc.is_published,
         }));
       }
@@ -503,13 +513,24 @@ export const reviewService = {
       console.error("Failed fetching reviews from Sanity, using fallback data:", error);
       return fallbackReviews.slice(0, limit);
     }
-    // No published reviews in Sanity yet — fall back to verified client testimonials
-    // so trust signals (and AggregateRating schema) never render against an empty page.
+    // No published reviews in Sanity yet — fall back to the static client quotes.
     return fallbackReviews.slice(0, limit);
   }
 };
 
 // ─── BLOG SERVICE ──────────────────────────────────────────────
+/**
+ * The shipped articles in lib/data/articles.ts aren't in Sanity yet. Serve
+ * them alongside CMS posts (Sanity wins on slug clashes) so /blog, the
+ * sitemap, and static params all list the same set of URLs.
+ * TODO(owner): migrate the shipped articles into Sanity, then drop this.
+ */
+function mergeWithFallbackPosts(sanityPosts: BlogPost[]): BlogPost[] {
+  const sanitySlugs = new Set(sanityPosts.map((p) => p.slug));
+  return [...sanityPosts, ...fallbackPosts.filter((p) => !sanitySlugs.has(p.slug))]
+    .sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''));
+}
+
 export const blogService = {
   // Get all published blog posts, most recent first
   async getPublishedPosts(): Promise<BlogPost[]> {
@@ -517,9 +538,10 @@ export const blogService = {
       const query = `*[_type == "blog" && status == "published"] | order(publishedAt desc)`;
       const sanityData = await sanityClient.fetch(query);
       if (sanityData && sanityData.length > 0) {
-        return sanityData.map((doc: any) => ({
+        return mergeWithFallbackPosts(sanityData.map((doc: any) => ({
           $id: doc._id,
           $createdAt: doc._createdAt,
+          updatedAt: doc._updatedAt,
           title: doc.title,
           slug: (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
           excerpt: doc.excerpt,
@@ -539,7 +561,7 @@ export const blogService = {
           canonicalUrl: doc.canonicalUrl,
           robotsRule: doc.robotsRule,
           ogImage: getSanityImageUrl(doc.ogImage),
-        }));
+        })));
       }
     } catch (error) {
       console.error("Failed fetching blog posts from Sanity, using fallback data:", error);
@@ -559,6 +581,7 @@ export const blogService = {
         return {
           $id: doc._id,
           $createdAt: doc._createdAt,
+          updatedAt: doc._updatedAt,
           title: doc.title,
           slug: (typeof doc.slug === 'object' ? doc.slug?.current : doc.slug) || '',
           excerpt: doc.excerpt,

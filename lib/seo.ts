@@ -11,6 +11,12 @@ interface MetadataProps {
   alternates?: {
     canonical?: string;
   };
+  /** Set for blog posts and case studies: switches og:type to "article" and emits article:* tags. */
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    authors?: string[];
+  };
 }
 
 export function constructMetadata({
@@ -31,27 +37,11 @@ export function constructMetadata({
     shortcut: "/favicons/favicon-32.png",
   } satisfies Metadata["icons"],
   noIndex = false,
-  keywords = [
-    "Locallify",
-    "Custom Software Development",
-    "Web App Development",
-    "Mobile App Development",
-    "AI Feature Development",
-    "SEO GEO Software Studio",
-    "Generative Engine Optimization",
-    "SaaS Development Studio",
-    "Global Web Development Agency",
-    "Custom App Development",
-    "Technical SEO Development",
-    // Local-entity terms — keep in sync with the Silchar anchor positioning
-    // (see brief §2 / lib/site-config.ts) so meta keywords, JSON-LD, and
-    // on-page copy all agree on where Locallify is based.
-    "Web Development Company Silchar",
-    "Software Company Silchar Assam",
-    "Custom Software Development India",
-    "App Development Silchar",
-  ],
+  // No sitewide default: Google ignores meta keywords, and one copied list
+  // on every page is noise. Pages with their own list can still pass it.
+  keywords,
   alternates = {},
+  article,
 }: MetadataProps = {}): Metadata {
   return {
     title: {
@@ -63,7 +53,7 @@ export function constructMetadata({
       template: `%s | Locallify`,
     },
     description,
-    keywords,
+    ...(keywords?.length && { keywords }),
     alternates,
     openGraph: {
       title,
@@ -73,12 +63,19 @@ export function constructMetadata({
           url: image,
           width: 1200,
           height: 630,
-          alt: "Locallify | Custom Software, Web and Mobile Apps",
+          alt: title,
         },
       ],
-      type: "website",
       locale: "en_US",
       siteName: "Locallify",
+      ...(article
+        ? {
+            type: "article" as const,
+            ...(article.publishedTime && { publishedTime: article.publishedTime }),
+            ...(article.modifiedTime && { modifiedTime: article.modifiedTime }),
+            ...(article.authors?.length && { authors: article.authors }),
+          }
+        : { type: "website" as const }),
     },
     twitter: {
       card: "summary_large_image",

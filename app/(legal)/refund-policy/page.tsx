@@ -39,12 +39,6 @@ export default function RefundPolicy() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-4 focus:left-4 focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:rounded-full focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-accent-primary"
-      >
-        Skip to content
-      </a>
       <Navbar />
       <main id="main-content" className="pt-40 pb-24 px-6">
         <div className="container mx-auto max-w-4xl">

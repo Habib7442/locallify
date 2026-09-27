@@ -10,7 +10,7 @@ import { constructMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-config";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { ArrowLeft, Clock, Calendar, User } from "lucide-react";
-import CTA from "@/components/CTA";
+import FinalCTA from "@/components/sections/FinalCTA";
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -21,6 +21,17 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+/** Only trust a CMS canonical that points at our own www origin; anything else falls back to the post URL. */
+function resolveCanonical(post: { canonicalUrl?: string; slug: string }) {
+  return post.canonicalUrl?.startsWith(`${SITE_URL}/`) ? post.canonicalUrl : `${SITE_URL}/blog/${post.slug}`;
+}
+
+/** Team bylines ("Locallify Engineering") are the organization, not a person. */
+function authorJsonLd(author?: string) {
+  if (!author || author.startsWith("Locallify")) return { "@id": `${SITE_URL}/#organization` };
+  return { "@type": "Person", name: author };
 }
 
 export async function generateMetadata({ params }: ArticlePageProps) {
@@ -34,9 +45,14 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     image: post.ogImage || post.coverImage,
     keywords: post.metaKeywords?.length ? post.metaKeywords : undefined,
     alternates: {
-      canonical: post.canonicalUrl || `/blog/${post.slug}`,
+      canonical: resolveCanonical(post),
     },
     noIndex: post.robotsRule ? post.robotsRule.includes("noindex") : false,
+    article: {
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt || post.publishedAt,
+      authors: post.author ? [post.author] : undefined,
+    },
   });
 }
 
@@ -50,7 +66,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
-  const canonicalUrl = post.canonicalUrl || `${SITE_URL}/blog/${post.slug}`;
+  const canonicalUrl = resolveCanonical(post);
   const image = post.ogImage || post.coverImage;
 
   const jsonLd = {
@@ -62,8 +78,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         description: post.metaDescription || post.excerpt,
         ...(image && { image }),
         datePublished: post.publishedAt,
-        dateModified: post.publishedAt,
-        author: { "@type": "Person", name: post.author },
+        dateModified: post.updatedAt || post.publishedAt,
+        author: authorJsonLd(post.author),
         publisher: { "@id": `${SITE_URL}/#organization` },
         mainEntityOfPage: {
           "@type": "WebPage",
@@ -87,7 +103,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       <Navbar />
 
-      <main className="pt-36 pb-24 px-4 sm:px-6">
+      <main id="main-content" className="pt-36 pb-24 px-4 sm:px-6">
         <article className="container mx-auto max-w-4xl">
           {/* Back link */}
           <Link
@@ -105,7 +121,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 src={post.coverImage}
                 alt={post.title}
                 fill
-                priority
+                preload
                 sizes="(max-width: 1024px) 100vw, 896px"
                 className="object-cover"
               />
@@ -167,7 +183,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </article>
       </main>
 
-      <CTA />
+      <FinalCTA />
     </div>
   );
 }

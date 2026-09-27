@@ -50,9 +50,18 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationWebsiteJsonLd()) }}
         />
-        <main className="flex-grow overflow-x-hidden max-w-full">
+        {/* One skip link for every route. Each page renders its own
+            <main id="main-content">, so this wrapper is a div — nesting a
+            second <main> here would be invalid. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2"
+        >
+          Skip to content
+        </a>
+        <div className="flex-grow overflow-x-hidden max-w-full">
           {children}
-        </main>
+        </div>
         <Footer />
       </body>
     </html>

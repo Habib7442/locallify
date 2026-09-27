@@ -1,6 +1,9 @@
 import React from "react";
 import { constructMetadata } from "@/lib/seo";
 import AboutPageClient from "@/components/AboutPageClient";
+import Navbar from "@/components/Navbar";
+import Process from "@/components/sections/Process";
+import FinalCTA from "@/components/sections/FinalCTA";
 import { SITE_URL } from "@/lib/site-config";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 
@@ -34,7 +37,15 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <AboutPageClient />
+      <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden">
+        <Navbar />
+
+        <main id="main-content">
+          <AboutPageClient />
+          <Process />
+          <FinalCTA />
+        </main>
+      </div>
     </>
   );
 }

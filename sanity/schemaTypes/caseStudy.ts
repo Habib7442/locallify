@@ -463,6 +463,7 @@ export const caseStudy = defineType({
         { name: 'designation', title: 'Reviewer Designation', type: 'string' },
         { name: 'photo', title: 'Reviewer Photo', type: 'image' },
         { name: 'testimonial', title: 'Review Quote', type: 'text', rows: 4 },
+        { name: 'sourceUrl', title: 'Source URL', type: 'url', description: 'Link to the original public review (e.g. the Google review). The "Verified" badge shows only when this is set.' },
       ],
     }),
     defineField({

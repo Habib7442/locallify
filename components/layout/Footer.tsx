@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { CONTACT, SOCIALS } from "@/lib/site-config";
+import NapDetails from "@/components/NapDetails";
 
 const whatsappHref = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Locallify, I'd like to talk about a software project.")}`;
 
@@ -53,6 +54,8 @@ export default function Footer() {
             <p className="mt-4 text-xs font-mono uppercase tracking-wider text-text-subtle">
               Software studio based in Silchar, Assam &middot; serving India &amp; clients worldwide.
             </p>
+
+            <NapDetails className="mt-6" />
             
             {/* Pill-shaped modern social buttons */}
             <div className="mt-8 flex flex-wrap gap-2">
@@ -67,7 +70,7 @@ export default function Footer() {
                   {social.icon && (
                     <Image
                       src={social.icon}
-                      alt={social.name}
+                      alt=""
                       width={14}
                       height={14}
                       className="h-3.5 w-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity"

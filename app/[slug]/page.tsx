@@ -119,8 +119,9 @@ export default async function BusinessProfilePage({ params }: PageProps) {
             src={coverUrl} 
             alt={business.business_name} 
             fill 
+            sizes="100vw"
             className="object-cover opacity-60"
-            priority
+            preload
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#050505]"></div>
           <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-[#050505] to-transparent"></div>
@@ -152,6 +153,7 @@ export default async function BusinessProfilePage({ params }: PageProps) {
                 src={logoUrl} 
                 alt={business.business_name} 
                 fill 
+                sizes="144px"
                 className="object-cover" 
               />
             </div>
@@ -171,7 +173,7 @@ export default async function BusinessProfilePage({ params }: PageProps) {
       </section>
 
       {/* ─── MAIN CONTENT ────────────────────────────────────────── */}
-      <main className="relative z-30 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 pb-32">
+      <main id="main-content" className="relative z-30 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 pb-32">
         
         {/* Left Column: About & Form */}
         <div className="lg:col-span-7 space-y-8">

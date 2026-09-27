@@ -3,7 +3,7 @@ import ReviewPageClient from "@/components/ReviewPageClient";
 import { constructMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-config";
 import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/structured-data";
-import { hasVerifiedTestimonials, mergeTestimonials } from "@/lib/testimonials";
+import { mergeTestimonials } from "@/lib/testimonials";
 
 export const metadata = constructMetadata({
   title: "Client Reviews | Locallify",
@@ -26,9 +26,6 @@ export default async function ReviewsPage() {
 
   const testimonials = mergeTestimonials(projects, initialReviews);
 
-  // AggregateRating is only valid when at least one testimonial is
-  // genuinely CMS-sourced (not static fallback copy) — see brief §3b and
-  // Google's guidance against self-serving ratings with no real reviews.
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -39,7 +36,7 @@ export default async function ReviewsPage() {
         "url": `${SITE_URL}/reviews`,
         "publisher": { "@id": `${SITE_URL}/#organization` },
       },
-      localBusinessJsonLd({ includeAggregateRating: hasVerifiedTestimonials(testimonials) }),
+      localBusinessJsonLd(),
       breadcrumbJsonLd([
         { name: "Home", path: "" },
         { name: "Reviews", path: "/reviews" },

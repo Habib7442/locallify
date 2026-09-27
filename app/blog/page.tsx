@@ -7,10 +7,10 @@ import { blogService } from "@/lib/cms";
 import { BlogPost } from "@/lib/types";
 import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { ArrowRight, BookOpen, Clock } from "lucide-react";
-import CTA from "@/components/CTA";
+import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata = constructMetadata({
-  title: "Engineering & GEO Insights",
+  title: "Engineering & GEO Insights | Locallify",
   description: "Technical teardowns, Generative Engine Optimization (GEO) playbooks, structured schema guides, and software case studies by Locallify.",
   alternates: {
     canonical: "/blog",
@@ -40,7 +40,7 @@ export default async function BlogIndexPage() {
       />
       <Navbar />
 
-      <main className="pt-36 pb-24 px-4 sm:px-6">
+      <main id="main-content" className="pt-36 pb-24 px-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
           {/* Header */}
           <div className="mb-16 max-w-3xl">
@@ -115,7 +115,7 @@ export default async function BlogIndexPage() {
         </div>
       </main>
 
-      <CTA />
+      <FinalCTA />
     </div>
   );
 }

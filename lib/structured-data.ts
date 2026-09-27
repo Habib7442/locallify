@@ -1,4 +1,4 @@
-import { CONTACT, GOOGLE_RATING, NAP, SAME_AS, SITE_NAME, SITE_URL } from "./site-config";
+import { CONTACT, GSTIN, LEGAL_NAME, NAP, SAME_AS, SITE_NAME, SITE_URL } from "./site-config";
 
 /** Sitewide Organization + WebSite graph — rendered once, in the root layout. */
 export function organizationWebsiteJsonLd() {
@@ -9,6 +9,8 @@ export function organizationWebsiteJsonLd() {
         "@type": "Organization",
         "@id": `${SITE_URL}/#organization`,
         name: SITE_NAME,
+        legalName: LEGAL_NAME,
+        ...(GSTIN && { taxID: GSTIN }),
         url: SITE_URL,
         logo: `${SITE_URL}/locallify_dark.svg`,
         description:
@@ -36,14 +38,12 @@ export function organizationWebsiteJsonLd() {
   };
 }
 
-interface LocalBusinessOptions {
-  /** Only set true on pages that visibly render real reviews. */
-  includeAggregateRating: boolean;
-}
-
 /**
- * LocalBusiness node with full Silchar NAP. Pair AggregateRating only with
- * visible reviews.
+ * LocalBusiness node with full Silchar NAP.
+ *
+ * No AggregateRating / Review markup here on purpose: Google treats ratings
+ * a business publishes about itself as self-serving and won't show stars
+ * for them. The GBP rating is shown visibly on the page instead.
  *
  * TODO(owner): `image`, `priceRange`, and `openingHoursSpecification` are
  * intentionally omitted — none of these have a verified value in the brief's
@@ -51,7 +51,7 @@ interface LocalBusinessOptions {
  * (matching the Google Business Profile) and add them back rather than
  * guessing.
  */
-export function localBusinessJsonLd({ includeAggregateRating }: LocalBusinessOptions) {
+export function localBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -79,14 +79,6 @@ export function localBusinessJsonLd({ includeAggregateRating }: LocalBusinessOpt
       { "@type": "Place", name: "Worldwide" },
     ],
     sameAs: SAME_AS,
-    ...(includeAggregateRating && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: GOOGLE_RATING.value.toFixed(1),
-        reviewCount: String(GOOGLE_RATING.count),
-        bestRating: "5",
-      },
-    }),
   };
 }
 

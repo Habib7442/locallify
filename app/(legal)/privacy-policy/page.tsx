@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary">
       <Navbar />
-      <main className="pt-40 pb-24 px-6">
+      <main id="main-content" className="pt-40 pb-24 px-6">
         <div className="container mx-auto max-w-4xl">
           
           {/* Header */}
@@ -36,7 +36,7 @@ export default function PrivacyPolicy() {
             <section className="space-y-6">
               <h2 className="font-sans font-bold text-2xl text-text-primary uppercase tracking-tight">1. Data Sovereignty</h2>
               <p className="text-text-secondary leading-relaxed font-light text-lg">
-                At Locallify, your business data is yours. We collect only what is essential to provide elite digital services. This policy outlines how we handle information across our storefronts, WhatsApp integrations, and management tools.
+                At Locallify, your business data is yours. We collect only what we need to deliver our services. This policy outlines how we handle information across our storefronts, WhatsApp integrations, and management tools.
               </p>
             </section>
 

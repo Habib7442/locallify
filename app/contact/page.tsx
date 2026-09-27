@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Loader2, AlertCircle, Calendar, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { CONTACT, SITE_URL } from "@/lib/site-config";
+import NapDetails from "@/components/NapDetails";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -154,13 +155,6 @@ export default function ContactPage() {
           }).replace(/</g, '\\u003c'),
         }}
       />
-
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-accent-primary focus:text-bg-primary focus:font-bold focus:rounded-full"
-      >
-        Skip to content
-      </a>
 
       <Navbar />
 
@@ -516,6 +510,11 @@ export default function ContactPage() {
               </div>
             ))}
           </motion.div>
+
+          <div className="mt-12 rounded-2xl border border-border-default bg-bg-surface/30 p-8">
+            <h2 className="font-sans font-semibold text-lg text-text-primary mb-4">Visit or call the studio</h2>
+            <NapDetails />
+          </div>
         </div>
       </main>
     </div>

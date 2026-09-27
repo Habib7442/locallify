@@ -48,7 +48,6 @@ export default function Navbar({ className, ...props }: ComponentProps<'nav'>) {
               width={180}
               height={51}
               className="h-9 w-auto transition-transform group-hover:scale-105"
-              priority
             />
           </Link>
 

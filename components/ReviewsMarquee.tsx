@@ -50,6 +50,7 @@ function TestimonialCard({ item, duplicate = false }: { item: TestimonialItem; d
   return (
     <div
       aria-hidden={duplicate || undefined}
+      inert={duplicate || undefined}
       className="inline-block w-[340px] sm:w-[400px] p-7 sm:p-8 bg-bg-surface border border-border-subtle rounded-2xl shadow-xl shadow-accent-primary/[0.03] relative overflow-hidden group/card shrink-0 whitespace-normal transition-all hover:border-accent-primary/20"
     >
       <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover/card:opacity-[0.08] transition-opacity">
@@ -78,15 +79,21 @@ function TestimonialCard({ item, duplicate = false }: { item: TestimonialItem; d
           )}
         </div>
         <div className="min-w-0">
-          <h4 className="font-sans font-semibold text-sm text-text-primary truncate">{item.name}</h4>
+          <p className="font-sans font-semibold text-sm text-text-primary truncate">{item.name}</p>
           {item.role && (
             <p className="text-[10px] font-mono text-text-muted uppercase tracking-wider truncate">{item.role}</p>
           )}
         </div>
-        {item.verified && (
-          <span className="ml-auto shrink-0 text-[9px] bg-accent-primary/10 border border-accent-primary/20 rounded-full px-2 py-0.5 text-accent-primary font-mono font-medium">
+        {item.verified && item.sourceUrl && (
+          <a
+            href={item.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Verified: view ${item.name}'s original review`}
+            className="ml-auto shrink-0 text-[9px] bg-accent-primary/10 border border-accent-primary/20 rounded-full px-2 py-0.5 text-accent-primary font-mono font-medium hover:bg-accent-primary/20 transition-colors"
+          >
             Verified
-          </span>
+          </a>
         )}
       </div>
     </div>
