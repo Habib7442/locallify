@@ -48,6 +48,16 @@ export interface IndustryPage {
   seo: { title: string; description: string };
   card: { summary: string };
 
+  /** Banner photo that shows the niche at a glance. Stock (CC0), never presented as client work. */
+  banner: {
+    src: string;
+    alt: string;
+    credit: string;
+    creditUrl: string;
+    /** object-position for the crop, e.g. "center 30%". */
+    position?: string;
+  };
+
   hero: {
     eyebrow: string;
     headline: string;

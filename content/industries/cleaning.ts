@@ -19,6 +19,14 @@ export const cleaning: IndustryPage = {
     summary: "Instant quotes by bedrooms or square footage, online booking with recurring options, and pages for every area you serve.",
   },
 
+  banner: {
+    src: "/industries/cleaning-website-design.webp",
+    alt: "A gloved hand wiping a kitchen counter next to a cleaning caddy",
+    credit: "rawpixel (CC0)",
+    creditUrl: "https://www.rawpixel.com/image/6074009/cleaning-kitchen-counter",
+    position: "center 78%",
+  },
+
   hero: {
     eyebrow: "For residential & commercial cleaning companies",
     headline: "Instant quotes and booked cleans — straight from your website.",

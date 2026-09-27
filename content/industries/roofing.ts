@@ -19,6 +19,14 @@ export const roofing: IndustryPage = {
     summary: "24/7 estimate requests with photo upload, service-area pages for every town you cover, and a site homeowners trust.",
   },
 
+  banner: {
+    src: "/industries/roofing-website-design.webp",
+    alt: "Two roofers working on a tiled roof beside a brick chimney",
+    credit: "rawpixel (CC0)",
+    creditUrl: "https://www.rawpixel.com/image/5925457/photo-image-public-domain-house-person",
+    position: "center 45%",
+  },
+
   hero: {
     eyebrow: "For roofing contractors · US",
     headline: "Stop buying shared roofing leads. Own the ones that search for you.",

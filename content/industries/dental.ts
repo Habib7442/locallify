@@ -19,6 +19,14 @@ export const dental: IndustryPage = {
     summary: "24/7 new-patient booking, fast mobile pages, and treatment pages that rank for implants, Invisalign and emergencies.",
   },
 
+  banner: {
+    src: "/industries/dental-website-design.webp",
+    alt: "A dentist treating a young patient in a dental chair",
+    credit: "Michal Jarmoluk / StockSnap (CC0)",
+    creditUrl: "https://stocksnap.io/photo/dentist-orthodontist-6HV52GTPO3",
+    position: "center 40%",
+  },
+
   hero: {
     eyebrow: "For dental practices · US",
     headline: "Turn “dentist near me” searches into booked appointments.",

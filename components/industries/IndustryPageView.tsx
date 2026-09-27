@@ -44,10 +44,34 @@ export default function IndustryPageView({ page, projects }: { page: IndustryPag
               </ol>
             </nav>
 
+            {/* Niche banner: shows at a glance who this page is for. Stock photo, credited below. */}
+            <figure className="mb-12">
+              <div className="relative aspect-[2/1] sm:aspect-[3/1] overflow-hidden rounded-2xl border border-border-default bg-bg-surface">
+                <Image
+                  src={page.banner.src}
+                  alt={page.banner.alt}
+                  fill
+                  preload
+                  sizes="(max-width: 1200px) 100vw, 1152px"
+                  className="object-cover"
+                  style={{ objectPosition: page.banner.position ?? "center" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/85 via-bg-primary/20 to-transparent" aria-hidden="true" />
+                <p className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 rounded-full border border-border-default bg-bg-primary/80 px-4 py-2 text-xs sm:text-sm font-medium text-text-primary backdrop-blur-sm">
+                  {page.hero.eyebrow}
+                </p>
+              </div>
+              <figcaption className="mt-2 text-right text-[11px] text-text-muted">
+                Photo:{" "}
+                <a href={page.banner.creditUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-text-secondary">
+                  {page.banner.credit}
+                </a>
+              </figcaption>
+            </figure>
+
             <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
               <div>
-                <p className={eyebrow}>{page.hero.eyebrow}</p>
-                <h1 className="mt-6 text-4xl sm:text-6xl font-sans font-bold leading-[1.05] tracking-tight text-text-primary">
+                <h1 className="text-4xl sm:text-6xl font-sans font-bold leading-[1.05] tracking-tight text-text-primary">
                   {page.hero.headline}
                 </h1>
                 <p className="mt-6 max-w-xl text-lg leading-relaxed text-text-secondary">{page.hero.subhead}</p>
@@ -74,7 +98,6 @@ export default function IndustryPageView({ page, projects }: { page: IndustryPag
                       src={heroImage}
                       alt={`${heroProject.title} website, built by Locallify`}
                       fill
-                      preload
                       sizes="(max-width: 1024px) 100vw, 520px"
                       className="object-cover object-top"
                     />

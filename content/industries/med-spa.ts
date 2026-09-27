@@ -19,6 +19,14 @@ export const medSpa: IndustryPage = {
     summary: "Online booking with deposits, a page for every treatment, and galleries that show real, consented results.",
   },
 
+  banner: {
+    src: "/industries/med-spa-website-design.webp",
+    alt: "Skincare serum being applied with a dropper",
+    credit: "Authentic Stock / StockSnap (CC0)",
+    creditUrl: "https://stocksnap.io/photo/beauty-skincare-LRSAT4NCLS",
+    position: "center 35%",
+  },
+
   hero: {
     eyebrow: "For med spas, aesthetic & cosmetology clinics",
     headline: "A website as premium as your treatments — that books clients while you work.",
