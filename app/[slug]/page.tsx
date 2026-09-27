@@ -79,7 +79,7 @@ export default async function BusinessProfilePage({ params }: PageProps) {
   // Handle Inactive/Private State
   if (!business.is_active || !business.is_public) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-6 text-center">
+      <main id="main-content" className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-6 text-center">
         <div className="relative w-24 h-24 mb-8">
           <div className="absolute inset-0 bg-[#0066FF]/20 rounded-full blur-2xl animate-pulse"></div>
           <CheckCircle2 className="w-full h-full text-[#0066FF] relative z-10" />
@@ -100,7 +100,7 @@ export default async function BusinessProfilePage({ params }: PageProps) {
         <div className="mt-16 pt-8 border-t border-zinc-900 w-full max-w-xs text-xs text-zinc-600">
           POWERED BY LOCALLIFY
         </div>
-      </div>
+      </main>
     );
   }
 
