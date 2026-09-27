@@ -261,9 +261,8 @@ export const dental: IndustryPage = {
       a: "Yes. We map every existing URL to its new page with permanent redirects, keep what already ranks, and resubmit the sitemap to Google Search Console at launch.",
     },
     {
-      // TODO(owner): 🔒 confirm the overlap hours you'll commit to.
       q: "You’re based in India. How does that work for a US practice?",
-      a: "You get a fixed milestone price in USD, weekly progress updates, and calls scheduled in your morning. You own the code and can host it anywhere.",
+      a: "You get a fixed milestone price in USD, weekly progress updates, and calls between 7 and 10am US Eastern. You own the code and can host it anywhere.",
     },
   ],
 

@@ -230,9 +230,8 @@ export const medSpa: IndustryPage = {
     { q: "How long does a med spa website take?", a: "Studio sites take 2–3 weeks and Signature builds 4–6 weeks, depending on the number of treatments and how quickly photos and approvals come through." },
     { q: "Do we own the website?", a: "Yes. You own 100% of the code and content after the final milestone. A retainer is optional, not required." },
     {
-      // TODO(owner): 🔒 confirm the overlap hours you'll commit to.
       q: "You’re based in India. How does that work?",
-      a: "You get a fixed milestone price in USD, weekly progress updates, and calls scheduled in your morning. You own the code and can host it anywhere.",
+      a: "You get a fixed milestone price in USD, weekly progress updates, and calls between 7 and 10am US Eastern. You own the code and can host it anywhere.",
     },
   ],
 

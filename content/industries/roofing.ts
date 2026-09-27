@@ -224,9 +224,8 @@ export const roofing: IndustryPage = {
     { q: "Do service-area pages count as spam?", a: "Not when they’re genuinely useful. Each page covers real work, details and projects in that town. We don’t publish copy-pasted pages with the city name swapped." },
     { q: "How long does a roofing website take?", a: "Local Roofer sites take 2–3 weeks and Growth builds 4–6 weeks. Multi-location timelines are set on the discovery call." },
     {
-      // TODO(owner): 🔒 confirm the overlap hours you'll commit to.
       q: "You’re an offshore team. Why should I trust that?",
-      a: "You get a fixed milestone price in USD, weekly progress updates, calls in your morning, and full ownership of the code. The scope and price are agreed in writing before any work starts.",
+      a: "You get a fixed milestone price in USD, weekly progress updates, calls between 7 and 10am US Eastern, and full ownership of the code. The scope and price are agreed in writing before any work starts.",
     },
   ],
 

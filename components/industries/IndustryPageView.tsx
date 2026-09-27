@@ -366,7 +366,6 @@ export default function IndustryPageView({ page, projects }: { page: IndustryPag
             <div>
               <p className={eyebrow}>Free</p>
               <h2 className={`${h2} mt-4`}>Get a free Website &amp; Lead Leak Audit</h2>
-              {/* TODO(owner): 🔒 confirm the audit format (≈10-minute video) and 48-hour turnaround. */}
               <p className="mt-6 text-lg leading-relaxed text-text-secondary">
                 A personalised video walkthrough, about 10 minutes, of your current website and Google presence. Delivered within 48 hours.
               </p>
