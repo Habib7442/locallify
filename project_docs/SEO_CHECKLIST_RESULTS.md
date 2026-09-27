@@ -1,14 +1,14 @@
 # Industry pages — SEO checklist results
 
-Built 27 Sep 2026 from `project_docs/Locallify niche pages spec.md`. Measured on a local production build (`next build` + `next start`, Lighthouse 12, mobile). The pages are currently **hidden** (`INDUSTRIES_LIVE = false`), so they're `noindex` and Lighthouse SEO reads 69 for that reason alone. It becomes 100 when launched.
+Built 27 Sep 2026 from `project_docs/Locallify niche pages spec.md`, then re-scoped to what Locallify delivers: the website and its SEO, GEO and AEO. No ads, legal or compliance work, telephony, CRM integrations or follow-up automation; the framework's fourth step is "Measured" rather than "Followed-up". Measured on a local production build (`next build` + `next start`, Lighthouse 12, mobile). The pages are currently **hidden** (`INDUSTRIES_LIVE = false`), so they're `noindex` and Lighthouse SEO reads 69 for that reason alone. It becomes 100 when launched.
 
 | Page | Title (chars) | Meta description (chars) | H1 | Words (visible, incl. FAQ) | JSON-LD @types | Proof |
 |---|---|---|---|---|---|---|
 | `/industries` | 49 | 136 | 1 | 165 | CollectionPage (+ItemList), BreadcrumbList | — |
-| `/industries/dental-website-design` | 51 | 147 | 1 | 1,758 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | 3 real healthcare builds |
-| `/industries/med-spa-website-design` | 53 | 148 | 1 | 1,625 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | 2 related real builds |
-| `/industries/roofing-website-design` | 52 | 141 | 1 | 1,656 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | "Our standards" |
-| `/industries/cleaning-website-design` | 59 | 151 | 1 | 1,595 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | "Our standards" |
+| `/industries/dental-website-design` | 51 | 146 | 1 | 1,858 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | 3 real healthcare builds |
+| `/industries/med-spa-website-design` | 53 | 149 | 1 | 1,697 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | 2 related real builds |
+| `/industries/roofing-website-design` | 52 | 155 | 1 | 1,680 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | "Our standards" |
+| `/industries/cleaning-website-design` | 59 | 147 | 1 | 1,679 | WebPage, Service (3 Offers), FAQPage, BreadcrumbList | "Our standards" |
 
 All pages also inherit the sitewide `Organization` + `WebSite` graph. All JSON-LD parses as valid JSON. Offer prices come from `content/industries/pricing.ts`, the same source as the visible prices.
 

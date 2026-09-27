@@ -9,7 +9,8 @@
  * and the service-page cross-links.
  *
  * TODO(owner): set to true once every 🔒 item is confirmed — package prices
- * (pricing.ts), HIPAA wording (dental FAQ), Google Ads answer (roofing FAQ),
- * US overlap hours (FAQs), and the free-audit format/turnaround.
+ * (pricing.ts), US overlap hours (FAQs), and the free-audit
+ * format/turnaround. Scope is website + its SEO/GEO/AEO only: no ads, legal
+ * or compliance work, telephony, CRM or follow-up automation.
  */
 export const INDUSTRIES_LIVE = false;

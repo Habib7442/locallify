@@ -128,7 +128,7 @@ export default function IndustryPageView({ page, projects }: { page: IndustryPag
         {/* ─── FRAMEWORK ────────────────────────────────────────── */}
         <section className={section}>
           <div className={container}>
-            <p className={eyebrow}>Found → Trusted → Booked → Followed-up</p>
+            <p className={eyebrow}>{page.framework.steps.map((step) => step.title).join(" → ")}</p>
             <h2 className={`${h2} mt-4`}>{page.framework.heading}</h2>
             <p className="mt-4 max-w-2xl text-lg text-text-secondary">{page.framework.intro}</p>
             <ol className="mt-12 grid gap-4 lg:grid-cols-4">

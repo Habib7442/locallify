@@ -72,7 +72,7 @@ export interface IndustryPage {
   framework: {
     heading: string;
     intro: string;
-    steps: { key: "found" | "trusted" | "booked" | "followed-up"; title: string; body: string; example: string }[];
+    steps: { key: "found" | "trusted" | "booked" | "measured"; title: string; body: string; example: string }[];
   };
 
   features: { heading: string; items: { title: string; body: string }[] };
