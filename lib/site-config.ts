@@ -60,7 +60,7 @@ export const SAME_AS = [SOCIALS.linkedin, SOCIALS.facebook, SOCIALS.instagram, S
  * genuinely visible reviews — never as a bare number with no reviews on the
  * page (see brief §3b / §5).
  * TODO(owner): provide the direct GBP place URL to replace the Maps search
- * fallback below, and re-confirm the review count (it's shown on the page).
+ * fallback below. `count` is kept for reference but deliberately not shown.
  */
 export const GOOGLE_RATING = {
   value: 5.0,
