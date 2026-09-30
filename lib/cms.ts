@@ -3,7 +3,6 @@ import { Project, BusinessProfile, Review, BlogPost } from './types';
 import { fallbackProfiles } from './data/profiles';
 import { fallbackReviews } from './data/reviews';
 import { fallbackProjects } from './data/case-studies';
-import { fallbackPosts } from './data/articles';
 
 // Helper to parse Sanity Image references into direct CDN URLs without heavy dependencies
 export function getSanityImageUrl(source: any): string {
@@ -495,18 +494,7 @@ export const reviewService = {
 };
 
 // ─── BLOG SERVICE ──────────────────────────────────────────────
-/**
- * The shipped articles in lib/data/articles.ts aren't in Sanity yet. Serve
- * them alongside CMS posts (Sanity wins on slug clashes) so /blog, the
- * sitemap, and static params all list the same set of URLs.
- * TODO(owner): migrate the shipped articles into Sanity, then drop this.
- */
-function mergeWithFallbackPosts(sanityPosts: BlogPost[]): BlogPost[] {
-  const sanitySlugs = new Set(sanityPosts.map((p) => p.slug));
-  return [...sanityPosts, ...fallbackPosts.filter((p) => !sanitySlugs.has(p.slug))]
-    .sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''));
-}
-
+// Sanity is the only source for blog posts.
 export const blogService = {
   // Get all published blog posts, most recent first
   async getPublishedPosts(): Promise<BlogPost[]> {
@@ -514,7 +502,7 @@ export const blogService = {
       const query = `*[_type == "blog" && status == "published"] | order(publishedAt desc)`;
       const sanityData = await sanityClient.fetch(query);
       if (sanityData && sanityData.length > 0) {
-        return mergeWithFallbackPosts(sanityData.map((doc: any) => ({
+        return sanityData.map((doc: any) => ({
           $id: doc._id,
           $createdAt: doc._createdAt,
           updatedAt: doc._updatedAt,
@@ -537,15 +525,12 @@ export const blogService = {
           canonicalUrl: doc.canonicalUrl,
           robotsRule: doc.robotsRule,
           ogImage: getSanityImageUrl(doc.ogImage),
-        })));
+        }));
       }
     } catch (error) {
-      console.error("Failed fetching blog posts from Sanity, using fallback data:", error);
-      return fallbackPosts;
+      console.error("Failed fetching blog posts from Sanity:", error);
     }
-    // No published posts in Sanity yet — fall back to the shipped articles
-    // so /blog never renders empty.
-    return fallbackPosts;
+    return [];
   },
 
   // Get single published post by slug
@@ -580,10 +565,8 @@ export const blogService = {
         };
       }
     } catch (error) {
-      console.error(`Failed fetching blog post ${slug} from Sanity, using fallback lookup:`, error);
+      console.error(`Failed fetching blog post ${slug} from Sanity:`, error);
     }
-
-    const fallback = fallbackPosts.find((p) => p.slug === slug);
-    return fallback || null;
+    return null;
   },
 };
