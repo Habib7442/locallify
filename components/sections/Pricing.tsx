@@ -92,10 +92,18 @@ export default function Pricing({ showHeader = true }: PricingProps) {
                 </div>
               ))}
             </div>
-            <Link href={whatsappHref} className="btn-primary mt-8 w-full gap-2">
+            <Link href="/contact" className="btn-primary mt-8 w-full gap-2">
               Get a quote
               <ArrowRight className="h-4 w-4" />
             </Link>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost mt-3 w-full"
+            >
+              Or ask on WhatsApp
+            </a>
           </motion.div>
 
           <div className="grid gap-4 md:grid-cols-3">
