@@ -1,3 +1,5 @@
+import posthog from "posthog-js";
+
 type Props = Record<string, string | number | boolean | undefined>;
 
 declare global {
@@ -9,15 +11,14 @@ declare global {
 }
 
 /**
- * Fire an analytics event to whichever tool is installed (Plausible, GA4 or
- * a GTM dataLayer). No analytics script is on the site yet, so this is a
- * no-op until one is added — the event calls are already in place.
- * TODO(owner): pick an analytics tool; events: calculator_used, cta_click,
- * form_submit.
+ * Fire an analytics event to PostHog (initialised in instrumentation-client.ts)
+ * and to any other tool on the page (Plausible, GA4 or a GTM dataLayer).
+ * Events: calculator_used, cta_click, form_submit.
  */
 export function track(event: string, props: Props = {}) {
   if (typeof window === "undefined") return;
   try {
+    if (posthog.__loaded) posthog.capture(event, props);
     window.plausible?.(event, { props });
     window.gtag?.("event", event, props);
     window.dataLayer?.push({ event, ...props });
