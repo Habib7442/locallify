@@ -83,6 +83,22 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
+            {/* Hostinger Partner badge: shown as supplied, on its own row, per Hostinger's usage rules */}
+            <a
+              href="https://www.hostinger.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-block"
+            >
+              <Image
+                src="/hostinger-partner-badge/svg/Badge_dark.svg"
+                alt="Verified Hostinger Partner"
+                width={160}
+                height={60}
+                className="h-12 w-auto"
+              />
+            </a>
           </div>
 
           <div className="md:col-span-6 grid grid-cols-3 gap-6">
