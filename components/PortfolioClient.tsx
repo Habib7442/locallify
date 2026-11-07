@@ -142,17 +142,15 @@ export default function PortfolioClient({ initialProjects }: PortfolioClientProp
                   >
                     <div className="relative bg-bg-surface/50 backdrop-blur-md border border-border-default p-3.5 sm:p-4.5 rounded-2xl h-full flex flex-col transition-all duration-500 hover:border-accent-primary/50 hover:bg-bg-surface/80 hover:shadow-[0_0_35px_rgba(208,255,20,0.1)] min-w-0 overflow-hidden w-full max-w-full box-border">
                       {/* Image Container */}
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-bg-elevated mb-5">
+                      <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-bg-elevated mb-5">
                         <Link href={`/portfolio/${item.slug}`} className="w-full h-full relative block">
                           <Image
                             src={projectService.getThumbnailUrl(item.heroBannerImage || item.thumbnail)}
                             alt={item.title}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                           />
-                          {/* Gradient Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 via-transparent to-transparent pointer-events-none" />
                         </Link>
                         
                         {/* Status Badge */}

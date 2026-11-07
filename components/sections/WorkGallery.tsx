@@ -87,7 +87,7 @@ export default function WorkGallery({ initialProjects = [] }: WorkGalleryProps) 
                     className="group block w-full max-w-full min-w-0 overflow-hidden"
                   >
                     <div className="bg-bg-surface/40 backdrop-blur-sm border border-border-default rounded-2xl overflow-hidden p-3.5 sm:p-4 transition-all duration-500 group-hover:border-accent-primary/50 group-hover:shadow-[0_0_35px_rgba(208,255,20,0.1)] group-hover:bg-bg-surface/80 min-w-0 w-full max-w-full box-border">
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-bg-elevated w-full max-w-full">
+                      <div className="relative aspect-[16/9] overflow-hidden rounded-xl bg-bg-elevated w-full max-w-full">
                         {/* Floating Action Arrow */}
                         <div className="absolute top-3.5 right-3.5 z-10 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-white/10 bg-bg-primary/85 backdrop-blur-md text-text-primary shadow-md transition-all duration-300 group-hover:border-accent-primary group-hover:bg-accent-primary group-hover:text-text-inverse group-hover:scale-110">
                           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -98,12 +98,9 @@ export default function WorkGallery({ initialProjects = [] }: WorkGalleryProps) 
                           alt={project.title}
                           fill
                           loading={index === 0 ? "eager" : "lazy"}
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
-
-                        {/* Subtle Dark Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 via-transparent to-transparent pointer-events-none" />
                       </div>
 
                       <div className="pt-4 sm:pt-5 pb-2 px-1 min-w-0 overflow-hidden w-full max-w-full">
