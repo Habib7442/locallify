@@ -29,6 +29,16 @@ import {
 
 export const revalidate = 60;
 
+// Sanity CDN URLs end in "-<width>x<height>.<ext>". Reading the real size
+// lets screenshots render at their own aspect ratio (no crop, no letterbox)
+// without depending on a parent with a fixed height, as `fill` does.
+function imageSize(src: string) {
+  const match = src.match(/-(\d+)x(\d+)\.\w+(?:\?|$)/);
+  return match
+    ? { width: Number(match[1]), height: Number(match[2]) }
+    : { width: 1600, height: 900 };
+}
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -98,26 +108,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
       <main id="main-content">
 
         {/* ─── HERO SECTION ─────────────────────────────────────────────── */}
-        <section className="relative min-h-[75vh] flex items-end overflow-hidden">
-          {/* Background image */}
-          {(project.heroBannerImage || project.thumbnail) && (
-            <div className="absolute inset-0 bg-bg-primary">
-              <Image
-                src={project.heroBannerImage || project.thumbnail}
-                alt={project.title}
-                fill
-                className="object-cover opacity-8 blur-[3px] scale-105 transition-opacity duration-1000"
-                preload
-                sizes="100vw"
-              />
-              {/* Fade overlays */}
-              <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/90 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-bg-primary via-transparent to-bg-primary/90" />
-            </div>
-          )}
-
+        <section className="relative overflow-hidden">
           {/* Content */}
-          <div className="relative z-10 container mx-auto px-6 pb-16 pt-32 w-full">
+          <div className="relative z-10 container mx-auto px-6 pb-12 pt-32 w-full">
             {/* Back link */}
             <Link href="/portfolio" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-text-muted hover:text-accent-primary transition-colors mb-8 group">
               <ChevronLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
@@ -197,6 +190,22 @@ export default async function CaseStudyPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        {/* ─── COVER BANNER ───────────────────────────────────────────── */}
+        {(project.heroBannerImage || project.thumbnail) && (
+          <section className="px-6 pb-16">
+            <div className="container mx-auto">
+              <Image
+                src={project.heroBannerImage || project.thumbnail}
+                {...imageSize(project.heroBannerImage || project.thumbnail)}
+                alt={`${project.title} website, designed and built by Locallify`}
+                preload
+                className="block w-full h-auto border border-border-subtle bg-bg-surface"
+                sizes="(max-width: 1280px) 100vw, 1280px"
+              />
+            </div>
+          </section>
+        )}
 
         {/* ─── OVERVIEW & TECH STACK ──────────────────────────────────── */}
         {(project.overview || (project.technologies && project.technologies.length > 0)) && (
@@ -288,8 +297,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 ))}
               </div>
               {project.lighthouseDesktop.screenshot && (
-                <div className="relative w-full max-w-3xl aspect-[16/10] overflow-hidden rounded border border-border-subtle bg-bg-surface">
-                  <Image src={project.lighthouseDesktop.screenshot} alt="Lighthouse Desktop Report" fill className="object-contain p-2" sizes="(max-width: 1200px) 100vw, 70vw" />
+                <div className="w-full max-w-3xl rounded border border-border-subtle bg-bg-surface p-2">
+                  <Image src={project.lighthouseDesktop.screenshot} {...imageSize(project.lighthouseDesktop.screenshot)} alt={`Lighthouse desktop report for ${project.title}`} className="block w-full h-auto" sizes="(max-width: 768px) 100vw, 768px" />
                 </div>
               )}
             </div>
@@ -345,16 +354,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
                   {project.scPerformanceScreenshot && (
                     <div>
                       <p className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3">Performance Overview</p>
-                      <div className="relative aspect-[16/10] overflow-hidden rounded border border-border-subtle bg-bg-elevated">
-                        <Image src={project.scPerformanceScreenshot} alt="GSC Performance" fill className="object-contain animate-fade-in" sizes="(max-width: 768px) 100vw, 50vw" />
+                      <div className="rounded border border-border-subtle bg-bg-elevated">
+                        <Image src={project.scPerformanceScreenshot} {...imageSize(project.scPerformanceScreenshot)} alt={`Google Search Console performance for ${project.title}`} className="block w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
                       </div>
                     </div>
                   )}
                   {project.scCoreWebVitalsScreenshot && (
                     <div>
                       <p className="font-mono text-[9px] uppercase tracking-widest text-text-muted mb-3">Core Web Vitals</p>
-                      <div className="relative aspect-[16/10] overflow-hidden rounded border border-border-subtle bg-bg-elevated">
-                        <Image src={project.scCoreWebVitalsScreenshot} alt="GSC Core Web Vitals" fill className="object-contain animate-fade-in" sizes="(max-width: 768px) 100vw, 50vw" />
+                      <div className="rounded border border-border-subtle bg-bg-elevated">
+                        <Image src={project.scCoreWebVitalsScreenshot} {...imageSize(project.scCoreWebVitalsScreenshot)} alt={`Google Search Console Core Web Vitals for ${project.title}`} className="block w-full h-auto" sizes="(max-width: 768px) 100vw, 50vw" />
                       </div>
                     </div>
                   )}
